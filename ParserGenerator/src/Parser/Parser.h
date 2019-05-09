@@ -21,6 +21,6 @@ public:
 	ParseTree* BuildTree(std::vector<Token*> TokenStream);
 
 protected:
-	bool WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree/*, ParseNode* ParentNode*/);
+	bool WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseNode* ParentNode);
 };
 

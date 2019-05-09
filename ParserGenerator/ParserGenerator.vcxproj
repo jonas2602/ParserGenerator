@@ -148,6 +148,7 @@
     <ClCompile Include="src\Parser\ParserConfig.cpp" />
     <ClCompile Include="src\Parser\ParseTree.cpp" />
     <ClCompile Include="src\Parser\ParsingTable.cpp" />
+    <ClCompile Include="src\Parser\Visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Lexer\Lexer.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="src\Parser\ParseTree.h" />
     <ClInclude Include="src\Parser\ParsingTable.h" />
     <ClInclude Include="src\Utils\Math.h" />
+    <ClInclude Include="src\Parser\Visitor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

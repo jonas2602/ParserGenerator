@@ -15,6 +15,7 @@
 #include "Lexer/RegExp.h"
 #include "Parser/ParserConfig.h"
 #include "Parser/Parser.h"
+#include "Parser/Visitor.h"
 
 template<typename T>
 std::ostream& operator <<(std::ostream& os, const std::vector<T*>& v) {
@@ -48,18 +49,40 @@ int main()
 	std::vector<Token*> TokenList = lex.Tokenize(SourceCode);
 	std::cout << TokenList << std::endl;
 
+	/*ParserConfig ParsConfig("S");
+	ParsConfig.AddProduction("S", { "A" });
+
+	ParsConfig.AddProduction("A", { "M", "PLUS", "A" });
+	ParsConfig.AddProduction("A", { "M" });
+
+	ParsConfig.AddProduction("A", { "M", "A'" });
+	ParsConfig.AddProduction("A'", { "PLUS", "A" });
+	ParsConfig.AddProduction("A'", { StateMachine::EPSILON_S });
+
+
+	ParsConfig.AddProduction("M", { "F", "TIMES", "M" });
+	ParsConfig.AddProduction("M", { "F" });
+
+	ParsConfig.AddProduction("F", { "NUM" });
+	ParsConfig.AddProduction("F", { "LEFTBRACKET", "A", "RIGHTBRACKET" });*/
+
 	ParserConfig ParsConfig("S");
 	ParsConfig.AddProduction("S", { "E" });
-	ParsConfig.AddProduction("S", { StateMachine::EPSILON_S });
+
 	ParsConfig.AddProduction("E", { "E", "PLUS", "T" });
 	ParsConfig.AddProduction("E", { "T" });
+
 	ParsConfig.AddProduction("T", { "T", "TIMES", "F" });
 	ParsConfig.AddProduction("T", { "F" });
+
 	ParsConfig.AddProduction("F", { "NUM" });
 	ParsConfig.AddProduction("F", { "LEFTBRACKET", "E", "RIGHTBRACKET" });
 
 	Parser pars(&ParsConfig);
 	ParseTree* Tree = pars.BuildTree(TokenList);
+
+	float Result = Visitor().Visit(Tree->GetRootNode());
+	std::cout << "Result: " << Result << std::endl;
 
 	std::cin.get();
 

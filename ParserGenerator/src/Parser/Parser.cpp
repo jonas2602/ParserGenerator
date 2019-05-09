@@ -35,10 +35,14 @@ ParseTree* Parser::BuildTree(std::vector<Token*> TokenStream)
 
 	// Recursive Parse Tree construction
 	std::vector<Token*>::iterator TokenIt = TokenStream.begin();
-	WalkProduction(StartNonTerminal, TokenIt, OutTree/*, nullptr*/);
+	WalkProduction(StartNonTerminal, TokenIt, OutTree, nullptr);
 
 	// Has reached end of Stream?
-	if ((*TokenIt)->GetTokenType() != ParserConfig::EOS)
+	if ((*TokenIt)->GetTokenType() == ParserConfig::EOS)
+	{
+		std::cout << "Parser succeeded" << std::endl;
+	}
+	else
 	{
 		std::cout << "Parser finished before the end of the Token Stream was reached" << std::endl;
 	}
@@ -46,10 +50,11 @@ ParseTree* Parser::BuildTree(std::vector<Token*> TokenStream)
 	return OutTree;
 }
 
-bool Parser::WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree/*, ParseNode* ParentNode*/)
+bool Parser::WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseNode* ParentNode)
 {
 	// Find Fitting Production
 	ParserConfigElement* Production = m_Table->GetProduction(NonTerminal, (*TokenStream)->GetTokenType());
+	ParseNode* ProductionNode = OutTree->InsertProductionNode(ParentNode, Production);
 
 	// Iterate over all TokenClasses
 	for (const std::string& TokenClass : Production->m_TokenClasses)
@@ -58,7 +63,7 @@ bool Parser::WalkProduction(const std::string& NonTerminal, std::vector<Token*>:
 		if (m_Config->IsNonTerminal(TokenClass))
 		{
 			// ... go one level deeper
-			if (!WalkProduction(TokenClass, TokenStream, OutTree))
+			if (!WalkProduction(TokenClass, TokenStream, OutTree, ProductionNode))
 			{
 				// A Parser Error occured further down in the tree
 				return false;
@@ -73,8 +78,8 @@ bool Parser::WalkProduction(const std::string& NonTerminal, std::vector<Token*>:
 			// ... consume one token from the stream if the token class fits
 			if (TokenClass == (*TokenStream)->GetTokenType())
 			{
-				//OutTree->InsertNode(ParentNode, (*TokenStream));
-				std::cout << "Consume " << (*TokenStream)->GetTokenData() << std::endl;
+				std::cout << "Consume: \"" << (*TokenStream)->GetTokenData() << "\"" << std::endl;
+				OutTree->InsertTokenNode(ParentNode, (*TokenStream));
 				TokenStream++;
 			}
 			else

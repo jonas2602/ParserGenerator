@@ -97,10 +97,10 @@ void ParserConfig::Normalize()
 		}
 	}
 
-	// Eliminate Left Factoring
-
 	m_ProductionList = NewRuleList;
 	m_NonTerminals = NewNonTerminalSet;
+
+	// Eliminate Left Factoring
 }
 
 std::vector<ParserConfigElement*> ParserConfig::GetAllProductionsForNonTerminal(const std::string& NonTerminal) const

@@ -1,6 +1,7 @@
 #include "ParsingTable.h"
 #include "../Utils/Math.h"
 #include "../Lexer/StateMachine.h"
+#include <iostream>
 
 FirstFollowSet::FirstFollowSet(bool InNullable, const std::set<std::string>& InFirstSet, const std::set<std::string>& InFollowSet)
 	: m_bNullable(InNullable), m_FirstSet(InFirstSet), m_FollowSet(InFollowSet)
@@ -172,7 +173,7 @@ void ParsingTable::FillPredictionTable(std::map<std::string, FirstFollowSet>& Fi
 			{
 				for (const std::string& First : FirstFollowMap[StartToken].m_FirstSet)
 				{
-					m_PredictionMap[NonTerminal][First] = Production;
+					SetProduction(NonTerminal, First, Production);
 					//printf("(%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), First.c_str());
 				}
 
@@ -180,7 +181,7 @@ void ParsingTable::FillPredictionTable(std::map<std::string, FirstFollowSet>& Fi
 				{
 					for (const std::string& Follow : FirstFollowMap[StartToken].m_FollowSet)
 					{
-						m_PredictionMap[NonTerminal][Follow] = Production;
+						SetProduction(NonTerminal, Follow, Production);
 						//printf("(%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), Follow.c_str());
 					}
 				}
@@ -189,17 +190,27 @@ void ParsingTable::FillPredictionTable(std::map<std::string, FirstFollowSet>& Fi
 			{
 				for (const std::string& Follow : FirstFollowMap[NonTerminal].m_FollowSet)
 				{
-					m_PredictionMap[NonTerminal][Follow] = Production;
+					SetProduction(NonTerminal, Follow, Production);
 					//printf("(%s, EPSILON) -> %s\n", NonTerminal.c_str(), Follow.c_str());
 				}
 			}
 			else
 			{
-				m_PredictionMap[NonTerminal][StartToken] = Production;
+				SetProduction(NonTerminal, StartToken, Production);
 				//printf("(%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), StartToken.c_str());
 			}
 		}
 	}
+}
+
+void ParsingTable::SetProduction(const std::string& NonTerminal, const std::string& Token, ParserConfigElement* Production)
+{
+	if (m_PredictionMap[NonTerminal][Token])
+	{
+		std::cout << "Prediction Table Element (" << NonTerminal << ", " << Token << ") already set. Therefore the ParseTree would be ambiguous." << std::endl;
+	}
+
+	m_PredictionMap[NonTerminal][Token] = Production;
 }
 
 ParserConfigElement* ParsingTable::GetProduction(const std::string& NonTerminal, const std::string& Token)

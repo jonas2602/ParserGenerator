@@ -22,22 +22,6 @@ struct FirstFollowSet
 	bool AddFollowElement(const std::set<std::string>& Elements);
 };
 
-struct PredictionTuple
-{
-	std::string m_NonTerminal;
-	std::string m_Token;
-
-	PredictionTuple(const std::string& InNonTerminal, const std::string& InToken)
-		: m_NonTerminal(InNonTerminal), m_Token(InToken)
-	{ }
-
-	bool operator==(const PredictionTuple& InTupel)
-	{
-		return m_NonTerminal == InTupel.m_NonTerminal
-			&& m_Token == InTupel.m_Token;
-	}
-};
-
 class ParsingTable
 {
 protected:
@@ -52,6 +36,7 @@ public:
 protected:
 	void CreateFirstFollowTable(std::map<std::string, FirstFollowSet>& OutFirstFollowMap) const;
 	void FillPredictionTable(std::map<std::string, FirstFollowSet>& FirstFollowMap);
+	void SetProduction(const std::string& NonTerminal, const std::string& Token, ParserConfigElement* Production);
 
 public:
 	ParserConfigElement* GetProduction(const std::string& NonTerminal, const std::string& Token);
