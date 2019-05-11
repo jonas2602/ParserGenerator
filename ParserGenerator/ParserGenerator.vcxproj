@@ -138,6 +138,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Generator\FileTemplate.cpp" />
+    <ClCompile Include="src\Generator\CodeSnippet.cpp" />
+    <ClCompile Include="src\Generator\CodeGenerator.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Lexer\Lexer.cpp" />
     <ClCompile Include="src\Lexer\LexerConfig.cpp" />
@@ -151,6 +154,10 @@
     <ClCompile Include="src\Parser\Visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Generator\FileTemplate.h" />
+    <ClInclude Include="src\Generator\CodeSnippet.h" />
+    <ClInclude Include="src\Generator\CodeGenerator.h" />
+    <ClInclude Include="src\Generator\WriterInterface.h" />
     <ClInclude Include="src\Lexer\Lexer.h" />
     <ClInclude Include="src\Lexer\LexerConfig.h" />
     <ClInclude Include="src\Lexer\RegExp.h" />

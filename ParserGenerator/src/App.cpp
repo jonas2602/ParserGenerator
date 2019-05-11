@@ -16,6 +16,7 @@
 #include "Parser/ParserConfig.h"
 #include "Parser/Parser.h"
 #include "Parser/Visitor.h"
+#include "Generator/CodeGenerator.h"
 
 template<typename T>
 std::ostream& operator <<(std::ostream& os, const std::vector<T*>& v) {
@@ -30,6 +31,19 @@ std::ostream& operator <<(std::ostream& os, const std::vector<T*>& v) {
 int main()
 {
 	std::cout << "Start" << std::endl;
+
+	CodeGenerator Generator("gen");
+	Generator.AddFileTemplate("test", "dir", {
+		new CodeSnippet_Class("TestClass",{
+			new CodeSnippet_Function("TestFunction",{
+				"return 0;"
+			})
+		}),
+		new CodeSnippet_Include("ParentClass.h")
+	});
+	Generator.GenerateFiles();
+
+	std::cin.get();
 
 	// Priority drops from high to low
 	LexerConfig LexConfig;
