@@ -36,14 +36,15 @@ int main()
 	Generator.AddFileTemplate("test", "dir", {
 		new CodeSnippet_Class("TestClass",{
 			new CodeSnippet_Function("TestFunction",{
+				"const std::string& TestParam",
+				"MyClass*& OutParam"
+			},{
 				"return 0;"
 			})
 		}),
 		new CodeSnippet_Include("ParentClass.h")
 	});
 	Generator.GenerateFiles();
-
-	std::cin.get();
 
 	// Priority drops from high to low
 	LexerConfig LexConfig;
@@ -95,12 +96,18 @@ int main()
 	Parser pars(&ParsConfig);
 	ParseTree* Tree = pars.BuildTree(TokenList);
 
+	Visitor vis = Visitor();
+	vis.AddFunctionPointer();
+	vis.Visit(Tree->GetRootNode());
+	
+	/*
 	float Result = Visitor().Visit(Tree->GetRootNode());
 	std::cout << "Result: " << Result << std::endl;
-
+*/
 	std::cin.get();
 
 	delete Tree;
+	//delete vis;
 
 	return 0;
 }

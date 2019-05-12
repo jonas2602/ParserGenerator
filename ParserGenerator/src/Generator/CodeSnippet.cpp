@@ -49,7 +49,14 @@ void CodeSnippet_Class::Write(IWriterInterface * Writer, std::ofstream & HeaderS
 void CodeSnippet_Function::Write(IWriterInterface * Writer, std::ofstream & HeaderStream, std::ofstream & SourceStream, const CodeSnippet_Base * ParentSnippet) const
 {
 	// Declaration
-	HeaderStream << "\t" << m_ReturnType << " " << m_FunctionName << "()";
+	HeaderStream << "\t" << m_ReturnType << " " << m_FunctionName << "(";
+	for (int i = 0; i < m_FunctionParameters.size(); i++)
+	{
+		if (i > 0) { HeaderStream << ", "; }
+		HeaderStream << m_FunctionParameters[i];
+	}
+	HeaderStream << ")";
+
 	if (m_bHeaderDefinition)
 	{
 		HeaderStream << std::endl;
@@ -64,7 +71,13 @@ void CodeSnippet_Function::Write(IWriterInterface * Writer, std::ofstream & Head
 	{
 		HeaderStream << ";" << std::endl;
 
-		SourceStream << m_ReturnType << " " << ((CodeSnippet_Class*)ParentSnippet)->GetClassName() << "::" << m_FunctionName << "()" << std::endl;
+		SourceStream << m_ReturnType << " " << ((CodeSnippet_Class*)ParentSnippet)->GetClassName() << "::" << m_FunctionName << "(";
+		for (int i = 0; i < m_FunctionParameters.size(); i++)
+		{
+			if (i > 0) { SourceStream << ", "; }
+			SourceStream << m_FunctionParameters[i];
+		}
+		SourceStream << ")" << std::endl;
 		SourceStream << "{" << std::endl;
 		for (const std::string& Line : m_FunctionBody)
 		{

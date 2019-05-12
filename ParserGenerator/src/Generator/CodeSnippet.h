@@ -63,7 +63,7 @@ class CodeSnippet_Function : public CodeSnippet_Base
 protected:
 	std::string m_FunctionName;
 	std::vector<std::string> m_FunctionBody;
-	std::vector<CodeSnippet_Parameter*> m_Parameters;
+	std::vector<std::string> m_FunctionParameters;
 	//CodeSnippet_Parameter* m_ReturnParameter;
 	std::string m_ReturnType;
 
@@ -73,8 +73,8 @@ protected:
 	bool m_bInline;
 
 public:
-	CodeSnippet_Function(const std::string& InFunctionName, const std::vector<std::string>& InFunctionBody, const std::string& InReturnType = "void", const bool& InHeaderDefinition = false)
-		: CodeSnippet_Base(0), m_FunctionName(InFunctionName), m_FunctionBody(InFunctionBody), m_ReturnType(InReturnType), m_bHeaderDefinition(InHeaderDefinition)
+	CodeSnippet_Function(const std::string& InFunctionName, const std::vector<std::string>& InFunctionParameters, const std::vector<std::string>& InFunctionBody, const std::string& InReturnType = "void", const bool& InConstant = false, const bool& InStatic = false, const bool& InInline = false, const bool& InHeaderDefinition = false)
+		: CodeSnippet_Base(0), m_FunctionName(InFunctionName), m_FunctionParameters(InFunctionParameters), m_FunctionBody(InFunctionBody), m_ReturnType(InReturnType), m_bConstant(InConstant), m_bStatic(InStatic), m_bInline(InInline), m_bHeaderDefinition(InHeaderDefinition)
 	{ }
 
 	/*~CodeSnippet_Function()
