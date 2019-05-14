@@ -8,19 +8,22 @@
 #include "../Lexer/Token.h"
 #include "ParsingTable.h"
 
-class Parser
-{
-protected:
-	ParserConfig* m_Config;
-	ParsingTable* m_Table;
+namespace ParserGenerator {
 
-public:
-	Parser(ParserConfig* InConfig);
-	~Parser();
+	class Parser
+	{
+	protected:
+		ParserConfig* m_Config;
+		ParsingTable* m_Table;
 
-	ParseTree* BuildTree(std::vector<Token*> TokenStream);
+	public:
+		Parser(ParserConfig* InConfig);
+		~Parser();
 
-protected:
-	bool WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseNode* ParentNode);
-};
+		ParseTree* BuildTree(std::vector<Token*> TokenStream);
 
+	protected:
+		bool WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseNode* ParentNode);
+	};
+
+}

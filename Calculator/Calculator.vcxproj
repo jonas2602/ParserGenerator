@@ -11,21 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F9329C5E-65BE-0923-6ECF-8C17DAD96523}</ProjectGuid>
+    <ProjectGuid>{CF0EE9F0-BBC6-2A3E-24CE-039A10A5C52E}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ParserGenerator</RootNamespace>
+    <RootNamespace>Calculator</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
@@ -42,42 +42,40 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86_64\ParserGenerator\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86_64\ParserGenerator\</IntDir>
-    <TargetName>ParserGenerator</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <OutDir>..\bin\Debug-windows-x86_64\Calculator\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\Calculator\</IntDir>
+    <TargetName>Calculator</TargetName>
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86_64\ParserGenerator\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86_64\ParserGenerator\</IntDir>
-    <TargetName>ParserGenerator</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <OutDir>..\bin\Release-windows-x86_64\Calculator\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\Calculator\</IntDir>
+    <TargetName>Calculator</TargetName>
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>PARSER_BUILD_DLL;_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ParserGenerator\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>..\bin\Debug-windows-x86_64\ParserGenerator\ParserGenerator.lib</ImportLibrary>
     </Link>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\ParserGenerator\ParserGenerator.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\ParserGenerator\ParserGenerator.dll ..\bin\Debug-windows-x86_64\Calculator &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\ParserGenerator\ParserGenerator.dll ..\bin\Debug-windows-x86_64\Calculator &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>PARSER_BUILD_DLL;_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ParserGenerator\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -88,49 +86,21 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\Release-windows-x86_64\ParserGenerator\ParserGenerator.lib</ImportLibrary>
     </Link>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\ParserGenerator\ParserGenerator.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\ParserGenerator\ParserGenerator.dll ..\bin\Release-windows-x86_64\Calculator &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\ParserGenerator\ParserGenerator.dll ..\bin\Release-windows-x86_64\Calculator &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Core.h" />
-    <ClInclude Include="src\Generator\CodeGenerator.h" />
-    <ClInclude Include="src\Generator\CodeSnippet.h" />
-    <ClInclude Include="src\Generator\FileTemplate.h" />
-    <ClInclude Include="src\Generator\WriterInterface.h" />
-    <ClInclude Include="src\Lexer\Lexer.h" />
-    <ClInclude Include="src\Lexer\LexerConfig.h" />
-    <ClInclude Include="src\Lexer\RegExp.h" />
-    <ClInclude Include="src\Lexer\StateMachine.h" />
-    <ClInclude Include="src\Lexer\Token.h" />
-    <ClInclude Include="src\Parser.h" />
-    <ClInclude Include="src\Parser\ParseTree.h" />
-    <ClInclude Include="src\Parser\Parser.h" />
-    <ClInclude Include="src\Parser\ParserConfig.h" />
-    <ClInclude Include="src\Parser\ParsingTable.h" />
-    <ClInclude Include="src\Parser\Visitor.h" />
-    <ClInclude Include="src\Utils\Math.h" />
+    <ClCompile Include="src\Application.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\App.cpp" />
-    <ClCompile Include="src\Generator\CodeGenerator.cpp" />
-    <ClCompile Include="src\Generator\CodeSnippet.cpp" />
-    <ClCompile Include="src\Generator\FileTemplate.cpp" />
-    <ClCompile Include="src\Lexer\Lexer.cpp" />
-    <ClCompile Include="src\Lexer\LexerConfig.cpp" />
-    <ClCompile Include="src\Lexer\RegExp.cpp" />
-    <ClCompile Include="src\Lexer\StateMachine.cpp" />
-    <ClCompile Include="src\Lexer\Token.cpp" />
-    <ClCompile Include="src\Parser\ParseTree.cpp" />
-    <ClCompile Include="src\Parser\Parser.cpp" />
-    <ClCompile Include="src\Parser\ParserConfig.cpp" />
-    <ClCompile Include="src\Parser\ParsingTable.cpp" />
-    <ClCompile Include="src\Parser\Visitor.cpp" />
+    <None Include="src\calc.g" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ParserGenerator\ParserGenerator.vcxproj">
+      <Project>{F9329C5E-65BE-0923-6ECF-8C17DAD96523}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

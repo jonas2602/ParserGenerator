@@ -4,28 +4,31 @@
 #include "WriterInterface.h"
 #include <map>
 
-class VirtualFolder
-{
+namespace ParserGenerator {
 
-};
+	class VirtualFolder
+	{
 
-class CodeGenerator: public IWriterInterface
-{
-protected:
-	// FileName -> Template
-	std::map<std::string, FileTemplate*> m_TemplateMap;
-	std::string m_RootPath;
+	};
 
-public:
-	CodeGenerator(const std::string& RootPath);
-	~CodeGenerator();
+	class CodeGenerator : public IWriterInterface
+	{
+	protected:
+		// FileName -> Template
+		std::map<std::string, FileTemplate*> m_TemplateMap;
+		std::string m_RootPath;
 
-public:
-	// Inherited via IWriterInterface
-	virtual void GetFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream& OutHeaderStream, std::ofstream& OutSourceStream) override;
+	public:
+		CodeGenerator(const std::string& RootPath);
+		~CodeGenerator();
 
-public:
-	void GenerateFiles();
-	void AddFileTemplate(const std::string& FileName, const std::string& DirectoryPath, const std::vector<CodeSnippet_Base*>& SnippetList);
-};
+	public:
+		// Inherited via IWriterInterface
+		virtual void GetFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream& OutHeaderStream, std::ofstream& OutSourceStream) override;
 
+	public:
+		void GenerateFiles();
+		void AddFileTemplate(const std::string& FileName, const std::string& DirectoryPath, const std::vector<CodeSnippet_Base*>& SnippetList);
+	};
+
+}

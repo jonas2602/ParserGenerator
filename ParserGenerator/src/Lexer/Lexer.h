@@ -8,20 +8,23 @@
 #include "LexerConfig.h"
 #include "Token.h"
 
-class Lexer
-{
-protected:
-	StateMachine m_NFA;
-	StateMachine m_DFA;
+namespace ParserGenerator {
 
-	LexerConfig* m_Config;
+	class Lexer
+	{
+	protected:
+		StateMachine m_NFA;
+		StateMachine m_DFA;
 
-public:
-	Lexer(LexerConfig* InConfig);
-	~Lexer();
+		LexerConfig* m_Config;
 
-	std::vector<Token*> Tokenize(const std::string& SourceCode) const;
+	public:
+		Lexer(LexerConfig* InConfig);
+		~Lexer();
+
+		std::vector<Token*> Tokenize(const std::string& SourceCode) const;
 
 
-};
+	};
 
+}

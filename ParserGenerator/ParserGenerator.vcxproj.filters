@@ -1,108 +1,108 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Generator">
+      <UniqueIdentifier>{8C17FE7D-F881-B2F4-41C0-639AAD699049}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Lexer">
+      <UniqueIdentifier>{A5B4970D-11C9-BFBE-DA4A-631E461EBCEF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Parser">
+      <UniqueIdentifier>{D27997C9-BE1B-C29F-A7D6-D5F3931749F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{F68B420E-62A0-6ABF-2B22-0E1F97F566F0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Lexer\Lexer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\LexerConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\RegExp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\StateMachine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\Token.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Parser\Parser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Parser\ParserConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Parser\ParseTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Parser\ParsingTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\App.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Parser\Visitor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Generator\CodeGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Generator\CodeSnippet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Generator\FileTemplate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Lexer\Lexer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\LexerConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\RegExp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\StateMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\Token.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\Parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParserConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParseTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParsingTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utils\Math.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\Visitor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Generator\CodeGenerator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generator</Filter>
     </ClInclude>
     <ClInclude Include="src\Generator\CodeSnippet.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generator</Filter>
     </ClInclude>
     <ClInclude Include="src\Generator\FileTemplate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generator</Filter>
     </ClInclude>
     <ClInclude Include="src\Generator\WriterInterface.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generator</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lexer\Lexer.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\LexerConfig.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\RegExp.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\StateMachine.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\Token.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser.h" />
+    <ClInclude Include="src\Parser\ParseTree.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\Parser.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParserConfig.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParsingTable.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\Visitor.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Math.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Generator\CodeGenerator.cpp">
+      <Filter>Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\CodeSnippet.cpp">
+      <Filter>Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\FileTemplate.cpp">
+      <Filter>Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Lexer.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\LexerConfig.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\RegExp.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\StateMachine.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Token.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParseTree.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\Parser.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParserConfig.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParsingTable.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\Visitor.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

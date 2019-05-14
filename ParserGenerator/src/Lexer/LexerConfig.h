@@ -5,35 +5,38 @@
 
 #include "RegExp.h"
 
-enum ELexerAction
-{
-	DEFAULT,
-	SKIP
-};
+namespace ParserGenerator {
 
-struct LexerConfigElement
-{
-	std::string m_Name;
-	RegExp* m_Expression;
-	ELexerAction m_Action;
+	enum ELexerAction
+	{
+		DEFAULT,
+		SKIP
+	};
 
-	LexerConfigElement(std::string InName, RegExp* InExpression, ELexerAction InAction)
-		: m_Name(InName), m_Expression(InExpression), m_Action(InAction)
-	{ }
-};
+	struct LexerConfigElement
+	{
+		std::string m_Name;
+		RegExp* m_Expression;
+		ELexerAction m_Action;
 
-class LexerConfig
-{
-protected:
-	std::vector<LexerConfigElement> m_RegexList;
+		LexerConfigElement(std::string InName, RegExp* InExpression, ELexerAction InAction)
+			: m_Name(InName), m_Expression(InExpression), m_Action(InAction)
+		{ }
+	};
 
-public:
-	LexerConfig();
-	~LexerConfig();
+	class LexerConfig
+	{
+	protected:
+		std::vector<LexerConfigElement> m_RegexList;
 
-	void Add(const std::string& Name, RegExp* Expression, ELexerAction Action = ELexerAction::DEFAULT);
+	public:
+		LexerConfig();
+		~LexerConfig();
 
-	std::vector<LexerConfigElement> GetRegexList() const { return m_RegexList; }
-	const LexerConfigElement& GetConfigElementByIndex(int Index) const { return m_RegexList[Index]; }
-};
+		void Add(const std::string& Name, RegExp* Expression, ELexerAction Action = ELexerAction::DEFAULT);
 
+		std::vector<LexerConfigElement> GetRegexList() const { return m_RegexList; }
+		const LexerConfigElement& GetConfigElementByIndex(int Index) const { return m_RegexList[Index]; }
+	};
+
+}

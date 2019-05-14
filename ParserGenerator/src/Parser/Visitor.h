@@ -6,20 +6,24 @@
 
 #include "ParseTree.h"
 
-class Visitor
-{
-protected:
-	std::map<std::string, std::function<void(void)>> m_FunctionMap;
-	//std::map<std::string, void (Visitor::*)()> m_FunctionMap;
+namespace ParserGenerator {
 
-public:
-	Visitor();
-	~Visitor();
+	class Visitor
+	{
+	protected:
+		std::map<std::string, std::function<void(void)>> m_FunctionMap;
+		//std::map<std::string, void (Visitor::*)()> m_FunctionMap;
 
-	void AddFunctionPointer();
+	public:
+		Visitor();
+		~Visitor();
 
-	void TestFunction();
+		void AddFunctionPointer();
 
-	float Visit(ParseNode_Production* ProductionNode);
-};
+		void TestFunction();
 
+		float Visit(ParseNode_Production* ProductionNode);
+	};
+
+
+}

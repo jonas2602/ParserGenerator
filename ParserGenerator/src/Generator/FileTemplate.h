@@ -5,25 +5,28 @@
 #include "CodeSnippet.h"
 #include "WriterInterface.h"
 
-class FileTemplate
-{
-protected:
-	std::string m_FileName;
-	std::string m_DirectoryPath;
-	std::vector<CodeSnippet_Base*> m_RootSnippets;
+namespace ParserGenerator {
 
-public:
-	FileTemplate(const std::string& InFileName, const std::string& InDirectoryPath, const std::vector<CodeSnippet_Base*> InRootSnippets);
-	~FileTemplate();
+	class FileTemplate
+	{
+	protected:
+		std::string m_FileName;
+		std::string m_DirectoryPath;
+		std::vector<CodeSnippet_Base*> m_RootSnippets;
 
-	const std::string& GetFileName() const { return m_FileName; }
-	const std::string& GetDirectoryPath() const { return m_DirectoryPath; }
+	public:
+		FileTemplate(const std::string& InFileName, const std::string& InDirectoryPath, const std::vector<CodeSnippet_Base*> InRootSnippets);
+		~FileTemplate();
 
-public:
-	void AddSnippet(CodeSnippet_Base* SnippetInstance);
-	void Write(IWriterInterface* Writer);
+		const std::string& GetFileName() const { return m_FileName; }
+		const std::string& GetDirectoryPath() const { return m_DirectoryPath; }
 
-protected:
-	void AddDefaults(std::ofstream& HeaderStream, std::ofstream& SourceStream);
-};
+	public:
+		void AddSnippet(CodeSnippet_Base* SnippetInstance);
+		void Write(IWriterInterface* Writer);
 
+	protected:
+		void AddDefaults(std::ofstream& HeaderStream, std::ofstream& SourceStream);
+	};
+
+}

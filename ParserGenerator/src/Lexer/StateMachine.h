@@ -5,91 +5,94 @@
 #include <map>
 #include <set>
 
-class State;
-class Transition;
+namespace ParserGenerator {
 
-class State {
-protected:
-	std::string m_StateName;
-	//bool m_bFinalState;
-	//  < 0 -> no final state
-	// >= 0 -> priority of final state
-	int m_Priority;
+	class State;
+	class Transition;
 
-	std::vector<Transition*> m_Transitions;
+	class State {
+	protected:
+		std::string m_StateName;
+		//bool m_bFinalState;
+		//  < 0 -> no final state
+		// >= 0 -> priority of final state
+		int m_Priority;
 
-public:
-	State(const std::string& InStateName/*, bool InIsFinalState = false*/, int InPriority = -1)
-		:m_StateName(InStateName)/*, m_bFinalState(InIsFinalState)*/, m_Priority(InPriority)
-	{ }
+		std::vector<Transition*> m_Transitions;
 
-	inline const std::string& GetName() const { return m_StateName; }
+	public:
+		State(const std::string& InStateName/*, bool InIsFinalState = false*/, int InPriority = -1)
+			:m_StateName(InStateName)/*, m_bFinalState(InIsFinalState)*/, m_Priority(InPriority)
+		{ }
 
-	//inline bool GetInFinalState() const { return m_bFinalState; }
-	//inline void SetIsFinalState(bool InIsFinalState) { this->m_bFinalState = InIsFinalState; }
+		inline const std::string& GetName() const { return m_StateName; }
 
-	inline int GetStatePriority() const { return m_Priority; }
-	inline void SetStatePriority(int InPriority) { m_Priority = InPriority; }
+		//inline bool GetInFinalState() const { return m_bFinalState; }
+		//inline void SetIsFinalState(bool InIsFinalState) { this->m_bFinalState = InIsFinalState; }
 
-public:
-	void AddTransition(Transition* InTransition) { m_Transitions.push_back(InTransition); }
+		inline int GetStatePriority() const { return m_Priority; }
+		inline void SetStatePriority(int InPriority) { m_Priority = InPriority; }
 
-	// TODO: Add bHasFinalState as return value
-	void GetEpsilonHull(std::set<State*>& OutStates);
-	void GetAvailableSymbols(std::set<char>& OutSymbols);
-	std::set<State*> Step(const char& Symbol) const;
-};
+	public:
+		void AddTransition(Transition* InTransition) { m_Transitions.push_back(InTransition); }
 
-class Transition {
-protected:
-	State* m_TargetState;
-	char m_Condition;
+		// TODO: Add bHasFinalState as return value
+		void GetEpsilonHull(std::set<State*>& OutStates);
+		void GetAvailableSymbols(std::set<char>& OutSymbols);
+		std::set<State*> Step(const char& Symbol) const;
+	};
 
-public:
-	Transition(State* InTargetState, char InCondition)
-		: m_TargetState(InTargetState), m_Condition(InCondition)
-	{ }
+	class Transition {
+	protected:
+		State* m_TargetState;
+		char m_Condition;
 
-	inline const char& GetCondition() const { return m_Condition; }
-	inline State* GetTargetState() const { return m_TargetState; }
-};
+	public:
+		Transition(State* InTargetState, char InCondition)
+			: m_TargetState(InTargetState), m_Condition(InCondition)
+		{ }
 
-class StateMachine
-{
-public:
-	static const char EPSILON = '§';
-	static const std::string EPSILON_S;
+		inline const char& GetCondition() const { return m_Condition; }
+		inline State* GetTargetState() const { return m_TargetState; }
+	};
 
-	static bool IsEpsilon(const char& Symbol) { return Symbol == EPSILON; }
-	static bool IsEpsilon(const std::string& Symbol) { return Symbol == EPSILON_S; }
+	class StateMachine
+	{
+	public:
+		static const char EPSILON = '§';
+		static const std::string EPSILON_S;
 
-protected:
-	std::map<std::string, State*> m_StateMap;
-	std::vector<Transition*> m_Transitions;
-	std::set<State*> m_StartStates;
+		static bool IsEpsilon(const char& Symbol) { return Symbol == EPSILON; }
+		static bool IsEpsilon(const std::string& Symbol) { return Symbol == EPSILON_S; }
 
-	int m_NameCounter = 0;
+	protected:
+		std::map<std::string, State*> m_StateMap;
+		std::vector<Transition*> m_Transitions;
+		std::set<State*> m_StartStates;
 
-public:
-	StateMachine();
-	~StateMachine();
+		int m_NameCounter = 0;
 
-	State* GetStateByName() const;
-	std::set<State*> GetStartStates() const { return m_StartStates; }
+	public:
+		StateMachine();
+		~StateMachine();
 
-	void AddStartState(State* StartState);
+		State* GetStateByName() const;
+		std::set<State*> GetStartStates() const { return m_StartStates; }
 
-	State* CreateNewState(const std::string& StateName = ""/*, const bool& bFinal = false*/, const int& Priority = -1);
-	Transition* CreateNewTransition(State* StartState, State* EndState, const char& Condition);
+		void AddStartState(State* StartState);
 
-	std::set<State*> GetEpsilonHull(std::set<State*> InStates) const;
+		State* CreateNewState(const std::string& StateName = ""/*, const bool& bFinal = false*/, const int& Priority = -1);
+		Transition* CreateNewTransition(State* StartState, State* EndState, const char& Condition);
 
-	void CreateDeterministic(StateMachine& OutDFA);
+		std::set<State*> GetEpsilonHull(std::set<State*> InStates) const;
 
-protected:
-	std::string CreateCombinedName(const std::set<State*>& States) const;
+		void CreateDeterministic(StateMachine& OutDFA);
 
-	// -1 no final state, >= 0 index of prioritised regex with final state in this state
-	int FindPrioritisedFinalState(const std::set<State*>& States) const;
-};
+	protected:
+		std::string CreateCombinedName(const std::set<State*>& States) const;
 
+		// -1 no final state, >= 0 index of prioritised regex with final state in this state
+		int FindPrioritisedFinalState(const std::set<State*>& States) const;
+	};
+
+}
