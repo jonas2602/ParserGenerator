@@ -6,6 +6,8 @@
 #include "Transition.h"
 
 namespace ParserGenerator::Automaton {
+	class Factory;
+
 	static const char EPSILON = '§';
 	static const std::string EPSILON_S = "§";
 
@@ -23,9 +25,14 @@ namespace ParserGenerator::Automaton {
 
 		State* CreateNewState(const std::string& StateName = "", const int& Priority = -1);
 		Transition* CreateNewTransition(State* StartState, State* EndState, const std::set<char>& Condition);
+
+		friend Factory;
 	};
 
-	class DFA : public Automaton {
+
+
+	class DFA : public Automaton 
+	{
 	protected:
 		State* m_StartState;
 
@@ -34,11 +41,13 @@ namespace ParserGenerator::Automaton {
 		void SetStartState(State* StartState);
 
 	public:
-		void Serialize(std::string& OutString);
-		void Deserialize(const std::string& InString);
+		State* Step(State* InState, const char& Symbol) const;
 	};
 
-	class NFA : public Automaton {
+
+
+	class NFA : public Automaton 
+	{
 	protected:
 		std::set<State*> m_StartStates;
 

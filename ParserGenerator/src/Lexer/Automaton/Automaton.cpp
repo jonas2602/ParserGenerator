@@ -55,7 +55,20 @@ namespace ParserGenerator::Automaton {
 		m_StartState = StartState;
 	}
 
-	void DFA::Serialize(std::string& OutString)
+	State* DFA::Step(State* InState, const char& Symbol) const
+	{
+		for (Transition* Element : InState->GetTransitions())
+		{
+			if (Element->Check(Symbol))
+			{
+				return Element->GetTargetState();
+			}
+		}
+
+		return nullptr;
+	}
+
+	void DFA::Serialize(std::string& OutString) const
 	{
 
 	}
@@ -195,7 +208,7 @@ namespace ParserGenerator::Automaton {
 		std::deque<std::set<State*>> UnhandledStates;
 
 		// Create Epsilon Hull for starting State
-		std::set<State*> StartHull = BuildEpsilonHull_Min(m_StartStates);
+		std::set<State*> StartHull = BuildEpsilonHull(m_StartStates);
 
 		// Add Start State to DFA
 		State* StartState = OutDFA->CreateNewState(CreateCombinedName(StartHull), FindPrioritisedFinalState(StartHull));
@@ -216,7 +229,7 @@ namespace ParserGenerator::Automaton {
 			for (const std::pair<std::set<State*>, std::set<char>>& Pair : TransitionMap)
 			{
 				// Add all additional states that can be reached with epsilon
-				std::set<State*> EpsilonHull = BuildEpsilonHull_Min(Pair.first);
+				std::set<State*> EpsilonHull = BuildEpsilonHull(Pair.first);
 
 				// Create Combined State in DFA if not already existing
 				State* DFA_TargetState = DFA_Map[EpsilonHull];

@@ -15,8 +15,6 @@ int main()
 
 	PG::App::Generate(buffer.str());
 
-	char test = '\a';
-
 	std::cin.get();
 	return 0;
 }

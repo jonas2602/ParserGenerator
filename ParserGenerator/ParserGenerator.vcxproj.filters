@@ -66,6 +66,7 @@
     <ClInclude Include="src\Lexer\Automaton\Transition.h" />
     <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
     <ClInclude Include="src\Lexer\Automaton\State.h" />
+    <ClInclude Include="src\Lexer\Automaton\Factory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -111,5 +112,6 @@
     <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
     <ClCompile Include="src\Lexer\Automaton\State.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\Factory.cpp" />
   </ItemGroup>
 </Project>

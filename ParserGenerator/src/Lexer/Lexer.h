@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "StateMachine.h"
+#include "Automaton/Automaton.h"
 #include "RegExp.h"
 #include "LexerConfig.h"
 #include "Token.h"
@@ -13,8 +13,8 @@ namespace ParserGenerator {
 	class Lexer
 	{
 	protected:
-		StateMachine m_NFA;
-		StateMachine m_DFA;
+		Automaton::NFA* m_NFA;
+		Automaton::DFA* m_DFA;
 
 		LexerConfig* m_Config;
 

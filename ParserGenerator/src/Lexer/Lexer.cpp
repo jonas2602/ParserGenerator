@@ -11,6 +11,10 @@ namespace ParserGenerator {
 	Lexer::Lexer(LexerConfig* InConfig)
 		: m_Config(InConfig)
 	{
+		// Create Empty Automatons
+		m_NFA = new Automaton::NFA();
+		m_DFA = new Automaton::DFA();
+
 		// Add all regex to "simple" NFA
 		int Priority = 0;
 		for (const LexerConfigElement& Regex : InConfig->GetRegexList())
@@ -20,12 +24,14 @@ namespace ParserGenerator {
 		}
 
 		// Create combined DFA
-		m_NFA.CreateDeterministic(m_DFA);
+		m_NFA->CreateDFA(m_DFA);
 	}
 
 
 	Lexer::~Lexer()
 	{
+		delete m_DFA;
+		delete m_NFA;
 	}
 
 	std::vector<Token*> Lexer::Tokenize(const std::string& SourceCode) const
@@ -38,13 +44,14 @@ namespace ParserGenerator {
 		{
 			int ConfirmedLength = 0;
 			int LastPriority = -1;
-			State* ActiveState = *m_DFA.GetStartStates().begin();
+			Automaton::State* ActiveState = m_DFA->GetStartState();
 
+			// Read Input while dea has not reached a dead end
 			while (ActiveState != nullptr)
 			{
-				// Override final state if priority is higher or equal last final state
+				// Override final state if new final state is reached
 				int StatePriority = ActiveState->GetStatePriority();
-				if (StatePriority >= 0 && StatePriority >= LastPriority)
+				if (StatePriority > -1)
 				{
 					ConfirmedLength = ActiveSymbolIndex - StartingPoint;
 					LastPriority = StatePriority;
@@ -52,40 +59,36 @@ namespace ParserGenerator {
 
 				// Perform Step in State Machine, break if no valid Transition available
 				const char& ActiveSymbol = SourceCode[ActiveSymbolIndex];
-				std::set<State*> SymbolStep = ActiveState->Step(ActiveSymbol);
-				if (SymbolStep.size() > 0)
+				ActiveState = m_DFA->Step(ActiveState, ActiveSymbol);
+				if (ActiveState)
 				{
+					// Move to next Symbol in String
 					ActiveSymbolIndex += 1;
-					ActiveState = *SymbolStep.begin();
-				}
-				else
-				{
-					ActiveState = nullptr;
 				}
 			}
 
 			if (ConfirmedLength == 0)
 			{
-				std::cout << "Unable to find Rule for " << SourceCode.substr(StartingPoint) << std::endl;
+				std::cout << "Unable to find Rule for: '" << SourceCode.substr(StartingPoint) << "'" << std::endl;
 				break;
 			}
 
 			const LexerConfigElement& ConfigElement = m_Config->GetConfigElementByIndex(LastPriority);
 			switch (ConfigElement.m_Action)
 			{
-			case ELexerAction::DEFAULT:
-			{
-				std::string FoundString = SourceCode.substr(StartingPoint, ConfirmedLength);
-				int LineNumber = (int)std::count(SourceCode.begin(), SourceCode.begin() + StartingPoint, RegExp::LF);
-				int ColumnNumber = 0;
-				TokenList.push_back(new Token(FoundString, ConfigElement.m_Name, LastPriority, LineNumber, ColumnNumber));
-				break;
-			}
-			case ELexerAction::SKIP:
-			{
-				// Nothing to do here ...
-				break;
-			}
+				case ELexerAction::DEFAULT:
+				{
+					std::string FoundString = SourceCode.substr(StartingPoint, ConfirmedLength);
+					int LineNumber = (int)std::count(SourceCode.begin(), SourceCode.begin() + StartingPoint, RegExp::LF);
+					int ColumnNumber = 0;
+					TokenList.push_back(new Token(FoundString, ConfigElement.m_Name, LastPriority, LineNumber, ColumnNumber));
+					break;
+				}
+				case ELexerAction::SKIP:
+				{
+					// Nothing to do here ...
+					break;
+				}
 			}
 
 			StartingPoint += ConfirmedLength;

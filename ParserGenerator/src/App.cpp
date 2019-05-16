@@ -125,41 +125,28 @@ namespace ParserGenerator {
 
 		// Priority drops from high to low
 		LexerConfig LexConfig;
-		//LexConfig.Add("F", new RegExp(RegExp::STAR(RegExp::ANY())));
+		LexConfig.Add("WORD", new RegExp(RegExp::PLUS(RegExp::OR(RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z')))));
+		LexConfig.Add("NUMBER", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));
+		LexConfig.Add("LEFTPARENTHESE", new RegExp(RegExp::CONST('(')));
+		LexConfig.Add("RIGHTPARENTHESE", new RegExp(RegExp::CONST(')')));
+		LexConfig.Add("COLON", new RegExp(RegExp::CONST(':')));
+		LexConfig.Add("SEMICOLON", new RegExp(RegExp::CONST(';')));
+		LexConfig.Add("PIPE", new RegExp(RegExp::CONST('|')));
+		LexConfig.Add("STAR", new RegExp(RegExp::CONST('*')));																								// *	
 
-		LexConfig.Add("F", new RegExp(RegExp::AND('b', RegExp::STAR(RegExp::RANGE('a', 'm')))));
-		LexConfig.Add("S", new RegExp(RegExp::STAR(RegExp::AND(RegExp::LIST({ 'b','d','x' }), 'a'))));
-		
 		//LexConfig.Add("COMMENT", new RegExp(RegExp::AND({ RegExp::AND('/', '*'), RegExp::STAR(RegExp::ANY()), RegExp::AND('*', '/') })), ELexerAction::SKIP);	// /* .* */
 		//LexConfig.Add("PLUS", new RegExp(RegExp::CONST('+')));																								// +
-		//LexConfig.Add("TIMES", new RegExp(RegExp::CONST('*')));																								// *	
 		//LexConfig.Add("LEFTBRACKET", new RegExp(RegExp::CONST('(')));																							// (
 		//LexConfig.Add("RIGHTBRACKET", new RegExp(RegExp::CONST(')')));																						// )
 		//LexConfig.Add("NUM", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));																				// [0-9]+
 		//LexConfig.Add("Word", new RegExp(RegExp::PLUS(RegExp::OR(RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z')))));										// [a-zA-Z]+
-		//LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::OR({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
+		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
 		Lexer lex = Lexer(&LexConfig);
 
 		std::cout << "Input of \"" << SourceCode << "\" results in:" << std::endl;
 
 		std::vector<Token*> TokenList = lex.Tokenize(SourceCode);
-
-		Automaton::NFA* TestNFA = new Automaton::NFA();
-		int Priority = 0;
-		for (const LexerConfigElement& Regex : LexConfig.GetRegexList())
-		{
-			std::cout << "Added " << Regex.m_Name << " with Priority of " << Priority << std::endl;
-			Regex.m_Expression->Parse(TestNFA, Regex.m_Name, Priority++);
-		}
-
-		// Create combined DFA
-		Automaton::DFA* TestDFA = new Automaton::DFA();
-		TestNFA->CreateDFA(TestDFA);
-
 		std::cout << TokenList << std::endl;
-
-		delete TestDFA;
-		delete TestNFA;
 	}
 
 }
