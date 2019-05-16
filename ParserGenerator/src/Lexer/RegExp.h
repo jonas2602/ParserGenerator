@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 
 #include "../Core.h"
 #include "Automaton/Automaton.h"
@@ -33,6 +34,8 @@ namespace ParserGenerator {
 		Node_CONST(const std::set<char>& InCharSet)
 			: m_Symbol(' '), m_CharSet(InCharSet)
 		{ }
+
+		const std::set<char>& GetContent() const { return m_CharSet; }
 
 		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
@@ -188,12 +191,13 @@ namespace ParserGenerator {
 		static Node_BASE* PLUS(const char& Content);
 		static Node_BASE* PLUS(Node_BASE* Content);
 
-		static Node_BASE* CONST(const char& Content);
+		static Node_CONST* CONST(const char& Content);
 
 		// Internally converted from '[min, max]' -> 'OR(min, ..., max)' 
-		static Node_BASE* RANGE(const char& Min, const char& Max);
+		static Node_CONST* RANGE(const char& Min, const char& Max);
 
-		static Node_BASE* LIST(const std::set<char>& Content);
+		static Node_CONST* LIST(const std::set<char>& Content);
+		static Node_CONST* LIST(const std::vector<Node_CONST*>& Content);
 
 		// Internally converted from '.' -> [32, 126] 
 		static Node_BASE* ANY();

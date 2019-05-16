@@ -114,4 +114,7 @@
     <ClCompile Include="src\Lexer\Automaton\State.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Factory.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\GrammarParser.g" />
+  </ItemGroup>
 </Project>

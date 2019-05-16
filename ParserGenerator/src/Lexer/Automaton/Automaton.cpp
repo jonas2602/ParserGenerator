@@ -68,16 +68,6 @@ namespace ParserGenerator::Automaton {
 		return nullptr;
 	}
 
-	void DFA::Serialize(std::string& OutString) const
-	{
-
-	}
-
-	void DFA::Deserialize(const std::string& InString)
-	{
-
-	}
-
 	void NFA::AddStartState(State* StartState)
 	{
 		// State Valid?

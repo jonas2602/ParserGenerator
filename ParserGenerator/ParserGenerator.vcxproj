@@ -141,6 +141,9 @@
     <ClCompile Include="src\Lexer\Automaton\State.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\GrammarParser.g" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

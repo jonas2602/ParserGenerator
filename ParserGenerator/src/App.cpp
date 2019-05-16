@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <set>
 #include <map>
 #include <iterator>
 #include <algorithm>
@@ -125,14 +126,16 @@ namespace ParserGenerator {
 
 		// Priority drops from high to low
 		LexerConfig LexConfig;
-		LexConfig.Add("WORD", new RegExp(RegExp::PLUS(RegExp::OR(RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z')))));
+		LexConfig.Add("WORD", new RegExp(RegExp::PLUS(RegExp::LIST(std::vector<Node_CONST*>({ RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z') })))));
 		LexConfig.Add("NUMBER", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));
 		LexConfig.Add("LEFTPARENTHESE", new RegExp(RegExp::CONST('(')));
 		LexConfig.Add("RIGHTPARENTHESE", new RegExp(RegExp::CONST(')')));
 		LexConfig.Add("COLON", new RegExp(RegExp::CONST(':')));
 		LexConfig.Add("SEMICOLON", new RegExp(RegExp::CONST(';')));
 		LexConfig.Add("PIPE", new RegExp(RegExp::CONST('|')));
-		LexConfig.Add("STAR", new RegExp(RegExp::CONST('*')));																								// *	
+		LexConfig.Add("STAR", new RegExp(RegExp::CONST('*')));
+		LexConfig.Add("CHARSET", new RegExp(RegExp::AND({ RegExp::CONST('['), RegExp::STAR(RegExp::EXCEPT({ ']', '\\' })),  RegExp::STAR(RegExp::AND({RegExp::CONST('\\'), RegExp::ANY(), RegExp::STAR(RegExp::EXCEPT({'\\', ']'}))})), RegExp::CONST(']') })));
+
 
 		//LexConfig.Add("COMMENT", new RegExp(RegExp::AND({ RegExp::AND('/', '*'), RegExp::STAR(RegExp::ANY()), RegExp::AND('*', '/') })), ELexerAction::SKIP);	// /* .* */
 		//LexConfig.Add("PLUS", new RegExp(RegExp::CONST('+')));																								// +

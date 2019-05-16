@@ -1,1 +1,1 @@
-NUMBER: ab* | 0;
+NUMBER: [A-Z][a-zA-Z0-9_]*;

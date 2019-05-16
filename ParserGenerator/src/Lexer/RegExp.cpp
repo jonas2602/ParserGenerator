@@ -283,8 +283,8 @@ namespace ParserGenerator {
 	Node_BASE* RegExp::PLUS(const char& Content) { return RegExp::PLUS(new Node_CONST(Content)); }
 	Node_BASE* RegExp::PLUS(Node_BASE * Content) { return RegExp::AND(Content, RegExp::STAR(Content)); }
 
-	Node_BASE* RegExp::CONST(const char& Content) { return new Node_CONST(Content); }
-	Node_BASE* RegExp::RANGE(const char& Min, const char& Max)
+	Node_CONST* RegExp::CONST(const char& Content) { return new Node_CONST(Content); }
+	Node_CONST* RegExp::RANGE(const char& Min, const char& Max)
 	{
 		std::vector<Node_BASE*> OutNodes;
 		std::set<char> OutConst;
@@ -298,7 +298,17 @@ namespace ParserGenerator {
 		return new Node_CONST(OutConst);
 	}
 
-	Node_BASE* RegExp::LIST(const std::set<char> & Content) { return new Node_CONST(Content); }//  RegExp::OR(Content);}
+	Node_CONST* RegExp::LIST(const std::set<char>& Content) { return new Node_CONST(Content); }
+	Node_CONST* RegExp::LIST(const std::vector<Node_CONST*>& Content)
+	{
+		std::set<char> NewContent;
+		for (Node_CONST* Element : Content)
+		{
+			NewContent.insert(Element->GetContent().begin(), Element->GetContent().end());
+		}
+
+		return new Node_CONST(NewContent);
+	}
 
 	Node_BASE* RegExp::ANY() { return RegExp::RANGE(ASCII_MIN, ASCII_MAX); }
 
