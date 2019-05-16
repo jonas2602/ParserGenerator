@@ -4,6 +4,7 @@
 #include <string>
 #include <functional>
 
+#include "../Core.h"
 #include "ParseTree.h"
 
 namespace ParserGenerator {

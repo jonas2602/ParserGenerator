@@ -37,6 +37,19 @@ namespace ParserGenerator {
 		OutMachine.CreateNewTransition(OutStart, OutEnd, m_Symbol);
 	}
 
+	void Node_CONST::ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority)
+	{
+		//std::cout << "CONST:" << std::endl;
+
+		OutStart = OutMachine->CreateNewState(Name);
+		OutEnd = OutMachine->CreateNewState(Name, FinalStatePriority);
+
+		//std::cout << OutStart->GetName() << std::endl;
+		//std::cout << OutEnd->GetName() << std::endl;
+
+		OutMachine->CreateNewTransition(OutStart, OutEnd, m_CharSet);
+	}
+
 	//void Node_RANGE::ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority)
 	//{
 	//	//std::cout << "RANGE:" << std::endl;
@@ -82,6 +95,24 @@ namespace ParserGenerator {
 		//std::cout << OutEnd->GetName() << std::endl;
 	}
 
+
+	void Node_OR::ExtendMachine(Automaton::NFA * OutMachine, Automaton::State * &OutStart, Automaton::State * &OutEnd, const std::string & Name, int FinalStatePriority)
+	{
+		//std::cout << "OR:" << std::endl;
+
+		OutStart = OutMachine->CreateNewState(Name);
+		OutEnd = OutMachine->CreateNewState(Name, FinalStatePriority);
+
+		for (Node_BASE* Node : m_Content)
+		{
+			Automaton::State* NodeStart;
+			Automaton::State* NodeEnd;
+			Node->ExtendMachine(OutMachine, NodeStart, NodeEnd, Name, -1);
+			OutMachine->CreateNewTransition(OutStart, NodeStart, { StateMachine::EPSILON });
+			OutMachine->CreateNewTransition(NodeEnd, OutEnd, { StateMachine::EPSILON });
+		}
+	}
+
 	void Node_AND::ExtendMachine(StateMachine & OutMachine, State * &OutStart, State * &OutEnd, const std::string & Name, int FinalStatePriority)
 	{
 		//std::cout << "AND:" << std::endl;
@@ -114,6 +145,28 @@ namespace ParserGenerator {
 		OutEnd = RightEnd;*/
 	}
 
+	void Node_AND::ExtendMachine(Automaton::NFA * OutMachine, Automaton::State * &OutStart, Automaton::State * &OutEnd, const std::string & Name, int FinalStatePriority)
+	{
+		//std::cout << "AND:" << std::endl;
+
+		for (int i = 0; i < m_Content.size(); i++)
+		{
+			Automaton::State* NodeStart;
+			Automaton::State* NodeEnd;
+			m_Content[i]->ExtendMachine(OutMachine, NodeStart, NodeEnd, Name, -1);
+			// First Element -> Set Global Start
+			if (i == 0) OutStart = NodeStart;
+
+			// Has Previous Element? -> Connect to Last
+			if (i > 0) OutMachine->CreateNewTransition(OutEnd, NodeStart, { StateMachine::EPSILON });
+
+			// Update Global End
+			OutEnd = NodeEnd;
+		}
+	}
+
+
+
 	void Node_STAR::ExtendMachine(StateMachine & OutMachine, State * &OutStart, State * &OutEnd, const std::string & Name, int FinalStatePriority)
 	{
 		//std::cout << "STAR:" << std::endl;
@@ -132,6 +185,26 @@ namespace ParserGenerator {
 		OutMachine.CreateNewTransition(OutStart, ContentStart, StateMachine::EPSILON);
 		OutMachine.CreateNewTransition(ContentEnd, OutEnd, StateMachine::EPSILON);
 		OutMachine.CreateNewTransition(OutStart, OutEnd, StateMachine::EPSILON);
+	}
+
+	void Node_STAR::ExtendMachine(Automaton::NFA * OutMachine, Automaton::State * &OutStart, Automaton::State * &OutEnd, const std::string & Name, int FinalStatePriority)
+	{
+		//std::cout << "STAR:" << std::endl;
+
+		Automaton::State* ContentStart;
+		Automaton::State* ContentEnd;
+		m_Content->ExtendMachine(OutMachine, ContentStart, ContentEnd, Name, -1);
+
+		OutStart = OutMachine->CreateNewState(Name);
+		OutEnd = OutMachine->CreateNewState(Name, FinalStatePriority);
+
+		//std::cout << OutStart->GetName() << std::endl;
+		//std::cout << OutEnd->GetName() << std::endl;
+
+		OutMachine->CreateNewTransition(ContentEnd, ContentStart, { StateMachine::EPSILON });
+		OutMachine->CreateNewTransition(OutStart, ContentStart, { StateMachine::EPSILON });
+		OutMachine->CreateNewTransition(ContentEnd, OutEnd, { StateMachine::EPSILON });
+		OutMachine->CreateNewTransition(OutStart, OutEnd, { StateMachine::EPSILON });
 	}
 
 	//void Node_PLUS::ExtendMachine(StateMachine & OutMachine, State * &OutStart, State * &OutEnd, const std::string & Name, int FinalStatePriority)
@@ -179,6 +252,16 @@ namespace ParserGenerator {
 		OutMachine.AddStartState(StartState);
 	}
 
+	void RegExp::Parse(Automaton::NFA * OutMachine, const std::string & Name, int Priority)
+	{
+		Automaton::State* StartState;
+		Automaton::State* FinalState;
+		m_Root->ExtendMachine(OutMachine, StartState, FinalState, Name, Priority);
+
+		FinalState->SetStatePriority(Priority);
+		OutMachine->AddStartState(StartState);
+	}
+
 
 	Node_BASE* RegExp::AND(const char& Left, const char& Right) { return RegExp::AND(new Node_CONST(Left), new Node_CONST(Right)); }
 	Node_BASE* RegExp::AND(const char& Left, Node_BASE * Right) { return RegExp::AND(new Node_CONST(Left), Right); }
@@ -204,14 +287,35 @@ namespace ParserGenerator {
 	Node_BASE* RegExp::RANGE(const char& Min, const char& Max)
 	{
 		std::vector<Node_BASE*> OutNodes;
-		for (int i = Min; i <= Max; i++)
+		std::set<char> OutConst;
+		for (char i = Min; i <= Max; i++)
 		{
-			OutNodes.push_back(new Node_CONST((char)i));
+			OutNodes.push_back(new Node_CONST(i));
+			OutConst.insert(i);
+		}
+
+		// return RegExp::OR(OutNodes);
+		return new Node_CONST(OutConst);
+	}
+
+	Node_BASE* RegExp::LIST(const std::set<char> & Content) { return new Node_CONST(Content); }//  RegExp::OR(Content);}
+
+	Node_BASE* RegExp::ANY() { return RegExp::RANGE(ASCII_MIN, ASCII_MAX); }
+
+	Node_BASE* RegExp::EXCEPT(const std::vector<char> & Excluded)
+	{
+		// TODO: Optimize, e.g. sort and walk indices to ignore (take care of duplicates)
+
+		std::vector<Node_BASE*> OutNodes;
+		for (int i = ASCII_MIN; i <= ASCII_MAX; i++)
+		{
+			if (std::find(Excluded.begin(), Excluded.end(), i) == Excluded.end())
+			{
+				OutNodes.push_back(new Node_CONST((char)i));
+			}
 		}
 
 		return RegExp::OR(OutNodes);
 	}
-
-	Node_BASE* RegExp::ANY() { return RegExp::RANGE(32, 126); }
 
 }

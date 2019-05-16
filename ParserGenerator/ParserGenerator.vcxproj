@@ -98,6 +98,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
+    <ClInclude Include="src\App.h" />
     <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Generator\CodeGenerator.h" />
     <ClInclude Include="src\Generator\CodeSnippet.h" />
@@ -115,8 +117,11 @@
     <ClInclude Include="src\Parser\ParsingTable.h" />
     <ClInclude Include="src\Parser\Visitor.h" />
     <ClInclude Include="src\Utils\Math.h" />
+    <ClInclude Include="src\Lexer\Automaton\State.h" />
+    <ClInclude Include="src\Lexer\Automaton\Transition.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Generator\CodeGenerator.cpp" />
     <ClCompile Include="src\Generator\CodeSnippet.cpp" />
@@ -131,6 +136,8 @@
     <ClCompile Include="src\Parser\ParserConfig.cpp" />
     <ClCompile Include="src\Parser\ParsingTable.cpp" />
     <ClCompile Include="src\Parser\Visitor.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\State.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

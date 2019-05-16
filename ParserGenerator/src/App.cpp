@@ -13,10 +13,13 @@
 
 #include "Lexer/Lexer.h"
 #include "Lexer/RegExp.h"
+#include "Lexer/Automaton/Automaton.h"
 #include "Parser/ParserConfig.h"
 #include "Parser/Parser.h"
 #include "Parser/Visitor.h"
 #include "Generator/CodeGenerator.h"
+#include "Core.h"
+#include "App.h"
 
 namespace ParserGenerator {
 
@@ -31,7 +34,7 @@ namespace ParserGenerator {
 	}
 
 
-	int main()
+	int App::main()
 	{
 		std::cout << "Start Generator" << std::endl;
 
@@ -61,7 +64,7 @@ namespace ParserGenerator {
 		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::OR({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
 		Lexer lex = Lexer(&LexConfig);
 
-		std::string SourceCode = " 123  + 123";
+		std::string SourceCode = "123  + 123";
 		std::cout << "Input of \"" << SourceCode << "\" results in:" << std::endl;
 
 		std::vector<Token*> TokenList = lex.Tokenize(SourceCode);
@@ -116,8 +119,50 @@ namespace ParserGenerator {
 	}
 
 
-}
+	void App::Generate(const std::string& SourceCode)
+	{
+		std::cout << "Start Generator" << std::endl;
 
+		// Priority drops from high to low
+		LexerConfig LexConfig;
+		//LexConfig.Add("F", new RegExp(RegExp::STAR(RegExp::ANY())));
+
+		LexConfig.Add("F", new RegExp(RegExp::AND('b', RegExp::STAR(RegExp::RANGE('a', 'm')))));
+		LexConfig.Add("S", new RegExp(RegExp::STAR(RegExp::AND(RegExp::LIST({ 'b','d','x' }), 'a'))));
+		
+		//LexConfig.Add("COMMENT", new RegExp(RegExp::AND({ RegExp::AND('/', '*'), RegExp::STAR(RegExp::ANY()), RegExp::AND('*', '/') })), ELexerAction::SKIP);	// /* .* */
+		//LexConfig.Add("PLUS", new RegExp(RegExp::CONST('+')));																								// +
+		//LexConfig.Add("TIMES", new RegExp(RegExp::CONST('*')));																								// *	
+		//LexConfig.Add("LEFTBRACKET", new RegExp(RegExp::CONST('(')));																							// (
+		//LexConfig.Add("RIGHTBRACKET", new RegExp(RegExp::CONST(')')));																						// )
+		//LexConfig.Add("NUM", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));																				// [0-9]+
+		//LexConfig.Add("Word", new RegExp(RegExp::PLUS(RegExp::OR(RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z')))));										// [a-zA-Z]+
+		//LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::OR({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
+		Lexer lex = Lexer(&LexConfig);
+
+		std::cout << "Input of \"" << SourceCode << "\" results in:" << std::endl;
+
+		std::vector<Token*> TokenList = lex.Tokenize(SourceCode);
+
+		Automaton::NFA* TestNFA = new Automaton::NFA();
+		int Priority = 0;
+		for (const LexerConfigElement& Regex : LexConfig.GetRegexList())
+		{
+			std::cout << "Added " << Regex.m_Name << " with Priority of " << Priority << std::endl;
+			Regex.m_Expression->Parse(TestNFA, Regex.m_Name, Priority++);
+		}
+
+		// Create combined DFA
+		Automaton::DFA* TestDFA = new Automaton::DFA();
+		TestNFA->CreateDFA(TestDFA);
+
+		std::cout << TokenList << std::endl;
+
+		delete TestDFA;
+		delete TestNFA;
+	}
+
+}
 
 
 

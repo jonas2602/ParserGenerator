@@ -1,8 +1,10 @@
 #pragma once
 
+#include <vector>
+
+#include "../Core.h"
 #include "../Lexer/Token.h"
 #include "ParserConfig.h"
-#include <vector>
 
 
 namespace ParserGenerator {

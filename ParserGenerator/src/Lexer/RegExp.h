@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../Core.h"
+#include "Automaton/Automaton.h"
 
 namespace ParserGenerator {
 
@@ -15,19 +16,26 @@ namespace ParserGenerator {
 	{
 	public:
 		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0) = 0;
+		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0) = 0;
 	};
 
 	class Node_CONST : public Node_BASE
 	{
 	protected:
 		char m_Symbol;
+		std::set<char> m_CharSet;
 
 	public:
 		Node_CONST(const char& InSymbol)
-			: m_Symbol(InSymbol)
+			: m_Symbol(InSymbol), m_CharSet({ InSymbol })
+		{ }
+
+		Node_CONST(const std::set<char>& InCharSet)
+			: m_Symbol(' '), m_CharSet(InCharSet)
 		{ }
 
 		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
+		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
 	//class Node_RANGE : public Node_BASE
@@ -67,6 +75,7 @@ namespace ParserGenerator {
 		}
 
 		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
+		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
 	class Node_AND : public Node_BASE
@@ -92,6 +101,7 @@ namespace ParserGenerator {
 		}
 
 		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
+		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
 	class Node_STAR : public Node_BASE
@@ -110,6 +120,7 @@ namespace ParserGenerator {
 		}
 
 		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
+		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
 	//class Node_PLUS : public Node_BASE
@@ -140,6 +151,8 @@ namespace ParserGenerator {
 		static const char TAB = '\t';	// Horizontal Tabulator
 		static const char LF = '\n';	// Line Feed / New Line
 		static const char CR = '\r';	// Carriage Return
+		static const char ASCII_MIN = 32;
+		static const char ASCII_MAX = 126;
 
 	protected:
 		Node_BASE* m_Root;
@@ -150,6 +163,7 @@ namespace ParserGenerator {
 		~RegExp();
 
 		void Parse(StateMachine& OutMachine, const std::string& Name, int Priority);
+		void Parse(Automaton::NFA* OutMachine, const std::string& Name, int Priority);
 
 	public:
 		static Node_BASE* AND(const char& Left, const char& Right);
@@ -179,8 +193,14 @@ namespace ParserGenerator {
 		// Internally converted from '[min, max]' -> 'OR(min, ..., max)' 
 		static Node_BASE* RANGE(const char& Min, const char& Max);
 
+		static Node_BASE* LIST(const std::set<char>& Content);
+
 		// Internally converted from '.' -> [32, 126] 
 		static Node_BASE* ANY();
+
+		static Node_BASE* EXCEPT(const std::vector<char>& Excluded);
+
+		// TODO: ignore string
 	};
 
 }

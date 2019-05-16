@@ -62,6 +62,10 @@
     <ClInclude Include="src\Utils\Math.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Lexer\Automaton\Transition.h" />
+    <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
+    <ClInclude Include="src\Lexer\Automaton\State.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -104,5 +108,8 @@
     <ClCompile Include="src\Parser\Visitor.cpp">
       <Filter>Parser</Filter>
     </ClCompile>
+    <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\State.cpp" />
   </ItemGroup>
 </Project>
