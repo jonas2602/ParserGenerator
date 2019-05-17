@@ -290,7 +290,7 @@ namespace ParserGenerator {
 		std::set<char> OutConst;
 		for (char i = Min; i <= Max; i++)
 		{
-			OutNodes.push_back(new Node_CONST(i));
+			//OutNodes.push_back(new Node_CONST(i));
 			OutConst.insert(i);
 		}
 
@@ -298,8 +298,8 @@ namespace ParserGenerator {
 		return new Node_CONST(OutConst);
 	}
 
-	Node_CONST* RegExp::LIST(const std::set<char>& Content) { return new Node_CONST(Content); }
-	Node_CONST* RegExp::LIST(const std::vector<Node_CONST*>& Content)
+	Node_CONST* RegExp::LIST(const std::set<char> & Content) { return new Node_CONST(Content); }
+	Node_CONST* RegExp::LIST(const std::vector<Node_CONST*> & Content)
 	{
 		std::set<char> NewContent;
 		for (Node_CONST* Element : Content)
@@ -317,15 +317,18 @@ namespace ParserGenerator {
 		// TODO: Optimize, e.g. sort and walk indices to ignore (take care of duplicates)
 
 		std::vector<Node_BASE*> OutNodes;
+		std::set<char> OutConst;
 		for (int i = ASCII_MIN; i <= ASCII_MAX; i++)
 		{
 			if (std::find(Excluded.begin(), Excluded.end(), i) == Excluded.end())
 			{
-				OutNodes.push_back(new Node_CONST((char)i));
+				//OutNodes.push_back(new Node_CONST((char)i));
+				OutConst.insert(i);
 			}
 		}
 
-		return RegExp::OR(OutNodes);
+		//return RegExp::OR(OutNodes);
+		return new Node_CONST(OutConst);
 	}
 
 }
