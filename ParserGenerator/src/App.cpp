@@ -142,22 +142,33 @@ namespace ParserGenerator {
 		LexConfig.Add("QUESTIONMARK", new RegExp(RegExp::CONST('?')));
 		LexConfig.Add("ARROW", new RegExp(RegExp::SEQUENCE("->")));
 		LexConfig.Add("LEXERID", new RegExp(RegExp::AND(RegExp::RANGE('A', 'Z'), RegExp::STAR(RegExp::LIST(std::vector<Node_CONST*>({ RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z'), RegExp::RANGE('0', '9'), RegExp::CONST('_') }))))));
-		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
+
+		LexConfig.Add("LINECOMMENT", new RegExp(RegExp::AND(RegExp::SEQUENCE("//"), RegExp::STAR(RegExp::EXCEPT({ RegExp::LF })))), ELexerAction::SKIP);
+		LexConfig.Add("BLOCKCOMMENT", new RegExp(RegExp::AND({ RegExp::CONST('/'), RegExp::PLUS('*'), RegExp::STAR(RegExp::AND({RegExp::EXCEPT({'/','*'}), RegExp::STAR(RegExp::EXCEPT({'*'})),RegExp::PLUS('*') })), RegExp::CONST('/') })), ELexerAction::SKIP);
+		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);
 
 		Lexer* lex = new Lexer(&LexConfig);
 
 		std::cout << "Input of \"" << SourceCode << "\"" << std::endl << "results in:" << std::endl;
-
-		LexerFactory::Serialize(lex, "res/Lexer.lex");
-
-		Lexer* NewLexer;
-		LexerFactory::Deserialize(NewLexer, "res/Lexer.lex");
-
 		std::vector<Token*> TokenList = lex->Tokenize(SourceCode);
 		std::cout << TokenList << std::endl;
 
 		delete lex;
-		delete NewLexer;
+
+		/*ParserConfig ParsConfig("S");
+		ParsConfig.AddProduction("S", { "E" });
+
+		ParsConfig.AddProduction("E", { "E", "PLUS", "T" });
+		ParsConfig.AddProduction("E", { "T" });
+
+		ParsConfig.AddProduction("T", { "T", "TIMES", "F" });
+		ParsConfig.AddProduction("T", { "F" });
+
+		ParsConfig.AddProduction("F", { "NUM" });
+		ParsConfig.AddProduction("F", { "LEFTBRACKET", "E", "RIGHTBRACKET" });
+
+		Parser pars(&ParsConfig);
+		ParseTree* Tree = pars.BuildTree(TokenList);*/
 	}
 
 }
