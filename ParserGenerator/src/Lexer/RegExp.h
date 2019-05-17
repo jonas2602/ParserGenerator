@@ -192,6 +192,7 @@ namespace ParserGenerator {
 		static Node_BASE* PLUS(Node_BASE* Content);
 
 		static Node_CONST* CONST(const char& Content);
+		static Node_BASE* SEQUENCE(const std::string& Content);
 
 		// Internally converted from '[min, max]' -> 'OR(min, ..., max)' 
 		static Node_CONST* RANGE(const char& Min, const char& Max);
@@ -204,7 +205,8 @@ namespace ParserGenerator {
 
 		static Node_BASE* EXCEPT(const std::vector<char>& Excluded);
 
-		// TODO: ignore string
+		static Node_BASE* OPTIONAL(const char& Content);
+		static Node_BASE* OPTIONAL(Node_BASE* Content);
 	};
 
 }

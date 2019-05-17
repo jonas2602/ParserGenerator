@@ -284,6 +284,17 @@ namespace ParserGenerator {
 	Node_BASE* RegExp::PLUS(Node_BASE * Content) { return RegExp::AND(Content, RegExp::STAR(Content)); }
 
 	Node_CONST* RegExp::CONST(const char& Content) { return new Node_CONST(Content); }
+	Node_BASE* RegExp::SEQUENCE(const std::string & Content)
+	{
+		std::vector<Node_BASE*> SequenceNodes;
+		for (const char& Symbol : Content)
+		{
+			SequenceNodes.push_back(RegExp::CONST(Symbol));
+		}
+
+		return RegExp::AND(SequenceNodes);
+	}
+
 	Node_CONST* RegExp::RANGE(const char& Min, const char& Max)
 	{
 		std::vector<Node_BASE*> OutNodes;
@@ -331,4 +342,6 @@ namespace ParserGenerator {
 		return new Node_CONST(OutConst);
 	}
 
+	Node_BASE* RegExp::OPTIONAL(const char& Content) { return RegExp::OPTIONAL(new Node_CONST(Content)); }
+	Node_BASE* RegExp::OPTIONAL(Node_BASE * Content) { return RegExp::OR(Content, Automaton::EPSILON); }
 }

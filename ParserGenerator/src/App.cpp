@@ -127,27 +127,26 @@ namespace ParserGenerator {
 
 		// Priority drops from high to low
 		LexerConfig LexConfig;
-		LexConfig.Add("WORD", new RegExp(RegExp::PLUS(RegExp::LIST(std::vector<Node_CONST*>({ RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z') })))));
-		LexConfig.Add("NUMBER", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));
 		LexConfig.Add("LEFTPARENTHESE", new RegExp(RegExp::CONST('(')));
 		LexConfig.Add("RIGHTPARENTHESE", new RegExp(RegExp::CONST(')')));
+		LexConfig.Add("PIPE", new RegExp(RegExp::CONST('|')));
 		LexConfig.Add("COLON", new RegExp(RegExp::CONST(':')));
 		LexConfig.Add("SEMICOLON", new RegExp(RegExp::CONST(';')));
-		LexConfig.Add("PIPE", new RegExp(RegExp::CONST('|')));
+		LexConfig.Add("PARSERID", new RegExp(RegExp::AND(RegExp::RANGE('a', 'z'), RegExp::STAR(RegExp::LIST(std::vector<Node_CONST*>({ RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z'), RegExp::RANGE('0', '9'), RegExp::CONST('_') }))))));
+		LexConfig.Add("LITERAL", new RegExp(RegExp::AND({ RegExp::CONST('\''), RegExp::STAR(RegExp::EXCEPT({ '\'', '\\' })),  RegExp::STAR(RegExp::AND({RegExp::CONST('\\'), RegExp::ANY(), RegExp::STAR(RegExp::EXCEPT({'\\', '\''}))})), RegExp::CONST('\'') })));
+
+		LexConfig.Add("DOT", new RegExp(RegExp::CONST('.')));
+		LexConfig.Add("PLUS", new RegExp(RegExp::CONST('+')));
 		LexConfig.Add("STAR", new RegExp(RegExp::CONST('*')));
-		LexConfig.Add("CHARSET", new RegExp(RegExp::AND({ RegExp::CONST('['), RegExp::STAR(RegExp::EXCEPT({ ']', '\\' })),  RegExp::STAR(RegExp::AND({RegExp::CONST('\\'), RegExp::ANY(), RegExp::STAR(RegExp::EXCEPT({'\\', ']'}))})), RegExp::CONST(']') })));
-
-
-		//LexConfig.Add("COMMENT", new RegExp(RegExp::AND({ RegExp::AND('/', '*'), RegExp::STAR(RegExp::ANY()), RegExp::AND('*', '/') })), ELexerAction::SKIP);	// /* .* */
-		//LexConfig.Add("PLUS", new RegExp(RegExp::CONST('+')));																								// +
-		//LexConfig.Add("LEFTBRACKET", new RegExp(RegExp::CONST('(')));																							// (
-		//LexConfig.Add("RIGHTBRACKET", new RegExp(RegExp::CONST(')')));																						// )
-		//LexConfig.Add("NUM", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));																				// [0-9]+
-		//LexConfig.Add("Word", new RegExp(RegExp::PLUS(RegExp::OR(RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z')))));										// [a-zA-Z]+
+		LexConfig.Add("CHARSET", new RegExp(RegExp::AND({ RegExp::OPTIONAL('~') , RegExp::CONST('['), RegExp::STAR(RegExp::EXCEPT({ ']', '\\' })),  RegExp::STAR(RegExp::AND({RegExp::CONST('\\'), RegExp::ANY(), RegExp::STAR(RegExp::EXCEPT({'\\', ']'}))})), RegExp::CONST(']') })));
+		LexConfig.Add("QUESTIONMARK", new RegExp(RegExp::CONST('?')));
+		LexConfig.Add("ARROW", new RegExp(RegExp::SEQUENCE("->")));
+		LexConfig.Add("LEXERID", new RegExp(RegExp::AND(RegExp::RANGE('A', 'Z'), RegExp::STAR(RegExp::LIST(std::vector<Node_CONST*>({ RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z'), RegExp::RANGE('0', '9'), RegExp::CONST('_') }))))));
 		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
+
 		Lexer* lex = new Lexer(&LexConfig);
 
-		std::cout << "Input of \"" << SourceCode << "\" results in:" << std::endl;
+		std::cout << "Input of \"" << SourceCode << "\"" << std::endl << "results in:" << std::endl;
 
 		LexerFactory::Serialize(lex, "res/Lexer.lex");
 
