@@ -13,19 +13,19 @@ namespace ParserGenerator {
 	class Lexer
 	{
 	protected:
-		Automaton::NFA* m_NFA;
 		Automaton::DFA* m_DFA;
-
-		LexerConfig* m_Config;
+		std::vector<LexerConfigElement> m_TokenTypes;
 
 	public:
 		Lexer(LexerConfig* InConfig);
+		Lexer(Automaton::DFA* InDFA, const std::vector<LexerConfigElement>& InTokenTypes);
 		~Lexer();
 
+		Automaton::DFA* GetDFA() const { return m_DFA; }
+		const std::vector<LexerConfigElement>& GetTokenTypes() const { return m_TokenTypes; }
+
+	public:
 		std::vector<Token*> Tokenize(const std::string& SourceCode) const;
-
-		bool Serialize(const std::string& FilePath) const;
-
 	};
 
 }

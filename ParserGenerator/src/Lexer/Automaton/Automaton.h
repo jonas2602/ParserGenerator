@@ -6,7 +6,6 @@
 #include "Transition.h"
 
 namespace ParserGenerator::Automaton {
-	class Factory;
 
 	static const char EPSILON = '§';
 	static const std::string EPSILON_S = "§";
@@ -23,11 +22,13 @@ namespace ParserGenerator::Automaton {
 		Automaton();
 		~Automaton();
 
+		const std::map<std::string, State*>& GetStateMap() const { return m_StateMap; }
+		const std::vector<Transition*>& GetTransitions() const { return m_Transitions; }
+
+	public:
 		State* CreateNewState(const std::string& StateName = "", const int& Priority = -1);
 		Transition* CreateNewTransition(State* StartState, State* EndState, const std::set<char>& Condition);
 		Transition* CreateNewTransition(const std::string& StartStateName, const std::string& EndStateName, const std::set<char>& Condition);
-
-		friend Factory;
 	};
 
 

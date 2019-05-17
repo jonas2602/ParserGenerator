@@ -6,15 +6,12 @@
 #include <regex>
 #include <set>
 
-#include "Automaton/Factory.h"
-
 namespace ParserGenerator {
 
 	Lexer::Lexer(LexerConfig* InConfig)
-		: m_Config(InConfig)
 	{
 		// Create Empty Automatons
-		m_NFA = new Automaton::NFA();
+		Automaton::NFA* TempNFA = new Automaton::NFA();
 		m_DFA = new Automaton::DFA();
 
 		// Add all regex to "simple" NFA
@@ -22,18 +19,26 @@ namespace ParserGenerator {
 		for (const LexerConfigElement& Regex : InConfig->GetRegexList())
 		{
 			std::cout << "Added " << Regex.m_Name << " with Priority of " << Priority << std::endl;
-			Regex.m_Expression->Parse(m_NFA, Regex.m_Name, Priority++);
+			Regex.m_Expression->Parse(TempNFA, Regex.m_Name, Priority++);
 		}
 
 		// Create combined DFA
-		m_NFA->CreateDFA(m_DFA);
+		TempNFA->CreateDFA(m_DFA);
+		delete TempNFA;
+
+		m_TokenTypes = InConfig->GetRegexList();
+	}
+
+	Lexer::Lexer(Automaton::DFA* InDFA, const std::vector<LexerConfigElement>& InTokenTypes)
+		: m_DFA(InDFA), m_TokenTypes(InTokenTypes)
+	{
+
 	}
 
 
 	Lexer::~Lexer()
 	{
 		delete m_DFA;
-		delete m_NFA;
 	}
 
 	std::vector<Token*> Lexer::Tokenize(const std::string& SourceCode) const
@@ -75,22 +80,22 @@ namespace ParserGenerator {
 				break;
 			}
 
-			const LexerConfigElement& ConfigElement = m_Config->GetConfigElementByIndex(LastPriority);
+			const LexerConfigElement& ConfigElement = m_TokenTypes[LastPriority];
 			switch (ConfigElement.m_Action)
 			{
-				case ELexerAction::DEFAULT:
-				{
-					std::string FoundString = SourceCode.substr(StartingPoint, ConfirmedLength);
-					int LineNumber = (int)std::count(SourceCode.begin(), SourceCode.begin() + StartingPoint, RegExp::LF);
-					int ColumnNumber = 0;
-					TokenList.push_back(new Token(FoundString, ConfigElement.m_Name, LastPriority, LineNumber, ColumnNumber));
-					break;
-				}
-				case ELexerAction::SKIP:
-				{
-					// Nothing to do here ...
-					break;
-				}
+			case ELexerAction::DEFAULT:
+			{
+				std::string FoundString = SourceCode.substr(StartingPoint, ConfirmedLength);
+				int LineNumber = (int)std::count(SourceCode.begin(), SourceCode.begin() + StartingPoint, RegExp::LF);
+				int ColumnNumber = 0;
+				TokenList.push_back(new Token(FoundString, ConfigElement.m_Name, LastPriority, LineNumber, ColumnNumber));
+				break;
+			}
+			case ELexerAction::SKIP:
+			{
+				// Nothing to do here ...
+				break;
+			}
 			}
 
 			StartingPoint += ConfirmedLength;
@@ -99,11 +104,4 @@ namespace ParserGenerator {
 
 		return TokenList;
 	}
-
-	bool Lexer::Serialize(const std::string& FilePath) const
-	{
-		return Automaton::Factory::Serialize(m_DFA, FilePath);
-	}
-
-
 }

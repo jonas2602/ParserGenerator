@@ -13,6 +13,7 @@
 #include <list>
 
 #include "Lexer/Lexer.h"
+#include "Lexer/LexerFactory.h"
 #include "Lexer/RegExp.h"
 #include "Lexer/Automaton/Automaton.h"
 #include "Parser/ParserConfig.h"
@@ -144,14 +145,20 @@ namespace ParserGenerator {
 		//LexConfig.Add("NUM", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));																				// [0-9]+
 		//LexConfig.Add("Word", new RegExp(RegExp::PLUS(RegExp::OR(RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z')))));										// [a-zA-Z]+
 		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
-		Lexer lex = Lexer(&LexConfig);
+		Lexer* lex = new Lexer(&LexConfig);
 
 		std::cout << "Input of \"" << SourceCode << "\" results in:" << std::endl;
 
-		std::vector<Token*> TokenList = lex.Tokenize(SourceCode);
+		LexerFactory::Serialize(lex, "res/Lexer.lex");
+
+		Lexer* NewLexer;
+		LexerFactory::Deserialize(NewLexer, "res/Lexer.lex");
+
+		std::vector<Token*> TokenList = lex->Tokenize(SourceCode);
 		std::cout << TokenList << std::endl;
 
-		lex.Serialize("res/Lexer.lex");
+		delete lex;
+		delete NewLexer;
 	}
 
 }

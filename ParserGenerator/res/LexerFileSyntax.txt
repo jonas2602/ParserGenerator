@@ -1,0 +1,16 @@
+1. TokenTypes
+[Priority] [Name] [Action]
+
+2. Automaton States
+[Index] [Symbolic Name] [Priority] 
+
+3. Automaton Transitions
+[Start State] [End State] [Condition chars]
+
+4. Automaton Starting State
+[Index]
+
+
+
+
+

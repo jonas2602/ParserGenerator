@@ -4,6 +4,7 @@
 #include <string>
 
 #include "RegExp.h"
+#include "Token.h"
 
 namespace ParserGenerator {
 
@@ -16,11 +17,15 @@ namespace ParserGenerator {
 	struct LexerConfigElement
 	{
 		std::string m_Name;
-		RegExp* m_Expression;
+		RegExp* m_Expression; // Will be empty if deserialized from file
 		ELexerAction m_Action;
 
-		LexerConfigElement(std::string InName, RegExp* InExpression, ELexerAction InAction)
+		LexerConfigElement(const std::string& InName, RegExp* InExpression, ELexerAction InAction)
 			: m_Name(InName), m_Expression(InExpression), m_Action(InAction)
+		{ }
+
+		LexerConfigElement(const std::string& InName, ELexerAction InAction)
+			: m_Name(InName), m_Expression(nullptr), m_Action(InAction)
 		{ }
 	};
 
