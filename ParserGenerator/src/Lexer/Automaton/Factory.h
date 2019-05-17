@@ -8,8 +8,8 @@ namespace ParserGenerator::Automaton {
 	class Factory
 	{
 	public:
-		static void Serialize(DFA* Automaton, const std::string& FilePath);
-		static void Deserialize(DFA* OutAutomaton, const std::string& FilePath);
+		static bool Serialize(DFA* Automaton, const std::string& FilePath);
+		static bool Deserialize(DFA* OutAutomaton, const std::string& FilePath);
 	};
 
 }

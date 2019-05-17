@@ -24,6 +24,7 @@ namespace ParserGenerator {
 
 		std::vector<Token*> Tokenize(const std::string& SourceCode) const;
 
+		bool Serialize(const std::string& FilePath) const;
 
 	};
 

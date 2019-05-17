@@ -6,6 +6,8 @@
 #include <regex>
 #include <set>
 
+#include "Automaton/Factory.h"
+
 namespace ParserGenerator {
 
 	Lexer::Lexer(LexerConfig* InConfig)
@@ -97,5 +99,11 @@ namespace ParserGenerator {
 
 		return TokenList;
 	}
+
+	bool Lexer::Serialize(const std::string& FilePath) const
+	{
+		return Automaton::Factory::Serialize(m_DFA, FilePath);
+	}
+
 
 }

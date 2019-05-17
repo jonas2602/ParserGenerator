@@ -25,13 +25,14 @@ namespace ParserGenerator::Automaton {
 
 		State* CreateNewState(const std::string& StateName = "", const int& Priority = -1);
 		Transition* CreateNewTransition(State* StartState, State* EndState, const std::set<char>& Condition);
+		Transition* CreateNewTransition(const std::string& StartStateName, const std::string& EndStateName, const std::set<char>& Condition);
 
 		friend Factory;
 	};
 
 
 
-	class DFA : public Automaton 
+	class DFA : public Automaton
 	{
 	protected:
 		State* m_StartState;
@@ -46,7 +47,7 @@ namespace ParserGenerator::Automaton {
 
 
 
-	class NFA : public Automaton 
+	class NFA : public Automaton
 	{
 	protected:
 		std::set<State*> m_StartStates;

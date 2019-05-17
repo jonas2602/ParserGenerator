@@ -150,6 +150,8 @@ namespace ParserGenerator {
 
 		std::vector<Token*> TokenList = lex.Tokenize(SourceCode);
 		std::cout << TokenList << std::endl;
+
+		lex.Serialize("res/Lexer.lex");
 	}
 
 }

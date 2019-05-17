@@ -4,6 +4,7 @@
 #include <deque>
 
 #include "../../Utils/Math.h"
+#include <iostream>
 
 namespace ParserGenerator::Automaton {
 
@@ -36,6 +37,11 @@ namespace ParserGenerator::Automaton {
 
 	Transition* Automaton::CreateNewTransition(State* StartState, State* EndState, const std::set<char>& Condition)
 	{
+		if (!StartState || !EndState)
+		{
+			std::cout << "Can't create Transition because StartState or EndState are invalid" << std::endl;
+		}
+
 		// Create Transition
 		Transition* Instance = new Transition(EndState, Condition);
 		m_Transitions.push_back(Instance);
@@ -44,6 +50,14 @@ namespace ParserGenerator::Automaton {
 		StartState->AddTransition(Instance);
 
 		return Instance;
+	}
+
+	Transition* Automaton::CreateNewTransition(const std::string& StartStateName, const std::string& EndStateName, const std::set<char>& Condition)
+	{
+		State* StartState = m_StateMap[StartStateName];
+		State* EndState = m_StateMap[EndStateName];
+
+		return CreateNewTransition(StartState, EndState, Condition);
 	}
 
 	void DFA::SetStartState(State* StartState)
