@@ -44,9 +44,6 @@
       <Filter>Lexer</Filter>
     </ClInclude>
     <ClInclude Include="src\Parser.h" />
-    <ClInclude Include="src\Parser\ParseTree.h">
-      <Filter>Parser</Filter>
-    </ClInclude>
     <ClInclude Include="src\Parser\Parser.h">
       <Filter>Parser</Filter>
     </ClInclude>
@@ -67,6 +64,11 @@
     <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
     <ClInclude Include="src\Lexer\Automaton\State.h" />
     <ClInclude Include="src\Lexer\LexerFactory.h" />
+    <ClInclude Include="src\Parser\ParseTree\ParseTree.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParseTree\TokenNode.h" />
+    <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -94,9 +96,6 @@
     <ClCompile Include="src\Lexer\Token.cpp">
       <Filter>Lexer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\ParseTree.cpp">
-      <Filter>Parser</Filter>
-    </ClCompile>
     <ClCompile Include="src\Parser\Parser.cpp">
       <Filter>Parser</Filter>
     </ClCompile>
@@ -113,6 +112,11 @@
     <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
     <ClCompile Include="src\Lexer\Automaton\State.cpp" />
     <ClCompile Include="src\Lexer\LexerFactory.cpp" />
+    <ClCompile Include="src\Parser\ParseTree\ParseTree.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
+    <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GrammarParser.txt" />

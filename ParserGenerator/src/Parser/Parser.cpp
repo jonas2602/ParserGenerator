@@ -51,7 +51,7 @@ namespace ParserGenerator {
 		return OutTree;
 	}
 
-	bool Parser::WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseNode* ParentNode)
+	bool Parser::WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseTree* ParentNode)
 	{
 		// Find Fitting Production
 		ParserConfigElement* Production = m_Table->GetProduction(NonTerminal, (*TokenStream)->GetTokenType());

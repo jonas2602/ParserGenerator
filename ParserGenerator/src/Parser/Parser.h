@@ -4,7 +4,7 @@
 #include <string>
 
 #include "ParserConfig.h"
-#include "ParseTree.h"
+#include "ParseTree/ParseTree.h"
 #include "../Lexer/Token.h"
 #include "ParsingTable.h"
 
@@ -23,7 +23,7 @@ namespace ParserGenerator {
 		ParseTree* BuildTree(std::vector<Token*> TokenStream);
 
 	protected:
-		bool WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseNode* ParentNode);
+		bool WalkProduction(const std::string& NonTerminal, std::vector<Token*>::iterator& TokenStream, ParseTree* OutTree, ParseTree* ParentNode);
 	};
 
 }

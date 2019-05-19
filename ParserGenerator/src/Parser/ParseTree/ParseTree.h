@@ -2,13 +2,13 @@
 
 #include <vector>
 
-#include "../Core.h"
-#include "../Lexer/Token.h"
-#include "ParserConfig.h"
+//#include "../Core.h"
+//#include "../Lexer/Token.h"
+//#include "ParserConfig.h"
 
 
 namespace ParserGenerator {
-	class ParseTree;
+	/*class ParseTree;
 
 
 	class ParseNode
@@ -48,12 +48,19 @@ namespace ParserGenerator {
 		ParseNode_Production(ParserConfigElement* InProduction)
 			:m_Production(InProduction)
 		{ }
-	};
+	};*/
 
 
 	class ParseTree
 	{
-	protected:
+	public:
+		virtual ParseTree* GetParent() const = 0;
+		virtual ParseTree* GetChild(int Index) const  = 0;
+		virtual int GetChildCount() const = 0;
+
+		virtual void SetParent(ParseTree* InParent) = 0;
+
+	/*protected:
 		ParseNode* m_RootNode;
 
 	public:
@@ -66,7 +73,7 @@ namespace ParserGenerator {
 		ParseNode_Production* GetRootNode() const { return (ParseNode_Production*)m_RootNode; }
 
 	protected:
-		void AddNodeToTree(ParseNode* Parent, ParseNode* Child);
+		void AddNodeToTree(ParseNode* Parent, ParseNode* Child);*/
 	};
 
 }

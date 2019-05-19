@@ -98,6 +98,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
     <ClInclude Include="src\Lexer\LexerFactory.h" />
     <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
     <ClInclude Include="src\App.h" />
@@ -112,7 +113,7 @@
     <ClInclude Include="src\Lexer\StateMachine.h" />
     <ClInclude Include="src\Lexer\Token.h" />
     <ClInclude Include="src\Parser.h" />
-    <ClInclude Include="src\Parser\ParseTree.h" />
+    <ClInclude Include="src\Parser\ParseTree\ParseTree.h" />
     <ClInclude Include="src\Parser\Parser.h" />
     <ClInclude Include="src\Parser\ParserConfig.h" />
     <ClInclude Include="src\Parser\ParsingTable.h" />
@@ -120,8 +121,10 @@
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Lexer\Automaton\State.h" />
     <ClInclude Include="src\Lexer\Automaton\Transition.h" />
+    <ClInclude Include="src\Parser\ParseTree\TokenNode.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
     <ClCompile Include="src\Lexer\LexerFactory.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
     <ClCompile Include="src\App.cpp" />
@@ -133,13 +136,14 @@
     <ClCompile Include="src\Lexer\RegExp.cpp" />
     <ClCompile Include="src\Lexer\StateMachine.cpp" />
     <ClCompile Include="src\Lexer\Token.cpp" />
-    <ClCompile Include="src\Parser\ParseTree.cpp" />
+    <ClCompile Include="src\Parser\ParseTree\ParseTree.cpp" />
     <ClCompile Include="src\Parser\Parser.cpp" />
     <ClCompile Include="src\Parser\ParserConfig.cpp" />
     <ClCompile Include="src\Parser\ParsingTable.cpp" />
     <ClCompile Include="src\Parser\Visitor.cpp" />
     <ClCompile Include="src\Lexer\Automaton\State.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
+    <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GrammarParser.txt" />
