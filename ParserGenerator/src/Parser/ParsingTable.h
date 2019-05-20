@@ -41,6 +41,7 @@ namespace ParserGenerator {
 
 	public:
 		ParserConfigElement* GetProduction(const std::string& NonTerminal, const std::string& Token);
+		const std::map<std::string, std::map<std::string, ParserConfigElement*>>& GetProductionMap() const { return m_PredictionMap; }
 	};
 
 }

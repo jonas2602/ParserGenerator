@@ -24,7 +24,7 @@ namespace ParserGenerator {
 		std::cout << "function called" << std::endl;
 	}
 
-	float Visitor::Visit(ParseNode_Production* ProductionNode)
+	float Visitor::Visit(RuleNode* ProductionNode)
 	{
 		//(this->*m_FunctionMap["S"])();
 		m_FunctionMap["S"]();

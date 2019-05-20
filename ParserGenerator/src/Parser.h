@@ -9,7 +9,7 @@
 #include "Parser/Parser.h"
 #include "Parser/ParserConfig.h"
 
-#include "Parser/ParseTree.h"
+#include "Parser/ParseTree/ParseTree.h"
 #include "Parser/Visitor.h"
 
 #include "App.h"

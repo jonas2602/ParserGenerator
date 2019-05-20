@@ -5,7 +5,7 @@
 #include <functional>
 
 #include "../Core.h"
-#include "ParseTree.h"
+#include "ParseTree/RuleNode.h"
 
 namespace ParserGenerator {
 
@@ -23,7 +23,7 @@ namespace ParserGenerator {
 
 		void TestFunction();
 
-		float Visit(ParseNode_Production* ProductionNode);
+		float Visit(RuleNode* ProductionNode);
 	};
 
 

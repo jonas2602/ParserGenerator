@@ -1,0 +1,11 @@
+1. Terminals
+[Index] [Name]
+
+2. NonTerminals
+[Index] [Name]
+
+3. Table Entries
+[NonTerminal] [Terminal] [Rule]
+
+4. Rules
+[NonTerminal] -> { [Element], ... }

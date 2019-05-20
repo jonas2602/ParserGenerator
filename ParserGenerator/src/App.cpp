@@ -106,7 +106,7 @@ namespace ParserGenerator {
 
 		Visitor vis = Visitor();
 		vis.AddFunctionPointer();
-		vis.Visit(Tree->GetRootNode());
+		vis.Visit((RuleNode*)Tree);
 
 		/*
 		float Result = Visitor().Visit(Tree->GetRootNode());

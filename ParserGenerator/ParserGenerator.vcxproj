@@ -98,6 +98,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Parser\ParserFactory.h" />
     <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
     <ClInclude Include="src\Lexer\LexerFactory.h" />
     <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
@@ -122,8 +123,10 @@
     <ClInclude Include="src\Lexer\Automaton\State.h" />
     <ClInclude Include="src\Lexer\Automaton\Transition.h" />
     <ClInclude Include="src\Parser\ParseTree\TokenNode.h" />
+    <ClInclude Include="src\Test\TestLexer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Parser\ParserFactory.cpp" />
     <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
     <ClCompile Include="src\Lexer\LexerFactory.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
@@ -144,12 +147,14 @@
     <ClCompile Include="src\Lexer\Automaton\State.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
     <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp" />
+    <ClCompile Include="src\Test\TestLexer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GrammarParser.txt" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\LexerFileSyntax.txt" />
+    <Text Include="res\ParserFileSyntax.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

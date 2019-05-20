@@ -83,19 +83,19 @@ namespace ParserGenerator {
 			const LexerConfigElement& ConfigElement = m_TokenTypes[LastPriority];
 			switch (ConfigElement.m_Action)
 			{
-			case ELexerAction::DEFAULT:
-			{
-				std::string FoundString = SourceCode.substr(StartingPoint, ConfirmedLength);
-				int LineNumber = (int)std::count(SourceCode.begin(), SourceCode.begin() + StartingPoint, RegExp::LF);
-				int ColumnNumber = 0;
-				TokenList.push_back(new Token(FoundString, ConfigElement.m_Name, LastPriority, LineNumber, ColumnNumber));
-				break;
-			}
-			case ELexerAction::SKIP:
-			{
-				// Nothing to do here ...
-				break;
-			}
+				case ELexerAction::DEFAULT:
+				{
+					std::string FoundString = SourceCode.substr(StartingPoint, ConfirmedLength);
+					int LineNumber = (int)std::count(SourceCode.begin(), SourceCode.begin() + StartingPoint, RegExp::LF);
+					int ColumnNumber = 0;
+					TokenList.push_back(new Token(FoundString, ConfigElement.m_Name, LastPriority, LineNumber, ColumnNumber));
+					break;
+				}
+				case ELexerAction::SKIP:
+				{
+					// Nothing to do here ...
+					break;
+				}
 			}
 
 			StartingPoint += ConfirmedLength;

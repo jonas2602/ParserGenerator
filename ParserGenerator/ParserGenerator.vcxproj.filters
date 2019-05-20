@@ -69,6 +69,8 @@
     </ClInclude>
     <ClInclude Include="src\Parser\ParseTree\TokenNode.h" />
     <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
+    <ClInclude Include="src\Test\TestLexer.h" />
+    <ClInclude Include="src\Parser\ParserFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -117,11 +119,14 @@
     </ClCompile>
     <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
     <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp" />
+    <ClCompile Include="src\Test\TestLexer.cpp" />
+    <ClCompile Include="src\Parser\ParserFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GrammarParser.txt" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\LexerFileSyntax.txt" />
+    <Text Include="res\ParserFileSyntax.txt" />
   </ItemGroup>
 </Project>

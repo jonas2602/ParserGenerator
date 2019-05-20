@@ -20,6 +20,9 @@ namespace ParserGenerator {
 		Parser(ParserConfig* InConfig);
 		~Parser();
 
+		ParserConfig* GetParserConfig() const { return m_Config; }
+		ParsingTable* GetParsingTable() const { return m_Table; }
+
 		ParseTree* BuildTree(std::vector<Token*> TokenStream);
 
 	protected:
