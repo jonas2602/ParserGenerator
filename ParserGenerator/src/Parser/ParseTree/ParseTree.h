@@ -55,25 +55,25 @@ namespace ParserGenerator {
 	{
 	public:
 		virtual ParseTree* GetParent() const = 0;
-		virtual ParseTree* GetChild(int Index) const  = 0;
+		virtual ParseTree* GetChild(int Index) const = 0;
 		virtual int GetChildCount() const = 0;
 
 		virtual void SetParent(ParseTree* InParent) = 0;
 
-	/*protected:
-		ParseNode* m_RootNode;
+		/*protected:
+			ParseNode* m_RootNode;
 
-	public:
-		ParseTree();
-		~ParseTree();
+		public:
+			ParseTree();
+			~ParseTree();
 
-		ParseNode_Token* InsertTokenNode(ParseNode* Parent, Token* InToken);
-		ParseNode_Production* InsertProductionNode(ParseNode* Parent, ParserConfigElement* InProduction);
+			ParseNode_Token* InsertTokenNode(ParseNode* Parent, Token* InToken);
+			ParseNode_Production* InsertProductionNode(ParseNode* Parent, ParserConfigElement* InProduction);
 
-		ParseNode_Production* GetRootNode() const { return (ParseNode_Production*)m_RootNode; }
+			ParseNode_Production* GetRootNode() const { return (ParseNode_Production*)m_RootNode; }
 
-	protected:
-		void AddNodeToTree(ParseNode* Parent, ParseNode* Child);*/
+		protected:
+			void AddNodeToTree(ParseNode* Parent, ParseNode* Child);*/
 	};
 
 }

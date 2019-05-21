@@ -14,6 +14,7 @@
 
 #include "Lexer/Lexer.h"
 #include "Lexer/LexerFactory.h"
+#include "Parser/ParserFactory.h"
 #include "Lexer/RegExp.h"
 #include "Lexer/Automaton/Automaton.h"
 #include "Parser/ParserConfig.h"
@@ -22,6 +23,10 @@
 #include "Generator/CodeGenerator.h"
 #include "Core.h"
 #include "App.h"
+
+#include "Test/TestLexer.h"
+#include "Test/TestParser.h"
+#include "Test/TestVisitor.h"
 
 namespace ParserGenerator {
 
@@ -34,6 +39,7 @@ namespace ParserGenerator {
 		);
 		return os;
 	}
+	
 
 
 	int App::main()
@@ -101,12 +107,12 @@ namespace ParserGenerator {
 		ParsConfig.AddProduction("F", { "NUM" });
 		ParsConfig.AddProduction("F", { "LEFTBRACKET", "E", "RIGHTBRACKET" });
 
-		Parser pars(&ParsConfig);
+		/*Parser pars(&ParsConfig);
 		ParseTree* Tree = pars.BuildTree(TokenList);
 
 		Visitor vis = Visitor();
 		vis.AddFunctionPointer();
-		vis.Visit((RuleNode*)Tree);
+		vis.Visit((RuleNode*)Tree);*/
 
 		/*
 		float Result = Visitor().Visit(Tree->GetRootNode());
@@ -114,7 +120,7 @@ namespace ParserGenerator {
 	*/
 		std::cin.get();
 
-		delete Tree;
+		//delete Tree;
 		//delete vis;
 
 		return 0;
@@ -148,27 +154,75 @@ namespace ParserGenerator {
 		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);
 
 		Lexer* lex = new Lexer(&LexConfig);
+		LexerFactory::Serialize(lex, "res/Lexer.lex");
 
 		std::cout << "Input of \"" << SourceCode << "\"" << std::endl << "results in:" << std::endl;
 		std::vector<Token*> TokenList = lex->Tokenize(SourceCode);
-		std::cout << TokenList << std::endl;
+		std::cout << TokenList << std::endl << std::endl;
 
 		delete lex;
 
-		/*ParserConfig ParsConfig("S");
-		ParsConfig.AddProduction("S", { "E" });
+		ParserConfig ParsConfig("rulelist");
+		ParsConfig.AddProduction("rulelist", { "parserrule", "rulelist" });
+		ParsConfig.AddProduction("rulelist", { "lexerrule", "rulelist" });
+		ParsConfig.AddProduction("rulelist", { Automaton::EPSILON_S });
 
-		ParsConfig.AddProduction("E", { "E", "PLUS", "T" });
-		ParsConfig.AddProduction("E", { "T" });
+		ParsConfig.AddProduction("parserrule", { "PARSERID", "COLON", "parseror", "SEMICOLON" });
 
-		ParsConfig.AddProduction("T", { "T", "TIMES", "F" });
-		ParsConfig.AddProduction("T", { "F" });
+		ParsConfig.AddProduction("parseror", { "parserlist", "parseror2" });
+		ParsConfig.AddProduction("parseror2", { "PIPE", "parseror2" });
+		ParsConfig.AddProduction("parseror2", { Automaton::EPSILON_S });
 
-		ParsConfig.AddProduction("F", { "NUM" });
-		ParsConfig.AddProduction("F", { "LEFTBRACKET", "E", "RIGHTBRACKET" });
+		ParsConfig.AddProduction("parserlist", { "parserconst",  "parserlist2" });
+		ParsConfig.AddProduction("parserlist2", { "parserconst", "parserlist2" });
+		ParsConfig.AddProduction("parserlist2", { Automaton::EPSILON_S });
 
-		Parser pars(&ParsConfig);
-		ParseTree* Tree = pars.BuildTree(TokenList);*/
+		ParsConfig.AddProduction("parserconst", { "LEXERID" });
+		ParsConfig.AddProduction("parserconst", { "PARSERID" });
+		ParsConfig.AddProduction("parserconst", { "LITERAL" });
+		ParsConfig.AddProduction("parserconst", { "LP", "parseror", "RP" });
+
+
+
+		ParsConfig.AddProduction("lexerrule", { "LEXERID", "COLON" ,"regex", "action", "SEMICOLON" });
+
+		ParsConfig.AddProduction("action", { "ARROW" "PARSERID" });
+		ParsConfig.AddProduction("action", { Automaton::EPSILON_S });
+
+		ParsConfig.AddProduction("regex", { "lexeror", "regex" });
+		ParsConfig.AddProduction("regex", { Automaton::EPSILON_S });
+
+		ParsConfig.AddProduction("lexeror", { "operator", "lexeror2" });
+		ParsConfig.AddProduction("lexeror2", { "PIPE", "lexeror" });
+		ParsConfig.AddProduction("lexeror2", { Automaton::EPSILON_S });
+
+		ParsConfig.AddProduction("operator", { "lexerconst", "operator2" });
+		ParsConfig.AddProduction("operator2", { "anytime" });
+		ParsConfig.AddProduction("operator2", { "once" });
+		ParsConfig.AddProduction("operator2", { "optional" });
+		ParsConfig.AddProduction("operator2", { Automaton::EPSILON_S });
+
+		ParsConfig.AddProduction("anytime", { "STAR" });
+		ParsConfig.AddProduction("once", { "PLUS" });
+		ParsConfig.AddProduction("optional", { "QUESTIONMARK" });
+
+		ParsConfig.AddProduction("lexerconst", { "LP", "regex", "RP" });
+		//ParsConfig.AddProduction("lexerconst", { "range" });
+		ParsConfig.AddProduction("lexerconst", { "LEXERID" });
+		ParsConfig.AddProduction("lexerconst", { "DOT" });
+		ParsConfig.AddProduction("lexerconst", { "CHARSET" });
+		ParsConfig.AddProduction("lexerconst", { "LITERAL" });
+
+		//ParsConfig.AddProduction("range", { "LITERAL", ".." ,"LITERAL" });
+
+		//Parser pars(&ParsConfig);
+		//ParserFactory::Serialize(&pars, "res/Parser.par");
+		//ParseTree* Tree = pars.BuildTree(TokenList);
+
+		TestParser* Parser = new TestParser(TokenList);
+		Rule_parserrule* ParseTree;
+		Parser->Parserrule(ParseTree);
+		delete ParseTree;
 	}
 
 }

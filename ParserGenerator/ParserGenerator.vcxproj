@@ -119,11 +119,15 @@
     <ClInclude Include="src\Parser\ParserConfig.h" />
     <ClInclude Include="src\Parser\ParsingTable.h" />
     <ClInclude Include="src\Parser\Visitor.h" />
+    <ClInclude Include="src\Test\TestRules.h" />
+    <ClInclude Include="src\Test\TestAlphabet.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Lexer\Automaton\State.h" />
     <ClInclude Include="src\Lexer\Automaton\Transition.h" />
     <ClInclude Include="src\Parser\ParseTree\TokenNode.h" />
     <ClInclude Include="src\Test\TestLexer.h" />
+    <ClInclude Include="src\Test\TestParser.h" />
+    <ClInclude Include="src\Test\TestVisitor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Parser\ParserFactory.cpp" />
@@ -148,6 +152,8 @@
     <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
     <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp" />
     <ClCompile Include="src\Test\TestLexer.cpp" />
+    <ClCompile Include="src\Test\TestParser.cpp" />
+    <ClCompile Include="src\Test\TestVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GrammarParser.txt" />

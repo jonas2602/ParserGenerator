@@ -24,14 +24,14 @@ namespace ParserGenerator {
 
 	int RuleNode::GetChildCount() const
 	{
-		return m_Children.size();
+		return (int)m_Children.size();
 	}
 
 	void RuleNode::SetParent(ParseTree* InParent)
 	{
 	}
 
-	std::vector<TokenNode*> RuleNode::GetTokens(const std::string& TokenType) const
+	std::vector<TokenNode*> RuleNode::GetTokens(int TokenType) const
 	{
 		std::vector<TokenNode*> OutTokens;
 		for (ParseTree* Child : m_Children)
@@ -46,7 +46,7 @@ namespace ParserGenerator {
 		return OutTokens;
 	}
 
-	TokenNode* RuleNode::GetToken(const std::string& TokenType, int Index) const
+	TokenNode* RuleNode::GetToken(int TokenType, int Index) const
 	{
 		// Index out of bounds
 		if (Index < 0 || Index >= m_Children.size())
@@ -68,6 +68,7 @@ namespace ParserGenerator {
 			}
 		}
 
+		return nullptr;
 	}
 
 	TokenNode* RuleNode::AddChild(Token* InToken)

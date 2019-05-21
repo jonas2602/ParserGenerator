@@ -3,14 +3,19 @@
 
 namespace ParserGenerator {
 
-	Token::Token(const std::string& InData, std::string InType, int InPriority, int InLineNumber, int InColumnNumber)
-		: m_Data(InData), m_Type(InType), m_Priority(InPriority), m_LineNumber(InLineNumber), m_ColumnNumber(InColumnNumber)
+	const std::string Token::EOS = "EOS";
+	Token* Token::EOS_TOKEN = new Token("\0", Token::EOS, -1, -1, -1);
+
+	Token::Token(const std::string& InData, const std::string& InName, int InType, int InLineNumber, int InColumnNumber)
+		: m_Data(InData), m_Name(InName), m_Type(InType), m_LineNumber(InLineNumber), m_ColumnNumber(InColumnNumber)
 	{
+
 	}
 
 
 	Token::~Token()
 	{
+
 	}
 
 }

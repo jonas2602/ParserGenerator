@@ -20,8 +20,11 @@ namespace ParserGenerator {
 		virtual void SetParent(ParseTree* InParent) override;
 
 	public:
-		std::vector<TokenNode*> GetTokens(const std::string& TokenType) const;
-		TokenNode* GetToken(const std::string& TokenType, int Index) const;
+		virtual int GetRuleType() const = 0;
+
+	public:
+		std::vector<TokenNode*> GetTokens(int TokenType) const;
+		TokenNode* GetToken(int TokenType, int Index) const;
 
 		template<typename T>
 		T* GetRule(int Index) const;

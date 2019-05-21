@@ -8,4 +8,4 @@
 [NonTerminal] [Terminal] [Rule]
 
 4. Rules
-[NonTerminal] -> { [Element], ... }
+[NonTerminal Rule Index] [NonTerminal] -> { [Element], ... }

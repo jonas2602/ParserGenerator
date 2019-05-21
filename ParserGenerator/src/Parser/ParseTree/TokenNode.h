@@ -25,8 +25,8 @@ namespace ParserGenerator {
 		const std::string& GetText() const { return m_Token->GetTokenData(); }
 		Token* GetSymbol() const { return m_Token; }
 
-		const std::string& GetTokenType() const;
-		bool IsTokenType(const std::string& InTokenType) const;
+		int GetTokenType() const;
+		bool IsTokenType(int InTokenType) const;
 	};
 
 }

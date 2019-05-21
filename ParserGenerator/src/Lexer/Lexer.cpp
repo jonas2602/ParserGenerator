@@ -102,6 +102,9 @@ namespace ParserGenerator {
 			ActiveSymbolIndex = StartingPoint;
 		}
 
+		// Push EOF Token to the End
+		TokenList.push_back(Token::EOS_TOKEN);
+
 		return TokenList;
 	}
 }

@@ -1,6 +1,7 @@
 #include "ParsingTable.h"
 #include "../Utils/Math.h"
 #include "../Lexer/StateMachine.h"
+#include "../Lexer/Token.h"
 #include <iostream>
 
 namespace ParserGenerator {
@@ -59,6 +60,28 @@ namespace ParserGenerator {
 		std::map<std::string, FirstFollowSet> FirstFollowMap;
 		CreateFirstFollowTable(FirstFollowMap);
 
+		/*for (const std::string& NonTerminal : m_Config->GetNonTerminals())
+		{
+			const FirstFollowSet& FFSet = FirstFollowMap[NonTerminal];
+
+			std::cout << NonTerminal << " -> NULLABLE: " << FFSet.m_bNullable << " FIRST: {";
+
+			for (const std::string& First : FFSet.m_FirstSet)
+			{
+				std::cout << " " << First;
+			}
+
+			std::cout << " }, FOLLOW: {";
+
+
+			for (const std::string& Follow : FFSet.m_FollowSet)
+			{
+				std::cout << " " << Follow;
+			}
+
+			std::cout << " }" << std::endl;
+		}*/
+
 		// Fill Actual Table that is used for parsing
 		FillPredictionTable(FirstFollowMap);
 	}
@@ -83,7 +106,7 @@ namespace ParserGenerator {
 		}
 
 		// Add End of Stream Token to the Start Production
-		OutFirstFollowMap[m_Config->GetStartNonTerminal()].AddFollowElement(ParserConfig::EOS);
+		OutFirstFollowMap[m_Config->GetStartNonTerminal()].AddFollowElement(Token::EOS);
 
 		bool bChanged = true;
 		while (bChanged)
@@ -162,7 +185,6 @@ namespace ParserGenerator {
 		}
 	}
 
-
 	void ParsingTable::FillPredictionTable(std::map<std::string, FirstFollowSet>& FirstFollowMap)
 	{
 		// Create Predictive Parsing Table
@@ -170,21 +192,25 @@ namespace ParserGenerator {
 		{
 			for (ParserConfigElement* Production : m_Config->GetAllProductionsForNonTerminal(NonTerminal))
 			{
+				// Get First Element of the current Production
 				const std::string& StartToken = Production->GetTokenClassAtIndex(0);
 				if (m_Config->IsNonTerminal(StartToken))
 				{
+					// If Element is Non Terminal ...
+					// ... add all first elements of this nonterminal as reachable with the current production
 					for (const std::string& First : FirstFollowMap[StartToken].m_FirstSet)
 					{
 						SetProduction(NonTerminal, First, Production);
-						//printf("(%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), First.c_str());
+						//printf("NonTerminal First (%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), First.c_str());
 					}
 
+					// ... and all follow elements if the nonterminal if it is nullable
 					if (FirstFollowMap[StartToken].m_bNullable)
 					{
 						for (const std::string& Follow : FirstFollowMap[StartToken].m_FollowSet)
 						{
 							SetProduction(NonTerminal, Follow, Production);
-							//printf("(%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), Follow.c_str());
+							//printf("NonTerminal Follow (%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), Follow.c_str());
 						}
 					}
 				}
@@ -193,13 +219,13 @@ namespace ParserGenerator {
 					for (const std::string& Follow : FirstFollowMap[NonTerminal].m_FollowSet)
 					{
 						SetProduction(NonTerminal, Follow, Production);
-						//printf("(%s, EPSILON) -> %s\n", NonTerminal.c_str(), Follow.c_str());
+						//printf("Epsilon (%s, EPSILON) -> %s\n", NonTerminal.c_str(), Follow.c_str());
 					}
 				}
 				else
 				{
 					SetProduction(NonTerminal, StartToken, Production);
-					//printf("(%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), StartToken.c_str());
+					//printf("Terminal (%s, %s) -> %s\n", NonTerminal.c_str(), StartToken.c_str(), StartToken.c_str());
 				}
 			}
 		}
@@ -218,6 +244,11 @@ namespace ParserGenerator {
 	ParserConfigElement* ParsingTable::GetProduction(const std::string& NonTerminal, const std::string& Token)
 	{
 		return m_PredictionMap[NonTerminal][Token];
+	}
+
+	int ParsingTable::GetProductionIndex(int Terminal, int NonTerminal) const
+	{
+		return 0;
 	}
 
 }

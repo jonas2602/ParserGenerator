@@ -21,10 +21,6 @@ namespace ParserGenerator {
 
 	class ParserConfig
 	{
-	public:
-		// End Of Stream Token Type
-		static const std::string EOS;
-
 	protected:
 		std::string m_StartNonTerminal;
 		std::vector<ParserConfigElement*> m_ProductionList;

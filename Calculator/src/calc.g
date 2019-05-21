@@ -30,3 +30,5 @@ CHARSET: '~'?'['~[\]\\]*('\\'.~[\]\\]*)*']';
 QUESTIONMARK: '?';
 ARROW: '->';
 LEXERID: [A-Z][a-zA-Z0-9_]*;
+
+WS: [ \n\t\r]+ -> skip;

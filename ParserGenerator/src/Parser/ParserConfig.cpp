@@ -1,11 +1,11 @@
 #include "ParserConfig.h"
 #include "../Lexer/StateMachine.h"
 #include "../Lexer/RegExp.h"
+#include <iostream>
 
 
 namespace ParserGenerator {
 
-	const std::string ParserConfig::EOS = "EOS";
 
 
 	ParserConfig::ParserConfig(const std::string& InStartNonTerminal)
@@ -104,6 +104,23 @@ namespace ParserGenerator {
 		m_NonTerminals = NewNonTerminalSet;
 
 		// Eliminate Left Factoring
+		for (const std::string& NonTerminal : GetNonTerminals())
+		{
+			std::set<std::string> FirstList;
+
+			// Divide rules in Sets of Alphas and Gammas
+			const std::vector<ParserConfigElement*>& ElementRuleList = GetAllProductionsForNonTerminal(NonTerminal);
+			for (ParserConfigElement* Rule : ElementRuleList)
+			{
+				const std::string& First = Rule->GetTokenClassAtIndex(0);
+				if (FirstList.find(First) != FirstList.end())
+				{
+					std::cout << "Detected Left Factoring in " << NonTerminal << " with start symbol " << First << std::endl;
+				}
+
+				FirstList.insert(First);
+			}
+		}
 	}
 
 	std::vector<ParserConfigElement*> ParserConfig::GetAllProductionsForNonTerminal(const std::string& NonTerminal) const

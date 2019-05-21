@@ -36,12 +36,12 @@ namespace ParserGenerator {
 		m_Parent = InParent;
 	}
 
-	const std::string& TokenNode::GetTokenType() const
+	int TokenNode::GetTokenType() const
 	{
 		return m_Token->GetTokenType();
 	}
 
-	bool TokenNode::IsTokenType(const std::string& InTokenType) const
+	bool TokenNode::IsTokenType(int InTokenType) const
 	{
 		return m_Token->GetTokenType() == InTokenType;
 	}
