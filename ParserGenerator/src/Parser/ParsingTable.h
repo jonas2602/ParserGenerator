@@ -32,6 +32,7 @@ namespace ParserGenerator {
 
 	public:
 		ParsingTable(ParserConfig* InConfig);
+		ParsingTable(const std::map<int, std::map<int, int>>& InPredictionMap);
 		~ParsingTable();
 
 	protected:
@@ -43,6 +44,7 @@ namespace ParserGenerator {
 		ParserConfigElement* GetProduction(const std::string& NonTerminal, const std::string& Token);
 		int GetProductionIndex(int Terminal, int NonTerminal) const;
 		const std::map<std::string, std::map<std::string, ParserConfigElement*>>& GetProductionMap() const { return m_PredictionMap; }
+		ParserConfig* GetParserConfig() const { return m_Config; }
 	};
 
 }

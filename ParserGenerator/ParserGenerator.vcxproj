@@ -98,6 +98,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ParserBuilder.h" />
     <ClInclude Include="src\Parser\ParserFactory.h" />
     <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
     <ClInclude Include="src\Lexer\LexerFactory.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="src\Test\TestVisitor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ParserBuilder.cpp" />
     <ClCompile Include="src\Parser\ParserFactory.cpp" />
     <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
     <ClCompile Include="src\Lexer\LexerFactory.cpp" />

@@ -17,5 +17,8 @@ public:
 	bool Parserlist(Rule_parserlist*& OutRule);
 	bool Parserlist2(Rule_parserlist2*& OutRule);
 	bool Parserconst(Rule_parserconst*& OutRule);
+
+protected:
+	virtual std::string GetSerializedTable() const override;
 };
 

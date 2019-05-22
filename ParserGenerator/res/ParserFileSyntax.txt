@@ -9,3 +9,8 @@
 
 4. Rules
 [NonTerminal Rule Index] [NonTerminal] -> { [Element], ... }
+
+##################################################################################
+
+Parser only returns the Table Entries, stacked in a single line
+[NonTerminal] [Terminal] [Rule] [NonTerminal] [Terminal] [Rule] [NonTerminal] [Terminal] [Rule] ...

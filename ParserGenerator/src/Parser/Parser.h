@@ -32,6 +32,7 @@ namespace ParserGenerator {
 
 	protected:
 		void LoadParsingTable();
+		virtual std::string GetSerializedTable() const = 0;
 
 		void EnterRule(RuleNode* Rule);
 		void ExitRule(RuleNode* Rule);

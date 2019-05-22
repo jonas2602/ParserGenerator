@@ -75,6 +75,7 @@
     <ClInclude Include="src\Test\TestVisitor.h" />
     <ClInclude Include="src\Test\TestAlphabet.h" />
     <ClInclude Include="src\Test\TestRules.h" />
+    <ClInclude Include="ParserBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="src\Parser\ParserFactory.cpp" />
     <ClCompile Include="src\Test\TestParser.cpp" />
     <ClCompile Include="src\Test\TestVisitor.cpp" />
+    <ClCompile Include="ParserBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GrammarParser.txt" />

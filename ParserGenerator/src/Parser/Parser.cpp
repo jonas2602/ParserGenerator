@@ -5,6 +5,7 @@
 
 #include "Parser.h"
 #include "ParseTree/RuleNode.h"
+#include "ParserFactory.h"
 
 namespace ParserGenerator {
 
@@ -33,7 +34,8 @@ namespace ParserGenerator {
 
 	void Parser::LoadParsingTable()
 	{
-
+		std::string TableString = GetSerializedTable();
+		ParserFactory::Deserialize(m_Table, TableString);
 	}
 
 	void Parser::EnterRule(RuleNode* Rule)
@@ -63,7 +65,7 @@ namespace ParserGenerator {
 	bool Parser::Match(int TokenType)
 	{
 		Token* NextToken = (*m_TokenIterator);
-		if(NextToken->GetTokenType() == TokenType)
+		if (NextToken->GetTokenType() == TokenType)
 		{
 			RuleNode* TopRule = m_RuleStack.top();
 			TopRule->AddChild(NextToken);

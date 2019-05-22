@@ -86,6 +86,9 @@ namespace ParserGenerator {
 		FillPredictionTable(FirstFollowMap);
 	}
 
+	ParsingTable::ParsingTable(const std::map<int, std::map<int, int>>& InPredictionMap)
+	{
+	}
 
 	ParsingTable::~ParsingTable()
 	{
