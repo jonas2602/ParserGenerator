@@ -31,9 +31,6 @@
     <ClInclude Include="src\Lexer\Lexer.h">
       <Filter>Lexer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Lexer\LexerConfig.h">
-      <Filter>Lexer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Lexer\RegExp.h">
       <Filter>Lexer</Filter>
     </ClInclude>
@@ -45,9 +42,6 @@
     </ClInclude>
     <ClInclude Include="src\Parser.h" />
     <ClInclude Include="src\Parser\Parser.h">
-      <Filter>Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParserConfig.h">
       <Filter>Parser</Filter>
     </ClInclude>
     <ClInclude Include="src\Parser\ParsingTable.h">
@@ -75,7 +69,18 @@
     <ClInclude Include="src\Test\TestVisitor.h" />
     <ClInclude Include="src\Test\TestAlphabet.h" />
     <ClInclude Include="src\Test\TestRules.h" />
-    <ClInclude Include="ParserBuilder.h" />
+    <ClInclude Include="src\Builder\ParserBuilder.h" />
+    <ClInclude Include="src\Lexer\LexerConfig.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParserConfig.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Builder\FirstFollowTable.h" />
+    <ClInclude Include="src\ParserTypes.h" />
+    <ClInclude Include="src\Builder\Alphabet.h" />
+    <ClInclude Include="src\Builder\ParserSerializer.h" />
+    <ClInclude Include="src\Test\TestVisitorBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -91,9 +96,6 @@
     <ClCompile Include="src\Lexer\Lexer.cpp">
       <Filter>Lexer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Lexer\LexerConfig.cpp">
-      <Filter>Lexer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Lexer\RegExp.cpp">
       <Filter>Lexer</Filter>
     </ClCompile>
@@ -104,9 +106,6 @@
       <Filter>Lexer</Filter>
     </ClCompile>
     <ClCompile Include="src\Parser\Parser.cpp">
-      <Filter>Parser</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Parser\ParserConfig.cpp">
       <Filter>Parser</Filter>
     </ClCompile>
     <ClCompile Include="src\Parser\ParsingTable.cpp">
@@ -128,7 +127,16 @@
     <ClCompile Include="src\Parser\ParserFactory.cpp" />
     <ClCompile Include="src\Test\TestParser.cpp" />
     <ClCompile Include="src\Test\TestVisitor.cpp" />
-    <ClCompile Include="ParserBuilder.cpp" />
+    <ClCompile Include="src\Builder\ParserBuilder.cpp" />
+    <ClCompile Include="src\Lexer\LexerConfig.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParserConfig.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Builder\FirstFollowTable.cpp" />
+    <ClCompile Include="src\Builder\Alphabet.cpp" />
+    <ClCompile Include="src\Builder\ParserSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GrammarParser.txt" />

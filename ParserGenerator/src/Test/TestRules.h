@@ -45,15 +45,6 @@ public:
 public:
 };
 
-class Rule_parserlist2 : public ParserGenerator::RuleNode
-{
-public:
-	// Inherited via RuleNode
-	virtual int GetRuleType() const override { return ERuleType::PARSERLIST2; }
-
-public:
-};
-
 class Rule_parserconst : public ParserGenerator::RuleNode
 {
 public:

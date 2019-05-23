@@ -2,9 +2,10 @@
 
 #include <sstream>
 #include <deque>
+#include <iostream>
 
 #include "../../Utils/Math.h"
-#include <iostream>
+#include "../../ParserTypes.h"
 
 namespace ParserGenerator::Automaton {
 
@@ -67,6 +68,11 @@ namespace ParserGenerator::Automaton {
 
 		// TODO: Check if state from this state machine
 		m_StartState = StartState;
+	}
+
+	void DFA::SetStartState(const std::string& StartStateName)
+	{
+		SetStartState(m_StateMap[StartStateName]);
 	}
 
 	State* DFA::Step(State* InState, const char& Symbol) const

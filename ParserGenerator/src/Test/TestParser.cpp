@@ -7,6 +7,7 @@
 TestParser::TestParser(const std::vector<ParserGenerator::Token*>& TokenStream)
 	: Parser(TokenStream)
 {
+	LoadParsingTable();
 }
 
 
@@ -50,6 +51,7 @@ bool TestParser::Parseror2(Rule_parseror2*& OutRule)
 		case 0:
 		{
 			TRY_MATCH(ETokenType::PIPE);
+			CALL_CHILD(Parserlist, Rule_parserlist);
 			CALL_CHILD(Parseror2, Rule_parseror2);
 			break;
 		}
@@ -69,24 +71,12 @@ bool TestParser::Parserlist(Rule_parserlist*& OutRule)
 	OutRule = new Rule_parserlist();
 	EnterRule(OutRule);
 
-	CALL_CHILD(Parserconst, Rule_parserconst);
-	CALL_CHILD(Parserlist2, Rule_parserlist2);
-
-	ExitRule(OutRule);
-	return true;
-}
-
-bool TestParser::Parserlist2(Rule_parserlist2*& OutRule)
-{
-	OutRule = new Rule_parserlist2();
-	EnterRule(OutRule);
-
 	switch (PredictProduction())
 	{
 		case 0:
 		{
 			CALL_CHILD(Parserconst, Rule_parserconst);
-			CALL_CHILD(Parserlist2, Rule_parserlist2);
+			CALL_CHILD(Parserlist, Rule_parserlist);
 			break;
 		}
 		case 1:
@@ -99,6 +89,30 @@ bool TestParser::Parserlist2(Rule_parserlist2*& OutRule)
 	ExitRule(OutRule);
 	return true;
 }
+
+//bool TestParser::Parserlist2(Rule_parserlist2*& OutRule)
+//{
+//	OutRule = new Rule_parserlist2();
+//	EnterRule(OutRule);
+//
+//	switch (PredictProduction())
+//	{
+//		case 0:
+//		{
+//			CALL_CHILD(Parserconst, Rule_parserconst);
+//			CALL_CHILD(Parserlist2, Rule_parserlist2);
+//			break;
+//		}
+//		case 1:
+//		{
+//			// EPSILON
+//			break;
+//		}
+//	}
+//
+//	ExitRule(OutRule);
+//	return true;
+//}
 
 bool TestParser::Parserconst(Rule_parserconst*& OutRule)
 {
@@ -137,10 +151,10 @@ bool TestParser::Parserconst(Rule_parserconst*& OutRule)
 
 std::string TestParser::GetSerializedTable() const
 {
-	return "0 0 0 0 12 1 1 13 0 2 1 3 2 3 2 2 4 1 2 5 4 2 6 0 3 1 0 3 3 0 3 4 0 3 5 0 3 6 0 4 0 1 4 1 1 " 
-		"4 3 1 4 4 1 4 5 1 4 6 1 4 8 0 4 11 1 4 12 1 5 4 0 6 9 0 7 1 0 7 3 0 7 4 0 7 5 0 7 6 0 8 0 3 8 1 3 " 
-		"8 3 3 8 4 3 8 5 3 8 6 3 8 8 3 8 9 1 8 10 2	8 11 3 8 12 3 8 13 0 9 10 0	10 4 0 10 5 2 10 6 3 10 7 1	" 
-		"11 4 0	11 5 0 11 6 0 11 7 0 12 4 0 12 5 0 12 6 0 12 7 0 12 8 1 12 11 1 12 12 1 13 4 0 13 5 0 13 6 0 "
-		"13 7 0	14 8 0 14 11 1 14 12 1 15 7 0 16 0 1 16 1 0 16 3 0 16 4 0 16 5 0 16 6 0 16 11 1 16 12 1 17 0 2 " 
-		"17 4 1 17 7 0 ";
+	return "0 4 0 0 12 1 1 7 0 2 3 1 2 6 3 2 9 2 2 10 4 2 16 0 3 3 0 3 6 0 3 9 0 3 10 0 3 16 0 4 3 1 4 4 1 "
+		"4 6 1 4 9 1 4 10 1 4 12 1 4 14 0 4 15 1 4 16 1 5 3 0 6 8 0 7 3 0 7 6 0 7 9 0 7 10 0 7 16 0 8 3 "
+		"3 8 4 3 8 5 2 8 6 3 8 7 0 8 8 1 8 9 3 8 10 3 8 12 3 8 14 3 8 15 3 8 16 3 9 5 0 10 3 0 10 10 2 10 "
+		"11 1 10 16 3 11 3 0 11 10 0 11 11 0 11 12 1 11 14 1 11 15 1 11 16 0 12 3 0 12 10 0 12 11 0 12 12 "
+		"0 12 14 0 12 15 0 12 16 0 13 12 1 13 14 0 13 15 1 14 11 0 15 3 0 15 4 1 15 6 0 15 9 0 15 10 0 15 "
+		"12 1 15 15 1 15 16 0 16 3 1 16 11 0";
 }

@@ -1,13 +1,14 @@
 #pragma once
 
-#include "TestRules.h"
-#include "../Parser/Visitor.h"
+#include "TestVisitorBase.h"
 
-template<typename T>
-class TestVisitor : public ParserGenerator::Visitor
+class TestVisitor : public TestVisitorBase<int>
 {
 public:
-	virtual void VisitRule_parser(Rule_parserrule* rule) = 0;
-	virtual void VisitRule_parseror(Rule_parseror* rule) = 0;
+	virtual int VisitRule_parserrule(Rule_parserrule* Context) override;
+	virtual int VisitRule_parseror(Rule_parseror* Context) override;
+	virtual int VisitRule_parseror2(Rule_parseror2* Context) override;
+	virtual int VisitRule_parserlist(Rule_parserlist* Context) override;
+	virtual int VisitRule_parserconst(Rule_parserconst* Context) override;
 };
 

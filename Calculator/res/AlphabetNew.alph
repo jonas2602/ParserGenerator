@@ -1,0 +1,40 @@
+Avaliable Tokens:
+[Index] [Name]
+0 WS
+1 BLOCKCOMMENT
+2 LINECOMMENT
+3 LEXERID
+4 ARROW
+5 QUESTIONMARK
+6 CHARSET
+7 STAR
+8 PLUS
+9 DOT
+10 LITERAL
+11 PARSERID
+12 SEMICOLON
+13 COLON
+14 PIPE
+15 RIGHTPARENTHESE
+16 LEFTPARENTHESE
+
+Avaliable Non Terminals:
+[Index] [Name]
+0 action
+1 anytime
+2 lexerconst
+3 lexeror
+4 lexeror2
+5 lexerrule
+6 once
+7 operator
+8 operator2
+9 optional
+10 parserconst
+11 parserlist
+12 parseror
+13 parseror2
+14 parserrule
+15 regex
+16 rulelist
+

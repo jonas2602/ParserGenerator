@@ -60,6 +60,8 @@ namespace ParserGenerator {
 				}
 			}
 		}
+
+		return nullptr;
 	}
 
 	template<typename T>

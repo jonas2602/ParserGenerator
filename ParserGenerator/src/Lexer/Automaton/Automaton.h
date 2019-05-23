@@ -6,10 +6,7 @@
 #include "Transition.h"
 
 namespace ParserGenerator::Automaton {
-
-	static const char EPSILON = '§';
-	static const std::string EPSILON_S = "§";
-
+	
 	class Automaton
 	{
 	protected:
@@ -24,6 +21,7 @@ namespace ParserGenerator::Automaton {
 
 		const std::map<std::string, State*>& GetStateMap() const { return m_StateMap; }
 		const std::vector<Transition*>& GetTransitions() const { return m_Transitions; }
+		int GetStateCount() const { return (int)m_StateMap.size(); }
 
 	public:
 		State* CreateNewState(const std::string& StateName = "", const int& Priority = -1);
@@ -41,6 +39,7 @@ namespace ParserGenerator::Automaton {
 	public:
 		State* GetStartState() const { return m_StartState; }
 		void SetStartState(State* StartState);
+		void SetStartState(const std::string& StartStateName);
 
 	public:
 		State* Step(State* InState, const char& Symbol) const;

@@ -15,7 +15,7 @@ public:
 	bool Parseror(Rule_parseror*& OutRule);
 	bool Parseror2(Rule_parseror2*& OutRule);
 	bool Parserlist(Rule_parserlist*& OutRule);
-	bool Parserlist2(Rule_parserlist2*& OutRule);
+	//bool Parserlist2(Rule_parserlist2*& OutRule);
 	bool Parserconst(Rule_parserconst*& OutRule);
 
 protected:

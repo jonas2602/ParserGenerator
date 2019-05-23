@@ -23,10 +23,12 @@
 #include "Generator/CodeGenerator.h"
 #include "Core.h"
 #include "App.h"
+#include "ParserTypes.h"
 
 #include "Test/TestLexer.h"
 #include "Test/TestParser.h"
 #include "Test/TestVisitor.h"
+#include "Builder/ParserBuilder.h"
 
 namespace ParserGenerator {
 
@@ -39,7 +41,7 @@ namespace ParserGenerator {
 		);
 		return os;
 	}
-	
+
 
 
 	int App::main()
@@ -70,13 +72,13 @@ namespace ParserGenerator {
 		LexConfig.Add("NUM", new RegExp(RegExp::PLUS(RegExp::RANGE('0', '9'))));																				// [0-9]+
 		//LexConfig.Add("Word", new RegExp(RegExp::PLUS(RegExp::OR(RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z')))));										// [a-zA-Z]+
 		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::OR({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);							// [ \t\r\n]+
-		Lexer lex = Lexer(&LexConfig);
+		/*Lexer lex = Lexer(&LexConfig);
 
 		std::string SourceCode = "123  + 123";
 		std::cout << "Input of \"" << SourceCode << "\" results in:" << std::endl;
 
 		std::vector<Token*> TokenList = lex.Tokenize(SourceCode);
-		std::cout << TokenList << std::endl;
+		std::cout << TokenList << std::endl;*/
 
 		/*ParserConfig ParsConfig("S");
 		ParsConfig.AddProduction("S", { "A" });
@@ -153,60 +155,64 @@ namespace ParserGenerator {
 		LexConfig.Add("BLOCKCOMMENT", new RegExp(RegExp::AND({ RegExp::CONST('/'), RegExp::PLUS('*'), RegExp::STAR(RegExp::AND({RegExp::EXCEPT({'/','*'}), RegExp::STAR(RegExp::EXCEPT({'*'})),RegExp::PLUS('*') })), RegExp::CONST('/') })), ELexerAction::SKIP);
 		LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);
 
-		Lexer* lex = new Lexer(&LexConfig);
+		/*Lexer* lex = new Lexer(&LexConfig);
 		LexerFactory::Serialize(lex, "res/Lexer.lex");
 
 		std::cout << "Input of \"" << SourceCode << "\"" << std::endl << "results in:" << std::endl;
 		std::vector<Token*> TokenList = lex->Tokenize(SourceCode);
 		std::cout << TokenList << std::endl << std::endl;
 
-		delete lex;
+		delete lex;*/
 
 		ParserConfig ParsConfig("rulelist");
 		ParsConfig.AddProduction("rulelist", { "parserrule", "rulelist" });
 		ParsConfig.AddProduction("rulelist", { "lexerrule", "rulelist" });
-		ParsConfig.AddProduction("rulelist", { Automaton::EPSILON_S });
+		ParsConfig.AddProduction("rulelist", { EPSILON_S });
 
 		ParsConfig.AddProduction("parserrule", { "PARSERID", "COLON", "parseror", "SEMICOLON" });
 
 		ParsConfig.AddProduction("parseror", { "parserlist", "parseror2" });
-		ParsConfig.AddProduction("parseror2", { "PIPE", "parseror2" });
-		ParsConfig.AddProduction("parseror2", { Automaton::EPSILON_S });
+		ParsConfig.AddProduction("parseror2", { "PIPE", "parserlist", "parseror2" });
+		//ParsConfig.AddProduction("parseror2", { "PIPE", "parseror2" });
+		ParsConfig.AddProduction("parseror2", { EPSILON_S });
 
-		ParsConfig.AddProduction("parserlist", { "parserconst",  "parserlist2" });
-		ParsConfig.AddProduction("parserlist2", { "parserconst", "parserlist2" });
-		ParsConfig.AddProduction("parserlist2", { Automaton::EPSILON_S });
+		//ParsConfig.AddProduction("parserlist", { "parserconst",  "parserlist2" });
+		//ParsConfig.AddProduction("parserlist2", { "parserconst", "parserlist2" });
+		//ParsConfig.AddProduction("parserlist2", { EPSILON_S });
+
+		ParsConfig.AddProduction("parserlist", { "parserconst",  "parserlist" });
+		ParsConfig.AddProduction("parserlist", { EPSILON_S });
 
 		ParsConfig.AddProduction("parserconst", { "LEXERID" });
 		ParsConfig.AddProduction("parserconst", { "PARSERID" });
 		ParsConfig.AddProduction("parserconst", { "LITERAL" });
-		ParsConfig.AddProduction("parserconst", { "LP", "parseror", "RP" });
+		ParsConfig.AddProduction("parserconst", { "LEFTPARENTHESE", "parseror", "RIGHTPARENTHESE" });
 
 
 
 		ParsConfig.AddProduction("lexerrule", { "LEXERID", "COLON" ,"regex", "action", "SEMICOLON" });
 
-		ParsConfig.AddProduction("action", { "ARROW" "PARSERID" });
-		ParsConfig.AddProduction("action", { Automaton::EPSILON_S });
+		ParsConfig.AddProduction("action", { "ARROW", "PARSERID" });
+		ParsConfig.AddProduction("action", { EPSILON_S });
 
 		ParsConfig.AddProduction("regex", { "lexeror", "regex" });
-		ParsConfig.AddProduction("regex", { Automaton::EPSILON_S });
+		ParsConfig.AddProduction("regex", { EPSILON_S });
 
 		ParsConfig.AddProduction("lexeror", { "operator", "lexeror2" });
 		ParsConfig.AddProduction("lexeror2", { "PIPE", "lexeror" });
-		ParsConfig.AddProduction("lexeror2", { Automaton::EPSILON_S });
+		ParsConfig.AddProduction("lexeror2", { EPSILON_S });
 
 		ParsConfig.AddProduction("operator", { "lexerconst", "operator2" });
 		ParsConfig.AddProduction("operator2", { "anytime" });
 		ParsConfig.AddProduction("operator2", { "once" });
 		ParsConfig.AddProduction("operator2", { "optional" });
-		ParsConfig.AddProduction("operator2", { Automaton::EPSILON_S });
+		ParsConfig.AddProduction("operator2", { EPSILON_S });
 
 		ParsConfig.AddProduction("anytime", { "STAR" });
 		ParsConfig.AddProduction("once", { "PLUS" });
 		ParsConfig.AddProduction("optional", { "QUESTIONMARK" });
 
-		ParsConfig.AddProduction("lexerconst", { "LP", "regex", "RP" });
+		ParsConfig.AddProduction("lexerconst", { "LEFTPARENTHESE", "regex", "RIGHTPARENTHESE" });
 		//ParsConfig.AddProduction("lexerconst", { "range" });
 		ParsConfig.AddProduction("lexerconst", { "LEXERID" });
 		ParsConfig.AddProduction("lexerconst", { "DOT" });
@@ -219,10 +225,28 @@ namespace ParserGenerator {
 		//ParserFactory::Serialize(&pars, "res/Parser.par");
 		//ParseTree* Tree = pars.BuildTree(TokenList);
 
-		TestParser* Parser = new TestParser(TokenList);
+		/*TestParser* Parser = new TestParser(TokenList);
 		Rule_parserrule* ParseTree;
 		Parser->Parserrule(ParseTree);
-		delete ParseTree;
+		delete ParseTree;*/
+
+		ParserBuilder builder(&ParsConfig, &LexConfig);
+
+		TestLexer* lex = new TestLexer(SourceCode);
+		const std::vector<Token*>& TokenStream = lex->GetTokenStream();
+		std::cout << TokenStream << std::endl << std::endl;
+
+		TestParser* pars = new TestParser(TokenStream);
+		Rule_parserrule* root;
+		pars->Parserrule(root);
+
+		TestVisitor* vis = new TestVisitor();
+		vis->Visit(root);
+
+		delete lex;
+		delete pars;
+		delete root;
+		delete vis;
 	}
 
 }

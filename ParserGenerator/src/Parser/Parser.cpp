@@ -23,7 +23,8 @@ namespace ParserGenerator {
 	Parser::Parser(const std::vector<Token*>& InTokenStream)
 		: m_TokenStream(InTokenStream)
 	{
-		LoadParsingTable();
+		// Call in inherited Constructor!!! because of c++ reasons^^
+		// LoadParsingTable();
 		m_TokenIterator = m_TokenStream.begin();
 	}
 

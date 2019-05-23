@@ -1,9 +1,10 @@
 #include <iostream>
+#include <algorithm>
+#include <iterator>
 
 #include "RegExp.h"
 #include "StateMachine.h"
-#include <algorithm>
-#include <iterator>
+#include "../ParserTypes.h"
 
 namespace ParserGenerator {
 
@@ -343,5 +344,5 @@ namespace ParserGenerator {
 	}
 
 	Node_BASE* RegExp::OPTIONAL(const char& Content) { return RegExp::OPTIONAL(new Node_CONST(Content)); }
-	Node_BASE* RegExp::OPTIONAL(Node_BASE * Content) { return RegExp::OR(Content, Automaton::EPSILON); }
+	Node_BASE* RegExp::OPTIONAL(Node_BASE * Content) { return RegExp::OR(Content, EPSILON); }
 }

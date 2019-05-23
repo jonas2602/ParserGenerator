@@ -3,6 +3,8 @@
 #include <string>
 #include <ostream>
 
+#include "../Core.h"
+
 namespace ParserGenerator {
 
 	class Token
@@ -21,7 +23,7 @@ namespace ParserGenerator {
 		int m_ColumnNumber;
 
 	public:
-		Token(const std::string& InData, const std::string& InName, int InType, int InLineNumber, int InColumnNumber);
+		Token(const std::string& InData, int InType, int InLineNumber, int InColumnNumber);
 		~Token();
 
 

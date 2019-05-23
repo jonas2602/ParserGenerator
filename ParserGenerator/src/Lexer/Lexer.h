@@ -8,24 +8,40 @@
 #include "LexerConfig.h"
 #include "Token.h"
 
+#include "../Core.h"
+
 namespace ParserGenerator {
 
 	class Lexer
 	{
 	protected:
 		Automaton::DFA* m_DFA;
-		std::vector<LexerConfigElement> m_TokenTypes;
+		std::set<int> m_HiddenTypes;
+
+		std::vector<Token*> m_TokenStream;
+		std::string m_SourceCode;
+		// std::vector<LexerConfigElement> m_TokenTypes;
 
 	public:
-		Lexer(LexerConfig* InConfig);
-		Lexer(Automaton::DFA* InDFA, const std::vector<LexerConfigElement>& InTokenTypes);
+		// Lexer(LexerConfig* InConfig);
+		// Lexer(Automaton::DFA* InDFA, const std::vector<LexerConfigElement>& InTokenTypes);
+		Lexer(const std::string& InSourceCode);
 		~Lexer();
 
-		Automaton::DFA* GetDFA() const { return m_DFA; }
-		const std::vector<LexerConfigElement>& GetTokenTypes() const { return m_TokenTypes; }
+		// Automaton::DFA* GetDFA() const { return m_DFA; }
+		// const std::vector<LexerConfigElement>& GetTokenTypes() const { return m_TokenTypes; }
+
+	protected:
+		void Init();
+
+		void LoadAutomaton();
+		void Tokenize();
+
+		virtual std::string GetSerializedAutomaton() const = 0;
+		virtual std::set<int> GetHiddenTokenTypes() const = 0;
 
 	public:
-		std::vector<Token*> Tokenize(const std::string& SourceCode) const;
+		const std::vector<Token*>& GetTokenStream() const { return m_TokenStream; }
 	};
 
 }

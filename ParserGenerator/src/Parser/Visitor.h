@@ -9,21 +9,29 @@
 
 namespace ParserGenerator {
 
+	template<typename T>
 	class Visitor
 	{
 	protected:
-		std::map<std::string, std::function<void(void)>> m_FunctionMap;
+		//std::map<int, std::function<void(void)>> m_FunctionMap;
 		//std::map<std::string, void (Visitor::*)()> m_FunctionMap;
 
 	public:
-		Visitor();
-		~Visitor();
+		//Visitor();
+		//~Visitor();
 
-		void AddFunctionPointer();
+		//void AddFunctionPointer();
+		//void TestFunction();
+		//float Visit(RuleNode* ProductionNode);
 
-		void TestFunction();
+		/*template<typename U>
+		T Visit(U* Context)
+		{
+			static_assert(false);
+		}*/
 
-		float Visit(RuleNode* ProductionNode);
+	protected:
+		//virtual void CreateFunctionMap() = 0;
 	};
 
 

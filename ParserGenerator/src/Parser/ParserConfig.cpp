@@ -21,7 +21,8 @@ namespace ParserGenerator {
 	void ParserConfig::AddProduction(const std::string& NonTerminal, const std::vector<std::string>& TokenClasses)
 	{
 		m_NonTerminals.insert(NonTerminal);
-		m_ProductionList.push_back(new ParserConfigElement(NonTerminal, TokenClasses));
+		int& RuleCount = m_RuleCountMap[NonTerminal];
+		m_ProductionList.push_back(new ParserConfigElement(NonTerminal, TokenClasses, RuleCount++));
 	}
 
 	void ParserConfig::FillTerminals()
@@ -37,6 +38,26 @@ namespace ParserGenerator {
 
 			}
 		}
+	}
+
+	bool ParserConfig::Validate(const std::set<std::string>& TerminalList)
+	{
+		// Fill TerminalList
+		/*m_Terminals = TerminalList;
+
+		for (ParserConfigElement* Production : m_ProductionList)
+		{
+			for (const std::string& Token : Production->m_TokenClasses)
+			{
+				if (!IsNonTerminal(Token) && !StateMachine::IsEpsilon(Token))
+				{
+					m_Terminals.insert(Token);
+				}
+
+			}
+		}*/
+
+		return true;
 	}
 
 	void ParserConfig::Normalize()
@@ -76,7 +97,7 @@ namespace ParserGenerator {
 				{
 					std::vector<std::string> NewTokenList(AlphaElement);
 					NewTokenList.push_back(NewNonTerminal);
-					ParserConfigElement* NewElement = new ParserConfigElement(NonTerminal, NewTokenList);
+					ParserConfigElement* NewElement = new ParserConfigElement(NonTerminal, NewTokenList, 0);
 					NewRuleList.push_back(NewElement);
 				}
 
@@ -85,12 +106,12 @@ namespace ParserGenerator {
 				{
 					std::vector<std::string> NewTokenList(GammaElement);
 					NewTokenList.push_back(NewNonTerminal);
-					ParserConfigElement* NewElement = new ParserConfigElement(NewNonTerminal, NewTokenList);
+					ParserConfigElement* NewElement = new ParserConfigElement(NewNonTerminal, NewTokenList, 0);
 					NewRuleList.push_back(NewElement);
 				}
 
 				// Add Epsilon Rule
-				ParserConfigElement* EpsilonProduction = new ParserConfigElement(NewNonTerminal, { StateMachine::EPSILON_S });
+				ParserConfigElement* EpsilonProduction = new ParserConfigElement(NewNonTerminal, { StateMachine::EPSILON_S }, 0);
 				NewRuleList.push_back(EpsilonProduction);
 			}
 			else
@@ -137,9 +158,33 @@ namespace ParserGenerator {
 		return OutRules;
 	}
 
+	const std::vector<std::string>& ParserConfig::GetRuleElements(const std::string& NonTerminalName, int LocalRuleIndex)
+	{
+		for (ParserConfigElement* Element : m_ProductionList)
+		{
+			if (Element->m_LocalRuleIndex == LocalRuleIndex && Element->m_NonTerminal == NonTerminalName)
+			{
+				return Element->m_TokenClasses;
+			}
+		}
+	}
+
 	bool ParserConfig::IsNonTerminal(const std::string& Token) const
 	{
 		return m_NonTerminals.find(Token) != m_NonTerminals.end();
+	}
+
+	std::map<std::string, int> ParserConfig::GetNonTerminalMap() const
+	{
+		std::map<std::string, int> NonTerminalMap;
+
+		int Index = 0;
+		for (const std::string& NonTerminal : m_NonTerminals)
+		{
+			NonTerminalMap[NonTerminal] = Index++;
+		}
+
+		return NonTerminalMap;
 	}
 
 }

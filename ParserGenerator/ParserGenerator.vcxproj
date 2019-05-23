@@ -98,7 +98,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ParserBuilder.h" />
+    <ClInclude Include="src\Builder\Alphabet.h" />
+    <ClInclude Include="src\Builder\FirstFollowTable.h" />
+    <ClInclude Include="src\Builder\ParserBuilder.h" />
+    <ClInclude Include="src\Builder\ParserSerializer.h" />
+    <ClInclude Include="src\ParserTypes.h" />
     <ClInclude Include="src\Parser\ParserFactory.h" />
     <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
     <ClInclude Include="src\Lexer\LexerFactory.h" />
@@ -122,6 +126,7 @@
     <ClInclude Include="src\Parser\Visitor.h" />
     <ClInclude Include="src\Test\TestRules.h" />
     <ClInclude Include="src\Test\TestAlphabet.h" />
+    <ClInclude Include="src\Test\TestVisitorBase.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Lexer\Automaton\State.h" />
     <ClInclude Include="src\Lexer\Automaton\Transition.h" />
@@ -131,7 +136,10 @@
     <ClInclude Include="src\Test\TestVisitor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ParserBuilder.cpp" />
+    <ClCompile Include="src\Builder\Alphabet.cpp" />
+    <ClCompile Include="src\Builder\FirstFollowTable.cpp" />
+    <ClCompile Include="src\Builder\ParserBuilder.cpp" />
+    <ClCompile Include="src\Builder\ParserSerializer.cpp" />
     <ClCompile Include="src\Parser\ParserFactory.cpp" />
     <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
     <ClCompile Include="src\Lexer\LexerFactory.cpp" />

@@ -4,31 +4,31 @@
 
 namespace ParserGenerator {
 
-	Visitor::Visitor()
-	{
-	}
+	//Visitor::Visitor()
+	//{
+	//}
 
 
-	Visitor::~Visitor()
-	{
-	}
+	//Visitor::~Visitor()
+	//{
+	//}
 
-	void Visitor::AddFunctionPointer()
-	{
-		m_FunctionMap["S"] = std::bind(&Visitor::TestFunction, this);
-		//m_FunctionMap.emplace("S", &Visitor::TestFunction);
-	}
+	//void Visitor::AddFunctionPointer()
+	//{
+	//	m_FunctionMap[0] = std::bind(&Visitor::TestFunction, this);
+	//	//m_FunctionMap.emplace("S", &Visitor::TestFunction);
+	//}
 
-	void Visitor::TestFunction()
-	{
-		std::cout << "function called" << std::endl;
-	}
+	//void Visitor::TestFunction()
+	//{
+	//	std::cout << "function called" << std::endl;
+	//}
 
-	float Visitor::Visit(RuleNode* ProductionNode)
-	{
-		//(this->*m_FunctionMap["S"])();
-		m_FunctionMap["S"]();
-		return 0.0f;
-	}
+	//float Visitor::Visit(RuleNode* ProductionNode)
+	//{
+	//	//(this->*m_FunctionMap["S"])();
+	//	m_FunctionMap[0]();
+	//	return 0.0f;
+	//}
 
 }

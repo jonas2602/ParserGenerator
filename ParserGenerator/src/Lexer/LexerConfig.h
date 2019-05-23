@@ -42,6 +42,8 @@ namespace ParserGenerator {
 
 		std::vector<LexerConfigElement> GetRegexList() const { return m_RegexList; }
 		const LexerConfigElement& GetConfigElementByIndex(int Index) const { return m_RegexList[Index]; }
+
+		std::map<std::string, int> GetTokenMap() const;
 	};
 
 }
