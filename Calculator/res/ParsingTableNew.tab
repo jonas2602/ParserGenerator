@@ -59,7 +59,7 @@ Table Entries:
 [lexeror2(4), DOT(9)] -> 1 EPSILON
 [lexeror2(4), LITERAL(10)] -> 1 EPSILON
 [lexeror2(4), SEMICOLON(12)] -> 1 EPSILON
-[lexeror2(4), PIPE(14)] -> 0 PIPE lexeror
+[lexeror2(4), PIPE(14)] -> 0 PIPE operator lexeror2
 [lexeror2(4), RIGHTPARENTHESE(15)] -> 1 EPSILON
 [lexeror2(4), LEFTPARENTHESE(16)] -> 1 EPSILON
 [lexerrule(5), LEXERID(3)] -> 0 LEXERID COLON regex action SEMICOLON
@@ -112,6 +112,7 @@ Table Entries:
 [regex(15), SEMICOLON(12)] -> 1 EPSILON
 [regex(15), RIGHTPARENTHESE(15)] -> 1 EPSILON
 [regex(15), LEFTPARENTHESE(16)] -> 0 lexeror regex
+[rulelist(16), EOF(-1)] -> 2 EOF
 [rulelist(16), LEXERID(3)] -> 1 lexerrule rulelist
 [rulelist(16), PARSERID(11)] -> 0 parserrule rulelist
 
@@ -126,7 +127,7 @@ Rules:
 3 lexerconst(2) -> CHARSET(6)
 4 lexerconst(2) -> LITERAL(10)
 0 lexeror(3) -> operator(7) lexeror2(4)
-0 lexeror2(4) -> PIPE(14) lexeror(3)
+0 lexeror2(4) -> PIPE(14) operator(7) lexeror2(4)
 1 lexeror2(4) -> EPSILON(-1)
 0 lexerrule(5) -> LEXERID(3) COLON(13) regex(15) action(0) SEMICOLON(12)
 0 once(6) -> PLUS(8)
@@ -150,4 +151,4 @@ Rules:
 1 regex(15) -> EPSILON(-1)
 0 rulelist(16) -> parserrule(14) rulelist(16)
 1 rulelist(16) -> lexerrule(5) rulelist(16)
-2 rulelist(16) -> EPSILON(-1)
+2 rulelist(16) -> EOF(-1)

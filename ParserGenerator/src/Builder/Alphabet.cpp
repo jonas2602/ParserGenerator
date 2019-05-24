@@ -36,6 +36,8 @@ namespace ParserGenerator {
 
 	int Alphabet::GetTokenIndex(const std::string& TokenName) const
 	{
+		if (TokenName == "EOF") { return -1; }
+
 		auto TokenPair = m_Tokens.find(TokenName);
 		if (TokenPair == m_Tokens.end())
 		{
@@ -60,6 +62,8 @@ namespace ParserGenerator {
 
 	std::string Alphabet::GetTokenName(int TokenId) const
 	{
+		if (TokenId == -1) { return "EOF"; }
+
 		if (TokenId < 0 || TokenId >= m_TokenList.size())
 		{
 			std::cout << "Requested Token Index '" << TokenId << "' is out of Range" << std::endl;

@@ -165,9 +165,11 @@ namespace ParserGenerator {
 		delete lex;*/
 
 		ParserConfig ParsConfig("rulelist");
+		//ParsConfig.AddProduction("root", { "rulelist", "EOF" });
+
 		ParsConfig.AddProduction("rulelist", { "parserrule", "rulelist" });
 		ParsConfig.AddProduction("rulelist", { "lexerrule", "rulelist" });
-		ParsConfig.AddProduction("rulelist", { EPSILON_S });
+		ParsConfig.AddProduction("rulelist", { "EOF" });
 
 		ParsConfig.AddProduction("parserrule", { "PARSERID", "COLON", "parseror", "SEMICOLON" });
 
@@ -199,7 +201,7 @@ namespace ParserGenerator {
 		ParsConfig.AddProduction("regex", { EPSILON_S });
 
 		ParsConfig.AddProduction("lexeror", { "operator", "lexeror2" });
-		ParsConfig.AddProduction("lexeror2", { "PIPE", "lexeror" });
+		ParsConfig.AddProduction("lexeror2", { "PIPE", "operator", "lexeror2" });
 		ParsConfig.AddProduction("lexeror2", { EPSILON_S });
 
 		ParsConfig.AddProduction("operator", { "lexerconst", "operator2" });
@@ -237,8 +239,8 @@ namespace ParserGenerator {
 		std::cout << TokenStream << std::endl << std::endl;
 
 		TestParser* pars = new TestParser(TokenStream);
-		Rule_parserrule* root;
-		pars->Parserrule(root);
+		Rule_rulelist* root;
+		pars->Rulelist(root);
 
 		TestVisitor* vis = new TestVisitor();
 		vis->Visit(root);
