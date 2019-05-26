@@ -1,0 +1,33 @@
+enum ETokenType { 
+	ARROW = 2
+	CHARSET = 4
+	COLON = 11
+	DOT = 7
+	LEXERID = 1
+	LITERAL = 8
+	LP = 14
+	PARSERID = 9
+	PIPE = 12
+	PLUS = 6
+	QUESTIONMARK = 3
+	RP = 13
+	SEMICOLON = 10
+	STAR = 5
+	WS = 0
+};
+enum ERuleType { 
+	action = 0
+	anytime = 1
+	lexerconst = 2
+	lexerrule = 3
+	once = 4
+	operator = 5
+	optional = 6
+	parserconst = 7
+	parserlist = 8
+	parseror = 9
+	parserrule = 10
+	range = 11
+	regex = 12
+	rulelist = 13
+};

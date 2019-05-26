@@ -13,10 +13,7 @@
 #include <list>
 
 #include "Lexer/Lexer.h"
-#include "Lexer/LexerFactory.h"
-#include "Parser/ParserFactory.h"
 #include "Lexer/RegExp.h"
-#include "Lexer/Automaton/Automaton.h"
 #include "Parser/ParserConfig.h"
 #include "Parser/Parser.h"
 #include "Parser/Visitor.h"
@@ -97,7 +94,7 @@ namespace ParserGenerator {
 		ParsConfig.AddProduction("F", { "NUM" });
 		ParsConfig.AddProduction("F", { "LEFTBRACKET", "A", "RIGHTBRACKET" });*/
 
-		ParserConfig ParsConfig("S");
+		ParserConfig ParsConfig = ParserConfig();
 		ParsConfig.AddProduction("S", { "E" });
 
 		ParsConfig.AddProduction("E", { "E", "PLUS", "T" });
@@ -164,12 +161,12 @@ namespace ParserGenerator {
 
 		delete lex;*/
 
-		ParserConfig ParsConfig("rulelist");
+		ParserConfig ParsConfig = ParserConfig();
 		//ParsConfig.AddProduction("root", { "rulelist", "EOF" });
 
 		ParsConfig.AddProduction("rulelist", { "parserrule", "rulelist" });
 		ParsConfig.AddProduction("rulelist", { "lexerrule", "rulelist" });
-		ParsConfig.AddProduction("rulelist", { "EOF" });
+		ParsConfig.AddProduction("rulelist", { EOS_S });
 
 		ParsConfig.AddProduction("parserrule", { "PARSERID", "COLON", "parseror", "SEMICOLON" });
 
@@ -205,14 +202,14 @@ namespace ParserGenerator {
 		ParsConfig.AddProduction("lexeror2", { EPSILON_S });
 
 		ParsConfig.AddProduction("operator", { "lexerconst", "operator2" });
-		ParsConfig.AddProduction("operator2", { "anytime" });
-		ParsConfig.AddProduction("operator2", { "once" });
-		ParsConfig.AddProduction("operator2", { "optional" });
+		ParsConfig.AddProduction("operator2", { "STAR" });
+		ParsConfig.AddProduction("operator2", { "PLUS" });
+		ParsConfig.AddProduction("operator2", { "QUESTIONMARK" });
 		ParsConfig.AddProduction("operator2", { EPSILON_S });
 
-		ParsConfig.AddProduction("anytime", { "STAR" });
+		/*ParsConfig.AddProduction("anytime", { "STAR" });
 		ParsConfig.AddProduction("once", { "PLUS" });
-		ParsConfig.AddProduction("optional", { "QUESTIONMARK" });
+		ParsConfig.AddProduction("optional", { "QUESTIONMARK" });*/
 
 		ParsConfig.AddProduction("lexerconst", { "LEFTPARENTHESE", "regex", "RIGHTPARENTHESE" });
 		//ParsConfig.AddProduction("lexerconst", { "range" });
@@ -232,7 +229,10 @@ namespace ParserGenerator {
 		Parser->Parserrule(ParseTree);
 		delete ParseTree;*/
 
-		ParserBuilder builder(&ParsConfig, &LexConfig);
+
+
+		//ParserBuilder builder(&ParsConfig, &LexConfig);
+
 
 		TestLexer* lex = new TestLexer(SourceCode);
 		const std::vector<Token*>& TokenStream = lex->GetTokenStream();
@@ -243,12 +243,40 @@ namespace ParserGenerator {
 		pars->Rulelist(root);
 
 		TestVisitor* vis = new TestVisitor();
-		vis->Visit(root);
+		if (vis->Visit(root))
+		{
+			ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
+			builder.Generate("src/gen/", "Test");
+		}
+		else
+		{
+			std::cout << "Failed to Analyse Parse Tree" << std::endl;
+		}
 
 		delete lex;
 		delete pars;
 		delete root;
 		delete vis;
+	}
+
+	void App::ListParser(const std::string& SourceCode)
+	{
+		LexerConfig LexConfig;
+		LexConfig.Add("MINUS", new RegExp(RegExp::CONST('-')));
+		LexConfig.Add("ESCAPED", new RegExp(RegExp::AND('\\', RegExp::ANY())));
+		LexConfig.Add("CHAR", new RegExp(RegExp::ANY()));
+
+		ParserConfig ParsConfig = ParserConfig();
+		ParsConfig.AddProduction("elements", { "range", "elements" });
+		ParsConfig.AddProduction("elements", { EOS_S });
+		ParsConfig.AddProduction("range", { "symbol", "range2" });
+		ParsConfig.AddProduction("range2", { "MINUS", "symbol" });
+		ParsConfig.AddProduction("range2", { EPSILON_S });
+		ParsConfig.AddProduction("symbol", { "MINUS" });
+		ParsConfig.AddProduction("symbol", { "CHAR" });
+		ParsConfig.AddProduction("symbol", { "ESCAPED" });
+
+		ParserBuilder builder(&ParsConfig, &LexConfig);
 	}
 
 }

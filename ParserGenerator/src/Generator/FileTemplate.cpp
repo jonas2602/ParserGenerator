@@ -24,7 +24,7 @@ namespace ParserGenerator {
 		// Create File + Output Stream
 		std::ofstream HeaderStream;
 		std::ofstream SourceStream;
-		Writer->GetFileStreams(m_DirectoryPath, m_FileName, HeaderStream, SourceStream);
+		Writer->GetCodeFileStreams(m_DirectoryPath, m_FileName, &HeaderStream, &SourceStream);
 
 		AddDefaults(HeaderStream, SourceStream);
 

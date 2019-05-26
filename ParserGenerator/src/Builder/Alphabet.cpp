@@ -1,6 +1,8 @@
 #include "Alphabet.h"
 #include <iostream>
 
+#include "../ParserTypes.h"
+
 namespace ParserGenerator {
 	Alphabet::Alphabet(const std::map<std::string, int>& InTokens, const std::map<std::string, int>& InNonTerminals)
 		:m_Tokens(InTokens), m_NonTerminals(InNonTerminals)
@@ -36,7 +38,7 @@ namespace ParserGenerator {
 
 	int Alphabet::GetTokenIndex(const std::string& TokenName) const
 	{
-		if (TokenName == "EOF") { return -1; }
+		if (TokenName == "EOS") { return -1; }
 
 		auto TokenPair = m_Tokens.find(TokenName);
 		if (TokenPair == m_Tokens.end())
@@ -62,7 +64,7 @@ namespace ParserGenerator {
 
 	std::string Alphabet::GetTokenName(int TokenId) const
 	{
-		if (TokenId == -1) { return "EOF"; }
+		if (IsEOS(TokenId)) { return EOS_S; }
 
 		if (TokenId < 0 || TokenId >= m_TokenList.size())
 		{
@@ -92,6 +94,16 @@ namespace ParserGenerator {
 	const std::vector<std::string>& Alphabet::GetNonTerminalList() const
 	{
 		return m_NonTerminalList;
+	}
+
+	const std::map<std::string, int>& Alphabet::GetTokenMap() const
+	{
+		return m_Tokens;
+	}
+
+	const std::map<std::string, int>& Alphabet::GetNonTerminalMap() const
+	{
+		return m_NonTerminals;
 	}
 
 	bool Alphabet::IsToken(const std::string& TokenName) const

@@ -7,25 +7,22 @@ template<typename T>
 class TestVisitorBase : public ParserGenerator::Visitor<T>
 {
 public:
-	virtual T VisitRule_rulelist(Rule_rulelist* Context) = 0;
+	virtual T VisitRule_rulelist(Rule_rulelist* Context) { return T(); }
 
-	virtual T VisitRule_parserrule(Rule_parserrule* Context) = 0;
-	virtual T VisitRule_parseror(Rule_parseror* Context) = 0;
-	virtual T VisitRule_parseror2(Rule_parseror2* Context) = 0;
-	virtual T VisitRule_parserlist(Rule_parserlist* Context) = 0;
-	virtual T VisitRule_parserconst(Rule_parserconst* Context) = 0;
+	virtual T VisitRule_parserrule(Rule_parserrule* Context) { return T(); }
+	virtual T VisitRule_parseror(Rule_parseror* Context) { return T(); }
+	virtual T VisitRule_parseror2(Rule_parseror2* Context) { return T(); }
+	virtual T VisitRule_parserlist(Rule_parserlist* Context) { return T(); }
+	virtual T VisitRule_parserconst(Rule_parserconst* Context) { return T(); }
 
-	virtual T VisitRule_(Rule_lexerrule* Context) = 0;
-	virtual T VisitRule_parserconst(Rule_action* Context) = 0;
-	virtual T VisitRule_regex(Rule_regex* Context) = 0;
-	virtual T VisitRule_lexeror(Rule_lexeror* Context) = 0;
-	virtual T VisitRule_lexeror2(Rule_lexeror2* Context) = 0;
-	virtual T VisitRule_operator(Rule_operator* Context) = 0;
-	virtual T VisitRule_operator2(Rule_operator2* Context) = 0;
-	virtual T VisitRule_anytime(Rule_anytime* Context) = 0;
-	virtual T VisitRule_once(Rule_once* Context) = 0;
-	virtual T VisitRule_optional(Rule_optional* Context) = 0;
-	virtual T VisitRule_lexerconst(Rule_lexerconst* Context) = 0;
+	virtual T VisitRule_lexerrule(Rule_lexerrule* Context) { return T(); }
+	virtual T VisitRule_action(Rule_action* Context) { return T(); }
+	virtual T VisitRule_regex(Rule_regex* Context) { return T(); }
+	virtual T VisitRule_lexeror(Rule_lexeror* Context) { return T(); }
+	virtual T VisitRule_lexeror2(Rule_lexeror2* Context) { return T(); }
+	virtual T VisitRule_operator(Rule_operator* Context) { return T(); }
+	virtual T VisitRule_operator2(Rule_operator2* Context) { return T(); }
+	virtual T VisitRule_lexerconst(Rule_lexerconst* Context) { return T(); }
 
 
 	template<typename U>
@@ -62,12 +59,6 @@ public:
 	T Visit<Rule_operator>(Rule_operator* Context) { return VisitRule_operator(Context); }
 	template<>
 	T Visit<Rule_operator2>(Rule_operator2* Context) { return VisitRule_operator2(Context); }
-	template<>
-	T Visit<Rule_anytime>(Rule_anytime* Context) { return VisitRule_anytime(Context); }
-	template<>
-	T Visit<Rule_once>(Rule_once* Context) { return VisitRule_once(Context); }
-	template<>
-	T Visit<Rule_optional>(Rule_optional* Context) { return VisitRule_optional(Context); }
 	template<>
 	T Visit<Rule_lexerconst>(Rule_lexerconst* Context) { return VisitRule_lexerconst(Context); }
 

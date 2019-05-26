@@ -9,14 +9,9 @@
 
 namespace ParserGenerator {
 
-	class StateMachine;
-	class State;
-
-
 	class Node_BASE
 	{
 	public:
-		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0) = 0;
 		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0) = 0;
 	};
 
@@ -37,7 +32,6 @@ namespace ParserGenerator {
 
 		const std::set<char>& GetContent() const { return m_CharSet; }
 
-		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
@@ -77,7 +71,6 @@ namespace ParserGenerator {
 			// delete m_Right;
 		}
 
-		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
@@ -103,7 +96,6 @@ namespace ParserGenerator {
 			//delete m_Right;
 		}
 
-		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
@@ -122,7 +114,6 @@ namespace ParserGenerator {
 			delete m_Content;
 		}
 
-		virtual void ExtendMachine(StateMachine& OutMachine, State*& OutStart, State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 		virtual void ExtendMachine(Automaton::NFA* OutMachine, Automaton::State*& OutStart, Automaton::State*& OutEnd, const std::string& Name, int FinalStatePriority = 0);
 	};
 
@@ -165,7 +156,6 @@ namespace ParserGenerator {
 		RegExp(const std::string& InString);
 		~RegExp();
 
-		void Parse(StateMachine& OutMachine, const std::string& Name, int Priority);
 		void Parse(Automaton::NFA* OutMachine, const std::string& Name, int Priority);
 
 	public:

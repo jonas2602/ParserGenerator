@@ -1,9 +1,9 @@
-#include "LexerFactory.h"
+#include "Factory.h"
 #include <sstream>
 #include <fstream>
 #include <iostream>
 
-namespace ParserGenerator {
+namespace ParserGenerator::Automaton {
 
 	//bool LexerFactory::Serialize(Lexer* InLexer, const std::string& FilePath)
 	//{
@@ -151,11 +151,11 @@ namespace ParserGenerator {
 	//	return true;
 	//}
 
-	bool LexerFactory::Deserialize(Automaton::DFA*& OutAutomaton, const std::string& InContent)
+	bool Factory::Deserialize(DFA*& OutAutomaton, const std::string& InContent)
 	{
 		std::stringstream InStream(InContent);
 
-		OutAutomaton = new Automaton::DFA();
+		OutAutomaton = new DFA();
 
 		std::string StartState; // Uses Index as Name
 		InStream >> StartState;

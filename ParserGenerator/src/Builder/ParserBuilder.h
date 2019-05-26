@@ -4,7 +4,7 @@
 #include "../Lexer/LexerConfig.h"
 #include "../Parser/ParserConfig.h"
 #include "Alphabet.h"
-#include "../Parser/ParsingTable.h"
+#include "../Parser/ParseTable/ParsingTable.h"
 #include "../Lexer/Automaton/Automaton.h"
 
 namespace ParserGenerator {
@@ -14,13 +14,16 @@ namespace ParserGenerator {
 	protected:
 		Alphabet* m_Alphabet;
 		Automaton::DFA* m_DFA;
-		ParsingTable* m_Table;
+		ParseTable::ParsingTable* m_Table;
+
+		ParserConfig* m_ParsConfig;
+		LexerConfig* m_LexConfig;
 
 	public:
-		ParserBuilder(ParserConfig* ParsConfig, LexerConfig* LexConfig);
+		ParserBuilder(ParserConfig* InParsConfig, LexerConfig* InLexConfig);
 		~ParserBuilder();
 
-		void Generate(const std::string& RootPath);
+		void Generate(const std::string& RootPath, const std::string& GrammarName);
 		// Serialize DFA/Table
 		// Generate Files
 	};

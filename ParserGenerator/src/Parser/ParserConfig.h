@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <ostream>
 #include <vector>
 #include <set>
 #include <map>
@@ -19,12 +20,23 @@ namespace ParserGenerator {
 
 		int GetTokenCount() const { return (int)m_TokenClasses.size(); }
 		const std::string& GetTokenClassAtIndex(int Index) const { return m_TokenClasses[Index]; }
+
+		friend std::ostream& operator<<(std::ostream& os, const ParserConfigElement* InProduction)
+		{
+			// write obj to stream
+			os << InProduction->m_NonTerminal << " ->";
+			for (const std::string& TokenClass : InProduction->m_TokenClasses)
+			{
+				os << " " << TokenClass;
+			}
+
+			return os;
+		}
 	};
 
 	class ParserConfig
 	{
 	protected:
-		std::string m_StartNonTerminal;
 		std::vector<ParserConfigElement*> m_ProductionList;
 		std::set<std::string> m_NonTerminals;
 		std::set<std::string> m_Terminals;
@@ -32,7 +44,7 @@ namespace ParserGenerator {
 		std::map<std::string, int> m_RuleCountMap;
 
 	public:
-		ParserConfig(const std::string& InStartSymbol);
+		ParserConfig();
 		~ParserConfig();
 
 		void AddProduction(const std::string& NonTerminal, const std::vector<std::string>& TokenClasses);
@@ -49,7 +61,6 @@ namespace ParserGenerator {
 
 		const std::set<std::string>& GetNonTerminals() const { return m_NonTerminals; }
 		const std::set<std::string>& GetTerminals() const { return m_Terminals; }
-		const std::string& GetStartNonTerminal() const { return m_StartNonTerminal; }
 
 		bool IsNonTerminal(const std::string& Token) const;
 

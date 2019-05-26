@@ -1,10 +1,9 @@
 #include "ParsingTable.h"
-#include "../Utils/Math.h"
-#include "../Lexer/StateMachine.h"
-#include "../Lexer/Token.h"
+#include "../../Utils/Math.h"
+//#include "../Lexer/Token.h"
 #include <iostream>
 
-namespace ParserGenerator {
+namespace ParserGenerator::ParseTable {
 
 	//FirstFollowSet::FirstFollowSet(bool InNullable, const std::set<std::string>& InFirstSet, const std::set<std::string>& InFollowSet)
 	//	: m_bNullable(InNullable), m_FirstSet(InFirstSet), m_FollowSet(InFollowSet)
@@ -263,7 +262,7 @@ namespace ParserGenerator {
 
 	bool ParsingTable::SetProductionIndex(int NonTerminal, int Token, int LocalRuleIndex)
 	{
-		if (m_PredictionMap[NonTerminal][Token])
+		if (m_PredictionMap[NonTerminal].find(Token) != m_PredictionMap[NonTerminal].end())
 		{
 			return false;
 		}

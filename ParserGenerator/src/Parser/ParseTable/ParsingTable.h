@@ -1,11 +1,8 @@
 #pragma once
 
-#include <string>
 #include <map>
-#include <set>
-#include "ParserConfig.h"
 
-namespace ParserGenerator {
+namespace ParserGenerator::ParseTable {
 
 	//struct FirstFollowSet
 	//{

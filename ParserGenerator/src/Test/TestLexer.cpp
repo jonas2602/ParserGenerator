@@ -12,7 +12,7 @@ TestLexer::TestLexer(const std::string& InSourceCode)
 
 TestLexer::~TestLexer()
 {
-
+	
 }
 
 std::string TestLexer::GetSerializedAutomaton() const

@@ -6,7 +6,7 @@
 #include <regex>
 #include <set>
 
-#include "LexerFactory.h"
+#include "Automaton/Factory.h"
 
 namespace ParserGenerator {
 
@@ -60,7 +60,7 @@ namespace ParserGenerator {
 	void Lexer::LoadAutomaton()
 	{
 		std::string AutomatonString = GetSerializedAutomaton();
-		LexerFactory::Deserialize(m_DFA, AutomatonString);
+		Automaton::Factory::Deserialize(m_DFA, AutomatonString);
 	}
 
 	void Lexer::Tokenize()
@@ -73,7 +73,7 @@ namespace ParserGenerator {
 			int LastPriority = -1;
 			Automaton::State* ActiveState = m_DFA->GetStartState();
 
-			// Read Input while dea has not reached a dead end
+			// Read Input while DEA has not reached a dead end
 			while (ActiveState != nullptr)
 			{
 				// Override final state if new final state is reached

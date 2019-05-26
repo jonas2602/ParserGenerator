@@ -24,7 +24,9 @@ namespace ParserGenerator {
 
 	public:
 		// Inherited via IWriterInterface
-		virtual void GetFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream& OutHeaderStream, std::ofstream& OutSourceStream) override;
+		virtual bool GetCodeFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream* OutHeaderStream, std::ofstream* OutSourceStream = nullptr) override;
+
+		bool GetFileStream(const std::string& FileName, std::ofstream& OutFileStream, const std::string& RelativeDirectory = "", const std::string& FileType = ".txt") const;
 
 	public:
 		void GenerateFiles();

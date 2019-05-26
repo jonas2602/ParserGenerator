@@ -27,9 +27,6 @@ public:
 	bool Lexeror2(Rule_lexeror2*& OutRule);
 	bool Operator(Rule_operator*& OutRule);
 	bool Operator2(Rule_operator2*& OutRule);
-	bool Anytime(Rule_anytime*& OutRule);
-	bool Once(Rule_once*& OutRule);
-	bool Optional(Rule_optional*& OutRule);
 	bool Lexerconst(Rule_lexerconst*& OutRule);
 	
 protected:

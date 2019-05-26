@@ -1,11 +1,10 @@
 #include <iostream>
 #include <set>
-#include "../Lexer/StateMachine.h"
 #include "../Utils/Math.h"
 
 #include "Parser.h"
 #include "ParseTree/RuleNode.h"
-#include "ParserFactory.h"
+#include "ParseTable/TableFactory.h"
 
 namespace ParserGenerator {
 
@@ -36,7 +35,7 @@ namespace ParserGenerator {
 	void Parser::LoadParsingTable()
 	{
 		std::string TableString = GetSerializedTable();
-		ParserFactory::Deserialize(m_Table, TableString);
+		ParseTable::TableFactory::Deserialize(m_Table, TableString);
 	}
 
 	void Parser::EnterRule(RuleNode* Rule)

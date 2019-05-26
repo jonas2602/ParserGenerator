@@ -3,6 +3,7 @@
 #include "WriterInterface.h"
 #include <fstream>
 #include <vector>
+#include <map>
 
 namespace ParserGenerator {
 
@@ -86,6 +87,18 @@ namespace ParserGenerator {
 
 		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const override;
 
+	};
+
+	class CodeSnippet_Enum : public CodeSnippet_Base
+	{
+	protected:
+		std::string m_EnumName;
+		std::map<std::string, int> m_Entries;
+
+	public:
+		CodeSnippet_Enum(const std::string& InEnumName, const std::map<std::string, int>& InEnumEntries);
+
+		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const override;
 	};
 
 }

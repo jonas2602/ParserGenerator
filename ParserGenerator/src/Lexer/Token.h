@@ -11,7 +11,6 @@ namespace ParserGenerator {
 	{
 	public:
 		// End Of Stream Token Type
-		static const std::string EOS;
 		static Token* EOS_TOKEN;
 
 	protected:

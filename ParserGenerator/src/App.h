@@ -11,5 +11,6 @@ namespace ParserGenerator {
 		static int main();
 
 		static void Generate(const std::string& SourceCode);
+		static void ListParser(const std::string& SourceCode);
 	};
 }

@@ -1,6 +1,7 @@
 #include "CodeGenerator.h"
 #include <filesystem>
 
+namespace fs = std::experimental::filesystem;
 
 namespace ParserGenerator {
 
@@ -34,17 +35,30 @@ namespace ParserGenerator {
 		m_TemplateMap[FileName] = NewFile;
 	}
 
-	void CodeGenerator::GetFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream& OutHeaderStream, std::ofstream& OutSourceStream)
+	bool CodeGenerator::GetCodeFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream* OutHeaderStream, std::ofstream* OutSourceStream)
 	{
-		namespace fs = std::experimental::filesystem;
+		//namespace fs = std::experimental::filesystem;
 
 		// Create Directory if it doesn't exist
 		fs::path DirPath = fs::path(m_RootPath) / fs::path(RelativeDirectory);
 		fs::create_directories(DirPath);
 
 		// Create Output Streams (creates or empties if already existing)
-		OutHeaderStream.open(DirPath / fs::path(FileName + ".h"));
-		OutSourceStream.open(DirPath / fs::path(FileName + ".cpp"));
+		if (OutHeaderStream) { OutHeaderStream->open(DirPath / fs::path(FileName + ".h")); }
+		if (OutSourceStream) { OutSourceStream->open(DirPath / fs::path(FileName + ".cpp")); }
+
+		return true;
+	}
+
+	bool CodeGenerator::GetFileStream(const std::string& FileName, std::ofstream& OutFileStream, const std::string& RelativeDirectory, const std::string& FileType) const
+	{
+		// Create Directory if it doesn't exist
+		fs::path DirPath = fs::path(m_RootPath) / fs::path(RelativeDirectory);
+		fs::create_directories(DirPath);
+
+		// Create Output Stream (creates or empties if already existing)
+		OutFileStream.open(DirPath / fs::path(FileName + FileType));
+		return true;
 	}
 
 }

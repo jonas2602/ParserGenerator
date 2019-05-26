@@ -6,7 +6,7 @@
 
 #include "../Parser/ParserConfig.h"
 #include "Alphabet.h"
-#include "../Parser/ParsingTable.h"
+#include "../Parser/ParseTable/ParsingTable.h"
 
 namespace ParserGenerator {
 
@@ -36,11 +36,11 @@ namespace ParserGenerator {
 		FirstFollowTable(ParserConfig* InConfig, Alphabet* InAlphabet);
 		~FirstFollowTable();
 
-		void CreateParsingTable(ParsingTable* OutTable);
+		void CreateParsingTable(ParseTable::ParsingTable* OutTable);
 
 	protected:
 		void FillFirstFollows();
-		void SetProduction(ParsingTable* OutTable, const std::string& NonTerminal, const std::string& Token, ParserConfigElement* Production);
+		void SetProduction(ParseTable::ParsingTable* OutTable, const std::string& NonTerminal, const std::string& Token, ParserConfigElement* Production);
 	};
 
 }

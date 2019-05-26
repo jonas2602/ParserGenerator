@@ -1,8 +1,6 @@
 #include "TestParser.h"
 #include <iostream>
 
-#define TRY_MATCH(x) if(!Match(x)) return false; // std::cout << "Token mismatch, Expected: " << x << std::endl;
-#define CALL_CHILD(func, type) { type* temp; if(!func(temp)) return false; }
 
 TestParser::TestParser(const std::vector<ParserGenerator::Token*>& TokenStream)
 	: Parser(TokenStream)
@@ -299,17 +297,17 @@ bool TestParser::Operator2(Rule_operator2*& OutRule)
 	{
 		case 0:
 		{
-			CALL_CHILD(Anytime, Rule_anytime);
+			TRY_MATCH(ETokenType::STAR);
 			break;
 		}
 		case 1:
 		{
-			CALL_CHILD(Once, Rule_once);
+			TRY_MATCH(ETokenType::PLUS);
 			break;
 		}
 		case 2:
 		{
-			CALL_CHILD(Optional, Rule_optional);
+			TRY_MATCH(ETokenType::QUESTIONMARK);
 			break;
 		}
 		case 3:
@@ -318,39 +316,6 @@ bool TestParser::Operator2(Rule_operator2*& OutRule)
 			break;
 		}
 	}
-
-	ExitRule(OutRule);
-	return true;
-}
-
-bool TestParser::Anytime(Rule_anytime*& OutRule)
-{
-	OutRule = new Rule_anytime();
-	EnterRule(OutRule);
-
-	TRY_MATCH(ETokenType::STAR);
-
-	ExitRule(OutRule);
-	return true;
-}
-
-bool TestParser::Once(Rule_once*& OutRule)
-{
-	OutRule = new Rule_once();
-	EnterRule(OutRule);
-
-	TRY_MATCH(ETokenType::PLUS);
-
-	ExitRule(OutRule);
-	return true;
-}
-
-bool TestParser::Optional(Rule_optional*& OutRule)
-{
-	OutRule = new Rule_optional();
-	EnterRule(OutRule);
-
-	TRY_MATCH(ETokenType::QUESTIONMARK);
 
 	ExitRule(OutRule);
 	return true;

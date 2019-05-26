@@ -1,6 +1,7 @@
 #include "FirstFollowTable.h"
 #include "../ParserTypes.h"
 #include "../Utils/Math.h"
+#include <iostream>
 
 namespace ParserGenerator {
 
@@ -153,7 +154,7 @@ namespace ParserGenerator {
 		}
 	}
 
-	void FirstFollowTable::CreateParsingTable(ParsingTable* OutTable)
+	void FirstFollowTable::CreateParsingTable(ParseTable::ParsingTable* OutTable)
 	{
 		// Create Predictive Parsing Table
 		for (const std::string& NonTerminal : m_Config->GetNonTerminals())
@@ -199,12 +200,15 @@ namespace ParserGenerator {
 		}
 	}
 
-	void FirstFollowTable::SetProduction(ParsingTable* OutTable, const std::string& NonTerminal, const std::string& Token, ParserConfigElement* Production)
+	void FirstFollowTable::SetProduction(ParseTable::ParsingTable* OutTable, const std::string& NonTerminal, const std::string& Token, ParserConfigElement* Production)
 	{
 		int TokenIndex = m_Alphabet->GetTokenIndex(Token);
 		int NonTerminalIndex = m_Alphabet->GetNonTerminalIndex(NonTerminal);
 		int LocalProductionIndex = Production->m_LocalRuleIndex;
 
-		OutTable->SetProductionIndex(NonTerminalIndex, TokenIndex, LocalProductionIndex);
+		if (!OutTable->SetProductionIndex(NonTerminalIndex, TokenIndex, LocalProductionIndex))
+		{
+			std::cout << "Table Element [NonTerminal(" << NonTerminal << "), Token(" << Token << ")] already set to '" << Production << "'. => Parser is ambiguous" << std::endl;
+		}
 	}
 }

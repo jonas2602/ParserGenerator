@@ -1,14 +1,17 @@
 #pragma once
 
 #include <vector>
+#include <stack>
 #include <string>
 
 #include "ParserConfig.h"
 #include "ParseTree/ParseTree.h"
 #include "ParseTree/RuleNode.h"
 #include "../Lexer/Token.h"
-#include "ParsingTable.h"
-#include <stack>
+#include "ParseTable/ParsingTable.h"
+
+#define TRY_MATCH(x) if(!Match(x)) return false; // std::cout << "Token mismatch, Expected: " << x << std::endl;
+#define CALL_CHILD(func, type) { type* temp; if(!func(temp)) return false; }
 
 namespace ParserGenerator {
 
@@ -16,7 +19,7 @@ namespace ParserGenerator {
 	{
 	protected:
 		// ParserConfig* m_Config;
-		ParsingTable* m_Table;
+		ParseTable::ParsingTable* m_Table;
 		const std::vector<Token*>& m_TokenStream;
 		std::vector<Token*>::const_iterator m_TokenIterator;
 
@@ -28,7 +31,7 @@ namespace ParserGenerator {
 		~Parser();
 
 		//ParserConfig* GetParserConfig() const { return m_Config; }
-		ParsingTable* GetParsingTable() const { return m_Table; }
+		ParseTable::ParsingTable* GetParsingTable() const { return m_Table; }
 
 	protected:
 		void LoadParsingTable();

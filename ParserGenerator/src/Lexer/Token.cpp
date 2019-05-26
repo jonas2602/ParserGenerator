@@ -1,10 +1,10 @@
 #include "Token.h"
+#include "../ParserTypes.h"
 
 
 namespace ParserGenerator {
 
-	const std::string Token::EOS = "EOS";
-	Token* Token::EOS_TOKEN = new Token("\0", -1, -1, -1);
+	Token* Token::EOS_TOKEN = new Token(EOS_S, EOS, -1, -1);
 
 	Token::Token(const std::string& InData, int InType, int InLineNumber, int InColumnNumber)
 		: m_Data(InData), m_Type(InType), m_LineNumber(InLineNumber), m_ColumnNumber(InColumnNumber)

@@ -29,7 +29,7 @@ namespace ParserGenerator {
 		UsedFile << std::endl;
 	}
 
-	void CodeSnippet_Class::Write(IWriterInterface * Writer, std::ofstream & HeaderStream, std::ofstream & SourceStream, const CodeSnippet_Base * ParentSnippet) const
+	void CodeSnippet_Class::Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const
 	{
 		HeaderStream << "class " << m_ClassName;
 		if (m_ParentName.empty())
@@ -48,7 +48,7 @@ namespace ParserGenerator {
 		HeaderStream << "};" << std::endl;
 	}
 
-	void CodeSnippet_Function::Write(IWriterInterface * Writer, std::ofstream & HeaderStream, std::ofstream & SourceStream, const CodeSnippet_Base * ParentSnippet) const
+	void CodeSnippet_Function::Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const
 	{
 		// Declaration
 		HeaderStream << "\t" << m_ReturnType << " " << m_FunctionName << "(";
@@ -91,4 +91,20 @@ namespace ParserGenerator {
 		// Definition
 	}
 
+	CodeSnippet_Enum::CodeSnippet_Enum(const std::string& InEnumName, const std::map<std::string, int>& InEnumEntries)
+		:m_EnumName(InEnumName), m_Entries(InEnumEntries)
+	{
+
+	}
+
+	void CodeSnippet_Enum::Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const
+	{
+		HeaderStream << "enum " << m_EnumName << " { " << std::endl;
+		for (const std::pair<std::string, int>& Pair : m_Entries)
+		{
+			// TODO: Name toUpperCase
+			HeaderStream << "\t" << Pair.first << " = " << Pair.second << ", " << std::endl;
+		}
+		HeaderStream << "};" << std::endl;
+	}
 }

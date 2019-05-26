@@ -29,6 +29,9 @@ namespace ParserGenerator {
 		const std::vector<std::string>& GetTokenList() const;
 		const std::vector<std::string>& GetNonTerminalList() const;
 
+		const std::map<std::string, int>& GetTokenMap() const;
+		const std::map<std::string, int>& GetNonTerminalMap() const;
+
 		bool IsToken(const std::string& TokenName) const;
 		bool IsNonTerminal(const std::string& NonTerminalName) const;
 	};

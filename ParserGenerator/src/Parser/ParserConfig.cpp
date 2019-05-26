@@ -1,15 +1,13 @@
 #include "ParserConfig.h"
-#include "../Lexer/StateMachine.h"
-#include "../Lexer/RegExp.h"
-#include <iostream>
 
+#include <iostream>
+#include "../ParserTypes.h"
 
 namespace ParserGenerator {
 
 
 
-	ParserConfig::ParserConfig(const std::string& InStartNonTerminal)
-		: m_StartNonTerminal(InStartNonTerminal)
+	ParserConfig::ParserConfig()
 	{
 	}
 
@@ -31,7 +29,7 @@ namespace ParserGenerator {
 		{
 			for (const std::string& Token : Production->m_TokenClasses)
 			{
-				if (!IsNonTerminal(Token) && !StateMachine::IsEpsilon(Token))
+				if (!IsNonTerminal(Token) && !IsEpsilon(Token))
 				{
 					m_Terminals.insert(Token);
 				}
@@ -49,7 +47,7 @@ namespace ParserGenerator {
 		{
 			for (const std::string& Token : Production->m_TokenClasses)
 			{
-				if (!IsNonTerminal(Token) && !StateMachine::IsEpsilon(Token))
+				if (!IsNonTerminal(Token) && !IsEpsilon(Token))
 				{
 					m_Terminals.insert(Token);
 				}
@@ -111,7 +109,7 @@ namespace ParserGenerator {
 				}
 
 				// Add Epsilon Rule
-				ParserConfigElement* EpsilonProduction = new ParserConfigElement(NewNonTerminal, { StateMachine::EPSILON_S }, 0);
+				ParserConfigElement* EpsilonProduction = new ParserConfigElement(NewNonTerminal, { EPSILON_S }, 0);
 				NewRuleList.push_back(EpsilonProduction);
 			}
 			else
@@ -167,6 +165,8 @@ namespace ParserGenerator {
 				return Element->m_TokenClasses;
 			}
 		}
+
+		return std::vector<std::string>();
 	}
 
 	bool ParserConfig::IsNonTerminal(const std::string& Token) const

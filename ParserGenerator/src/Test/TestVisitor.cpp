@@ -1,90 +1,84 @@
 #include "TestVisitor.h"
 #include <iostream>
 
-int TestVisitor::VisitRule_rulelist(Rule_rulelist* Context)
+TestVisitor::TestVisitor()
 {
-	return 0;
+	m_LexerConfig = new ParserGenerator::LexerConfig();
+	m_ParserConfig = new ParserGenerator::ParserConfig();
+
+	m_TokenVisitor = new TokenVisitor();
+	m_RuleVisitor = new RuleVisitor();
 }
 
-int TestVisitor::VisitRule_parserrule(Rule_parserrule* Context)
+TestVisitor::~TestVisitor()
 {
-	std::cout << "Visit Rule: " << Context->PARSERID()->GetText() << std::endl;
+	delete m_LexerConfig;
+	delete m_ParserConfig;
 
-	return 0;
+	delete m_TokenVisitor;
+	delete m_RuleVisitor;
 }
 
-int TestVisitor::VisitRule_parseror(Rule_parseror* Context)
+bool TestVisitor::VisitRule_rulelist(Rule_rulelist* Context)
 {
-	return 0;
+	if (Context->parserrule())
+	{
+		VisitRule_parserrule(Context->parserrule());
+	}
+	if (Context->lexerrule())
+	{
+		VisitRule_lexerrule(Context->lexerrule());
+	}
+
+	if (Context->rulelist())
+	{
+		VisitRule_rulelist(Context->rulelist());
+	}
+
+	return true;
 }
 
-int TestVisitor::VisitRule_parseror2(Rule_parseror2* Context)
+bool TestVisitor::VisitRule_parserrule(Rule_parserrule* Context)
 {
-	return 0;
+	const std::string& RuleName = Context->PARSERID()->GetText();
+	std::cout << "Visit Rule: " << RuleName << std::endl;
+
+	// Grab Rule Versions from Parse Tree
+	std::set<std::vector<std::string>> OutLists = m_RuleVisitor->Visit(Context->parseror());
+	for (const std::vector<std::string>& RuleVersion : OutLists)
+	{
+		// Add them to the Parser Configuration
+		m_ParserConfig->AddProduction(RuleName, RuleVersion);
+	}
+
+	return false;
 }
 
-int TestVisitor::VisitRule_parserlist(Rule_parserlist* Context)
+bool TestVisitor::VisitRule_lexerrule(Rule_lexerrule* Context)
 {
-	return 0;
+	const std::string& TokenName = Context->LEXERID()->GetText();
+	std::cout << "Visit Token: " << TokenName << std::endl;
+
+	// Grab Regex from Parse Tree
+	ParserGenerator::Node_BASE* RootNode = m_TokenVisitor->Visit(Context->regex());
+	if (!RootNode) return false;
+	ParserGenerator::RegExp* OutRegex = new ParserGenerator::RegExp(RootNode);
+
+	// Check for special action
+	ParserGenerator::ELexerAction ActionType = GetActionType(Context->action()->PARSERID());
+
+	// Add it to Lexer Config
+	m_LexerConfig->Add(TokenName, OutRegex, ActionType);
+
+	return true;
 }
 
-int TestVisitor::VisitRule_parserconst(Rule_parserconst* Context)
+ParserGenerator::ELexerAction TestVisitor::GetActionType(ParserGenerator::TokenNode* ActionNode) const
 {
-	return 0;
-}
+	if (!ActionNode) return ParserGenerator::ELexerAction::DEFAULT;
 
+	const std::string& ActionName = ActionNode->GetText();
 
-int TestVisitor::VisitRule_(Rule_lexerrule* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_parserconst(Rule_action* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_regex(Rule_regex* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_lexeror(Rule_lexeror* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_lexeror2(Rule_lexeror2* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_operator(Rule_operator* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_operator2(Rule_operator2* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_anytime(Rule_anytime* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_once(Rule_once* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_optional(Rule_optional* Context)
-{
-	return 0;
-}
-
-int TestVisitor::VisitRule_lexerconst(Rule_lexerconst* Context)
-{
-	return 0;
+	if (ActionName == "skip") return ParserGenerator::ELexerAction::SKIP;
+	else return ParserGenerator::ELexerAction::DEFAULT;
 }

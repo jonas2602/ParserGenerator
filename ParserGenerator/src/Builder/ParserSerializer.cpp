@@ -7,8 +7,13 @@
 #include "../ParserTypes.h"
 
 namespace ParserGenerator {
+	ParserSerializer::ParserSerializer(const std::string& InDirPath, const std::string& InParserName, const std::string& InCodePath, const std::string& InDocuPath)
+		: m_DirPath(InDirPath), m_ParserName(InParserName), m_CodePath(InCodePath), m_DocuPath(InDocuPath)
+	{
+		m_Generator = new CodeGenerator(InDirPath);
+	}
 
-	bool ParserSerializer::WriteAlphabet(Alphabet* InAlphabet, const std::string& FilePath)
+	bool ParserSerializer::WriteAlphabetDoc(Alphabet* InAlphabet) const
 	{
 		// Create Output Streams
 		std::stringstream TokenStream;
@@ -16,11 +21,11 @@ namespace ParserGenerator {
 		std::stringstream NonTerminalStream;
 		ParserSerializer::WriteNonTerminalList(InAlphabet, NonTerminalStream);
 
-		// Write to File
-		std::ofstream File(FilePath);
-		if (!File.is_open())
+		std::string FileName = ExtendFileName("Alphabet");
+		std::ofstream File;
+		if (!m_Generator->GetFileStream(FileName, File, m_DocuPath))
 		{
-			std::cout << "Failed to open File " << FilePath << std::endl;
+			std::cout << "Failed to open File " << FileName << std::endl;
 			return false;
 		}
 
@@ -34,7 +39,9 @@ namespace ParserGenerator {
 		return false;
 	}
 
-	bool ParserSerializer::WriteParsingTable(ParsingTable* InTable, ParserConfig* ParsConfig, Alphabet* InAlphabet, const std::string& FilePath)
+
+
+	bool ParserSerializer::WriteParsingTable(ParseTable::ParsingTable* InTable, ParserConfig* ParsConfig, Alphabet* InAlphabet, const std::string& FilePath)
 	{
 		// Create Output Streams
 		std::stringstream TokenStream;
@@ -172,7 +179,7 @@ namespace ParserGenerator {
 		return true;
 	}
 
-	bool ParserSerializer::SerializeParsingTable(ParsingTable* InTable, std::string& OutString)
+	bool ParserSerializer::SerializeParsingTable(ParseTable::ParsingTable* InTable, std::string& OutString)
 	{
 		std::stringstream OutStream;
 
@@ -227,6 +234,25 @@ namespace ParserGenerator {
 		return true;
 	}
 
+	bool ParserSerializer::WriteAlphabetCode(Alphabet* InAlphabet) const
+	{
+		std::string FileName = ExtendFileName("Alphabet");
+		std::ofstream HeaderFile;
+		if (!m_Generator->GetCodeFileStreams(m_CodePath, FileName, &HeaderFile))
+		{
+			std::cout << "Failed to open File " << FileName << std::endl;
+			return false;
+		}
+		
+		CodeSnippet_Enum TokenEnum("ETokenType", InAlphabet->GetTokenMap());
+		TokenEnum.Write(m_Generator, HeaderFile, HeaderFile, nullptr);
+
+		CodeSnippet_Enum RuleEnum("ERuleType", InAlphabet->GetNonTerminalMap());
+		RuleEnum.Write(m_Generator, HeaderFile, HeaderFile, nullptr);
+
+		return true;
+	}
+
 	void ParserSerializer::WriteTokenList(Alphabet* InAlphabet, std::stringstream& TokenStream)
 	{
 		const std::vector<std::string>& TokenList = InAlphabet->GetTokenList();
@@ -243,6 +269,11 @@ namespace ParserGenerator {
 		{
 			NonTerminalStream << i << " " << NonTerminalList[i] << std::endl;
 		}
+	}
+
+	std::string ParserSerializer::ExtendFileName(const std::string& RawFileName) const
+	{
+		return m_ParserName + RawFileName;
 	}
 
 }

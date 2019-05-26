@@ -50,7 +50,7 @@ namespace ParserGenerator {
 		int IteratorIndex = -1;
 		for (ParseTree* Child : m_Children)
 		{
-			T* ChildRule = (T*)Child;
+			T* ChildRule = dynamic_cast<T*>(Child);
 			if (ChildRule)
 			{
 				IteratorIndex++;
@@ -70,7 +70,7 @@ namespace ParserGenerator {
 		std::vector<T*> OutRules;
 		for (ParseTree* Child : m_Children)
 		{
-			T* ChildRule = (T*)Child;
+			T* ChildRule = dynamic_cast<T*>(Child);
 			if (ChildRule)
 			{
 				OutRules.push_back(ChildRule);
