@@ -1,4 +1,7 @@
 #include "CodeSnippet.h"
+#include <algorithm>
+
+#include "FileTemplate.h"
 
 namespace ParserGenerator {
 
@@ -6,9 +9,31 @@ namespace ParserGenerator {
 		: m_Priority(InPriority), m_ChildSnippets(InChildSnippets)
 	{ }
 
+	CodeSnippet_Base::CodeSnippet_Base(const int& InPriority)
+		: m_Priority(InPriority)
+	{
+	}
+
 
 	CodeSnippet_Base::~CodeSnippet_Base()
 	{
+	}
+
+	void CodeSnippet_Base::AttachSnippet(CodeSnippet_Base* InChild)
+	{
+		m_ChildSnippets.push_back(InChild);
+		InChild->SetParent(this);
+	}
+
+	void CodeSnippet_Base::SetParent(CodeSnippet_Base* InParent)
+	{
+		m_ParentSnippet = InParent;
+		SetOwningFile(InParent->GetOwningFile());
+	}
+
+	void CodeSnippet_Base::SetOwningFile(FileTemplate* InFile)
+	{
+		m_OwningFile = InFile;
 	}
 
 	void CodeSnippet_Base::GenerateChildren(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream) const
@@ -17,6 +42,12 @@ namespace ParserGenerator {
 		{
 			Child->Write(Writer, HeaderStream, SourceStream, this);
 		}
+	}
+
+	void CodeSnippet_Plain::Write() const
+	{
+		std::ofstream& HeaderStream = m_OwningFile->GetTextStream();
+		HeaderStream << m_TextStream.str();
 	}
 
 	void CodeSnippet_Include::Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const
@@ -92,18 +123,37 @@ namespace ParserGenerator {
 	}
 
 	CodeSnippet_Enum::CodeSnippet_Enum(const std::string& InEnumName, const std::map<std::string, int>& InEnumEntries)
-		:m_EnumName(InEnumName), m_Entries(InEnumEntries)
+		: CodeSnippet_Base(1), m_EnumName(InEnumName)
 	{
+		for (const std::pair<std::string, int>& Pair : InEnumEntries)
+		{
+			m_Entries[Pair.second] = Pair.first;
+		}
+	}
 
+	void CodeSnippet_Enum::Write() const
+	{
+		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
+		HeaderStream << "enum " << m_EnumName << " { " << std::endl;
+		for (const std::pair<int, std::string>& Pair : m_Entries)
+		{
+			std::string UpperCaseName = Pair.second;
+			std::transform(UpperCaseName.begin(), UpperCaseName.end(), UpperCaseName.begin(), ::toupper);
+			// TODO: Name toUpperCase
+			HeaderStream << "\t" << UpperCaseName << " = " << Pair.first << ", " << std::endl;
+		}
+		HeaderStream << "};" << std::endl << std::endl;
 	}
 
 	void CodeSnippet_Enum::Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const
 	{
 		HeaderStream << "enum " << m_EnumName << " { " << std::endl;
-		for (const std::pair<std::string, int>& Pair : m_Entries)
+		for (const std::pair<int, std::string>& Pair : m_Entries)
 		{
+			std::string UpperCaseName = Pair.second;
+			std::transform(UpperCaseName.begin(), UpperCaseName.end(), UpperCaseName.begin(), ::toupper);
 			// TODO: Name toUpperCase
-			HeaderStream << "\t" << Pair.first << " = " << Pair.second << ", " << std::endl;
+			HeaderStream << "\t" << UpperCaseName << " = " << Pair.first << ", " << std::endl;
 		}
 		HeaderStream << "};" << std::endl;
 	}

@@ -20,28 +20,28 @@ namespace ParserGenerator {
 		ParserSerializer::WriteTokenList(InAlphabet, TokenStream);
 		std::stringstream NonTerminalStream;
 		ParserSerializer::WriteNonTerminalList(InAlphabet, NonTerminalStream);
-
+		
+		// Create File
 		std::string FileName = ExtendFileName("Alphabet");
-		std::ofstream File;
-		if (!m_Generator->GetFileStream(FileName, File, m_DocuPath))
-		{
-			std::cout << "Failed to open File " << FileName << std::endl;
-			return false;
-		}
+		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_DocuPath);
+		CodeSnippet_Plain* PlainSnippet = new CodeSnippet_Plain();
+		AlphabetFile->AddSnippet(PlainSnippet);
 
-		File << "Avaliable Tokens:" << std::endl << "[Index] [Name]" << std::endl;
-		File << TokenStream.str();
-		File << std::endl;
-		File << "Avaliable Non Terminals:" << std::endl << "[Index] [Name]" << std::endl;
-		File << NonTerminalStream.str();
-		File << std::endl;
+		// Write Content to Snippet
+		std::stringstream& OutStream = PlainSnippet->GetTextStream(); 
+		OutStream << "Avaliable Tokens:" << std::endl << "[Index] [Name]" << std::endl;
+		OutStream << TokenStream.str();
+		OutStream << std::endl;
+		OutStream << "Avaliable Non Terminals:" << std::endl << "[Index] [Name]" << std::endl;
+		OutStream << NonTerminalStream.str();
+		OutStream << std::endl;
 
-		return false;
+		return true;
 	}
 
 
 
-	bool ParserSerializer::WriteParsingTable(ParseTable::ParsingTable* InTable, ParserConfig* ParsConfig, Alphabet* InAlphabet, const std::string& FilePath)
+	bool ParserSerializer::WriteParsingTableDoc(ParseTable::ParsingTable* InTable, ParserConfig* ParsConfig, Alphabet* InAlphabet) const
 	{
 		// Create Output Streams
 		std::stringstream TokenStream;
@@ -89,31 +89,38 @@ namespace ParserGenerator {
 			}
 		}
 
+		// Table that is used in Parser
+		std::string TableString;
+		ParserSerializer::SerializeParsingTable(InTable, TableString);
 
-		// Write to File
-		std::ofstream File(FilePath);
-		if (!File.is_open())
-		{
-			std::cout << "Failed to open File " << FilePath << std::endl;
-			return false;
-		}
 
-		File << "Avaliable Tokens:" << std::endl << "[Index] [Name]" << std::endl;
-		File << TokenStream.str();
-		File << std::endl;
-		File << "Avaliable Non Terminals:" << std::endl << "[Index] [Name]" << std::endl;
-		File << NonTerminalStream.str();
-		File << std::endl;
-		File << "Table Entries:" << std::endl << "([NonTerminal], [Token]) -> [Rule]" << std::endl;
-		File << TableStream.str();
-		File << std::endl;
-		File << "Rules:" << std::endl << "[LocalRuleIndex] [NonTerminal] -> [Element] [Element] ..." << std::endl;
-		File << RuleStream.str();
+		// Create File
+		std::string FileName = ExtendFileName("ParsingTable");
+		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_DocuPath);
+		CodeSnippet_Plain* PlainSnippet = new CodeSnippet_Plain();
+		AlphabetFile->AddSnippet(PlainSnippet);
+
+		// Write Content to Snippet
+		std::stringstream& OutStream = PlainSnippet->GetTextStream();
+		OutStream << "Avaliable Tokens:" << std::endl << "[Index] [Name]" << std::endl;
+		OutStream << TokenStream.str();
+		OutStream << std::endl;
+		OutStream << "Avaliable Non Terminals:" << std::endl << "[Index] [Name]" << std::endl;
+		OutStream << NonTerminalStream.str();
+		OutStream << std::endl;
+		OutStream << "Table Entries:" << std::endl << "([NonTerminal], [Token]) -> [Rule]" << std::endl;
+		OutStream << TableStream.str();
+		OutStream << std::endl;
+		OutStream << "Rules:" << std::endl << "[LocalRuleIndex] [NonTerminal] -> [Element] [Element] ..." << std::endl;
+		OutStream << RuleStream.str();
+		OutStream << std::endl;
+		OutStream << "Serialized Parsing Table:" << std::endl << "[NonTerminal] [Token] [LocalRuleIndex] ..." << std::endl;
+		OutStream << TableString;
 
 		return true;
 	}
 
-	bool ParserSerializer::WriteAutomaton(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet, const std::string& FilePath)
+	bool ParserSerializer::WriteAutomaton(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet)
 	{
 		// Create Output Streams
 		std::stringstream TokenStream;
@@ -156,25 +163,32 @@ namespace ParserGenerator {
 		const std::string& StartStateName = InDFA->GetStartState()->GetName();
 		int StartStateIndex = IndexMap[InDFA->GetStartState()];
 
-		// Write to File
-		std::ofstream File(FilePath);
-		if (!File.is_open())
-		{
-			std::cout << "Failed to open File " << FilePath << std::endl;
-			return false;
-		}
+		// Table that is used in Parser
+		std::string AutomatonString;
+		ParserSerializer::SerializeAutomaton(InDFA, AutomatonString);
 
-		File << "Avaliable Tokens:" << std::endl << "[Index] [Name] [Action]" << std::endl;
-		File << TokenStream.str();
-		File << std::endl;
-		File << "Automaton States:" << std::endl << "[Index] [Symbolic Name] [Priority]" << std::endl;
-		File << StateStream.str();
-		File << std::endl;
-		File << "Automaton Transitions:" << std::endl << "[Start State] [End State] [Condition chars]" << std::endl;
-		File << TransitionStream.str();
-		File << std::endl;
-		File << "Automaton Start State:" << std::endl << "[Index] [Symbolic Name]" << std::endl;
-		File << StartStateIndex << " " << StartStateName;
+		// Create File
+		std::string FileName = ExtendFileName("Automaton");
+		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_DocuPath);
+		CodeSnippet_Plain* PlainSnippet = new CodeSnippet_Plain();
+		AlphabetFile->AddSnippet(PlainSnippet);
+
+		// Write Content to Snippet
+		std::stringstream& OutStream = PlainSnippet->GetTextStream();
+		OutStream << "Avaliable Tokens:" << std::endl << "[Index] [Name] [Action]" << std::endl;
+		OutStream << TokenStream.str();
+		OutStream << std::endl;
+		OutStream << "Automaton States:" << std::endl << "[Index] [Symbolic Name] [Priority]" << std::endl;
+		OutStream << StateStream.str();
+		OutStream << std::endl;
+		OutStream << "Automaton Transitions:" << std::endl << "[Start State] [End State] [Condition chars]" << std::endl;
+		OutStream << TransitionStream.str();
+		OutStream << std::endl;
+		OutStream << "Automaton Start State:" << std::endl << "[Index] [Symbolic Name]" << std::endl;
+		OutStream << StartStateIndex << " " << StartStateName << std::endl;
+		OutStream << std::endl;
+		OutStream << "Serialized Deterministic Finite Automaton:" << std::endl;
+		OutStream << AutomatonString;
 
 		return true;
 	}
@@ -236,21 +250,20 @@ namespace ParserGenerator {
 
 	bool ParserSerializer::WriteAlphabetCode(Alphabet* InAlphabet) const
 	{
+		// Create File
 		std::string FileName = ExtendFileName("Alphabet");
-		std::ofstream HeaderFile;
-		if (!m_Generator->GetCodeFileStreams(m_CodePath, FileName, &HeaderFile))
-		{
-			std::cout << "Failed to open File " << FileName << std::endl;
-			return false;
-		}
+		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
 		
-		CodeSnippet_Enum TokenEnum("ETokenType", InAlphabet->GetTokenMap());
-		TokenEnum.Write(m_Generator, HeaderFile, HeaderFile, nullptr);
-
-		CodeSnippet_Enum RuleEnum("ERuleType", InAlphabet->GetNonTerminalMap());
-		RuleEnum.Write(m_Generator, HeaderFile, HeaderFile, nullptr);
-
+		// Add Enums
+		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenMap()));
+		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ERuleType", InAlphabet->GetNonTerminalMap()));
+		
 		return true;
+	}
+
+	void ParserSerializer::Finish() const
+	{
+		m_Generator->GenerateFiles();
 	}
 
 	void ParserSerializer::WriteTokenList(Alphabet* InAlphabet, std::stringstream& TokenStream)

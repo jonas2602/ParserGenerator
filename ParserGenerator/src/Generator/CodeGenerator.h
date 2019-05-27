@@ -2,7 +2,7 @@
 
 #include "FileTemplate.h"
 #include "WriterInterface.h"
-#include <map>
+#include <vector>
 
 namespace ParserGenerator {
 
@@ -15,7 +15,7 @@ namespace ParserGenerator {
 	{
 	protected:
 		// FileName -> Template
-		std::map<std::string, FileTemplate*> m_TemplateMap;
+		std::vector<FileTemplate*> m_TemplateList;
 		std::string m_RootPath;
 
 	public:
@@ -25,12 +25,13 @@ namespace ParserGenerator {
 	public:
 		// Inherited via IWriterInterface
 		virtual bool GetCodeFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream* OutHeaderStream, std::ofstream* OutSourceStream = nullptr) override;
-
-		bool GetFileStream(const std::string& FileName, std::ofstream& OutFileStream, const std::string& RelativeDirectory = "", const std::string& FileType = ".txt") const;
+		virtual bool GetFileStream(const std::string& FileName, std::ofstream& OutFileStream, const std::string& RelativeDirectory = "", const std::string& FileType = ".txt") override;
 
 	public:
 		void GenerateFiles();
 		void AddFileTemplate(const std::string& FileName, const std::string& DirectoryPath, const std::vector<CodeSnippet_Base*>& SnippetList);
+
+		virtual FileTemplate* CreateVirtualFile(const std::string& FileName, const std::string& DirectoryPath);
 	};
 
 }

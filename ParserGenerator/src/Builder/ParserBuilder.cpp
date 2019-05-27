@@ -64,17 +64,19 @@ namespace ParserGenerator {
 		ParserSerializer Serializer(RootPath, GrammarName, "", "doc");
 		Serializer.WriteAlphabetDoc(m_Alphabet);
 		Serializer.WriteAlphabetCode(m_Alphabet);
+		Serializer.WriteParsingTableDoc(m_Table, m_ParsConfig, m_Alphabet);
+		Serializer.WriteAutomaton(m_DFA, m_LexConfig, m_Alphabet);
+		Serializer.Finish();
+
 		
-		ParserSerializer::WriteParsingTable(m_Table, m_ParsConfig, m_Alphabet, "res/ParsingTableNew.tab");
-		ParserSerializer::WriteAutomaton(m_DFA, m_LexConfig, m_Alphabet, "res/AutomatonNew.dfa");
 
-		std::string AutomatonString;
-		ParserSerializer::SerializeAutomaton(m_DFA, AutomatonString);
-		std::string TableString;
-		ParserSerializer::SerializeParsingTable(m_Table, TableString);
+		//std::string AutomatonString;
+		//ParserSerializer::SerializeAutomaton(m_DFA, AutomatonString);
+		//std::string TableString;
+		//ParserSerializer::SerializeParsingTable(m_Table, TableString);
 
-		std::cout << std::endl;
+		//std::cout << std::endl;
 		//std::cout << AutomatonString << std::endl;
-		std::cout << TableString << std::endl;
+		//std::cout << TableString << std::endl;
 	}
 }

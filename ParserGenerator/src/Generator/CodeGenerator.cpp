@@ -23,16 +23,24 @@ namespace ParserGenerator {
 		// Add namespace
 		// iterate over snippets ordered by priority
 
-		for (const std::pair<std::string, FileTemplate*>& Template : m_TemplateMap)
+		for (FileTemplate* Template : m_TemplateList)
 		{
-			Template.second->Write(this);
+			Template->Write(this);
 		}
 	}
 
 	void CodeGenerator::AddFileTemplate(const std::string& FileName, const std::string& DirectoryPath, const std::vector<CodeSnippet_Base*>& SnippetList)
 	{
-		FileTemplate* NewFile = new FileTemplate(FileName, DirectoryPath, SnippetList);
-		m_TemplateMap[FileName] = NewFile;
+		FileTemplate* NewFile = new FileTemplate(FileName, DirectoryPath, this, SnippetList);
+		m_TemplateList.push_back(NewFile);
+	}
+
+	FileTemplate* CodeGenerator::CreateVirtualFile(const std::string& FileName, const std::string& DirectoryPath)
+	{
+		FileTemplate* NewFile = new FileTemplate(FileName, DirectoryPath, this);
+		m_TemplateList.push_back(NewFile);
+
+		return NewFile;
 	}
 
 	bool CodeGenerator::GetCodeFileStreams(const std::string& RelativeDirectory, const std::string& FileName, std::ofstream* OutHeaderStream, std::ofstream* OutSourceStream)
@@ -50,7 +58,7 @@ namespace ParserGenerator {
 		return true;
 	}
 
-	bool CodeGenerator::GetFileStream(const std::string& FileName, std::ofstream& OutFileStream, const std::string& RelativeDirectory, const std::string& FileType) const
+	bool CodeGenerator::GetFileStream(const std::string& FileName, std::ofstream& OutFileStream, const std::string& RelativeDirectory, const std::string& FileType)
 	{
 		// Create Directory if it doesn't exist
 		fs::path DirPath = fs::path(m_RootPath) / fs::path(RelativeDirectory);

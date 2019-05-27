@@ -14,8 +14,14 @@ namespace ParserGenerator {
 		std::string m_DirectoryPath;
 		std::vector<CodeSnippet_Base*> m_RootSnippets;
 
+		std::ofstream m_HeaderStream;
+		std::ofstream m_SourceStream;
+		std::ofstream m_TextStream;
+
+		IWriterInterface* m_Writer;
+
 	public:
-		FileTemplate(const std::string& InFileName, const std::string& InDirectoryPath, const std::vector<CodeSnippet_Base*> InRootSnippets);
+		FileTemplate(const std::string& InFileName, const std::string& InDirectoryPath, IWriterInterface* InWriter, const std::vector<CodeSnippet_Base*> InRootSnippets = {});
 		~FileTemplate();
 
 		const std::string& GetFileName() const { return m_FileName; }
@@ -24,6 +30,10 @@ namespace ParserGenerator {
 	public:
 		void AddSnippet(CodeSnippet_Base* SnippetInstance);
 		void Write(IWriterInterface* Writer);
+
+		std::ofstream& GetHeaderStream();
+		std::ofstream& GetSourceStream();
+		std::ofstream& GetTextStream();
 
 	protected:
 		void AddDefaults(std::ofstream& HeaderStream, std::ofstream& SourceStream);

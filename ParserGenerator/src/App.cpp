@@ -45,18 +45,18 @@ namespace ParserGenerator {
 	{
 		std::cout << "Start Generator" << std::endl;
 
-		CodeGenerator Generator("gen");
-		Generator.AddFileTemplate("test", "dir", {
-			new CodeSnippet_Class("TestClass",{
-				new CodeSnippet_Function("TestFunction",{
-					"const std::string& TestParam",
-					"MyClass*& OutParam"
-				},{
-					"return 0;"
-				})
-			}),
-			new CodeSnippet_Include("ParentClass.h")
-			});
+		//CodeGenerator Generator("gen");
+		//Generator.AddFileTemplate("test", "dir", {
+		//	new CodeSnippet_Class("TestClass",{
+		//		new CodeSnippet_Function("TestFunction",{
+		//			"const std::string& TestParam",
+		//			"MyClass*& OutParam"
+		//		},{
+		//			"return 0;"
+		//		})
+		//	}),
+		//	new CodeSnippet_Include("ParentClass.h")
+		//	});
 		//Generator.GenerateFiles();
 
 		// Priority drops from high to low
