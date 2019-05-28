@@ -21,17 +21,17 @@ Avaliable Tokens:
 Avaliable Non Terminals:
 [Index] [Name]
 0 action
-1 anytime
-2 lexerconst
-3 lexerrule
-4 once
+1 lexerconst
+2 lexeror
+3 lexeror2
+4 lexerrule
 5 operator
-6 optional
+6 operator2
 7 parserconst
 8 parserlist
 9 parseror
-10 parserrule
-11 range
+10 parseror2
+11 parserrule
 12 regex
 13 rulelist
 
@@ -39,150 +39,110 @@ Table Entries:
 ([NonTerminal], [Token]) -> [Rule]
 [action(0), ARROW(2)] -> 0 ARROW PARSERID
 [action(0), SEMICOLON(10)] -> 1 EPSILON
-[anytime(1), LEXERID(1)] -> 0 lexerconst STAR
-[anytime(1), ARROW(2)] -> 0 lexerconst STAR
-[anytime(1), QUESTIONMARK(3)] -> 0 lexerconst STAR
-[anytime(1), CHARSET(4)] -> 0 lexerconst STAR
-[anytime(1), STAR(5)] -> 0 lexerconst STAR
-[anytime(1), PLUS(6)] -> 0 lexerconst STAR
-[anytime(1), DOT(7)] -> 0 lexerconst STAR
-[anytime(1), LITERAL(8)] -> 0 lexerconst STAR
-[anytime(1), SEMICOLON(10)] -> 0 lexerconst STAR
-[anytime(1), PIPE(12)] -> 0 lexerconst STAR
-[anytime(1), RP(13)] -> 0 lexerconst STAR
-[anytime(1), LP(14)] -> 0 lexerconst STAR
-[lexerconst(2), LEXERID(1)] -> 2 LEXERID
-[lexerconst(2), ARROW(2)] -> 5 range
-[lexerconst(2), QUESTIONMARK(3)] -> 5 range
-[lexerconst(2), CHARSET(4)] -> 0 CHARSET
-[lexerconst(2), STAR(5)] -> 5 range
-[lexerconst(2), PLUS(6)] -> 5 range
-[lexerconst(2), DOT(7)] -> 1 DOT
-[lexerconst(2), LITERAL(8)] -> 3 LITERAL
-[lexerconst(2), SEMICOLON(10)] -> 5 range
-[lexerconst(2), PIPE(12)] -> 5 range
-[lexerconst(2), RP(13)] -> 5 range
-[lexerconst(2), LP(14)] -> 4 LP regex RP
-[lexerrule(3), LEXERID(1)] -> 0 LEXERID COLON regex action SEMICOLON
-[lexerrule(3), PARSERID(9)] -> 1 EPSILON
-[once(4), LEXERID(1)] -> 0 lexerconst PLUS
-[once(4), ARROW(2)] -> 0 lexerconst PLUS
-[once(4), QUESTIONMARK(3)] -> 0 lexerconst PLUS
-[once(4), CHARSET(4)] -> 0 lexerconst PLUS
-[once(4), STAR(5)] -> 0 lexerconst PLUS
-[once(4), PLUS(6)] -> 0 lexerconst PLUS
-[once(4), DOT(7)] -> 0 lexerconst PLUS
-[once(4), LITERAL(8)] -> 0 lexerconst PLUS
-[once(4), SEMICOLON(10)] -> 0 lexerconst PLUS
-[once(4), PIPE(12)] -> 0 lexerconst PLUS
-[once(4), RP(13)] -> 0 lexerconst PLUS
-[once(4), LP(14)] -> 0 lexerconst PLUS
-[operator(5), LEXERID(1)] -> 0 anytime
-[operator(5), ARROW(2)] -> 0 anytime
-[operator(5), QUESTIONMARK(3)] -> 0 anytime
-[operator(5), CHARSET(4)] -> 0 anytime
-[operator(5), STAR(5)] -> 0 anytime
-[operator(5), PLUS(6)] -> 0 anytime
-[operator(5), DOT(7)] -> 0 anytime
-[operator(5), LITERAL(8)] -> 0 anytime
-[operator(5), SEMICOLON(10)] -> 0 anytime
-[operator(5), PIPE(12)] -> 0 anytime
-[operator(5), RP(13)] -> 0 anytime
-[operator(5), LP(14)] -> 0 anytime
-[optional(6), LEXERID(1)] -> 0 lexerconst QUESTIONMARK
-[optional(6), ARROW(2)] -> 0 lexerconst QUESTIONMARK
-[optional(6), QUESTIONMARK(3)] -> 0 lexerconst QUESTIONMARK
-[optional(6), CHARSET(4)] -> 0 lexerconst QUESTIONMARK
-[optional(6), STAR(5)] -> 0 lexerconst QUESTIONMARK
-[optional(6), PLUS(6)] -> 0 lexerconst QUESTIONMARK
-[optional(6), DOT(7)] -> 0 lexerconst QUESTIONMARK
-[optional(6), LITERAL(8)] -> 0 lexerconst QUESTIONMARK
-[optional(6), SEMICOLON(10)] -> 0 lexerconst QUESTIONMARK
-[optional(6), PIPE(12)] -> 0 lexerconst QUESTIONMARK
-[optional(6), RP(13)] -> 0 lexerconst QUESTIONMARK
-[optional(6), LP(14)] -> 0 lexerconst QUESTIONMARK
+[lexerconst(1), LEXERID(1)] -> 2 LEXERID
+[lexerconst(1), CHARSET(4)] -> 0 CHARSET
+[lexerconst(1), DOT(7)] -> 1 DOT
+[lexerconst(1), LITERAL(8)] -> 3 LITERAL
+[lexerconst(1), LP(14)] -> 4 LP regex RP
+[lexeror(2), LEXERID(1)] -> 0 operator lexeror2
+[lexeror(2), CHARSET(4)] -> 0 operator lexeror2
+[lexeror(2), DOT(7)] -> 0 operator lexeror2
+[lexeror(2), LITERAL(8)] -> 0 operator lexeror2
+[lexeror(2), LP(14)] -> 0 operator lexeror2
+[lexeror2(3), LEXERID(1)] -> 1 EPSILON
+[lexeror2(3), ARROW(2)] -> 1 EPSILON
+[lexeror2(3), CHARSET(4)] -> 1 EPSILON
+[lexeror2(3), DOT(7)] -> 1 EPSILON
+[lexeror2(3), LITERAL(8)] -> 1 EPSILON
+[lexeror2(3), SEMICOLON(10)] -> 1 EPSILON
+[lexeror2(3), PIPE(12)] -> 0 PIPE operator lexeror2
+[lexeror2(3), RP(13)] -> 1 EPSILON
+[lexeror2(3), LP(14)] -> 1 EPSILON
+[lexerrule(4), LEXERID(1)] -> 0 LEXERID COLON regex action SEMICOLON
+[operator(5), LEXERID(1)] -> 0 lexerconst operator2
+[operator(5), CHARSET(4)] -> 0 lexerconst operator2
+[operator(5), DOT(7)] -> 0 lexerconst operator2
+[operator(5), LITERAL(8)] -> 0 lexerconst operator2
+[operator(5), LP(14)] -> 0 lexerconst operator2
+[operator2(6), LEXERID(1)] -> 3 EPSILON
+[operator2(6), ARROW(2)] -> 3 EPSILON
+[operator2(6), QUESTIONMARK(3)] -> 1 QUESTIONMARK
+[operator2(6), CHARSET(4)] -> 3 EPSILON
+[operator2(6), STAR(5)] -> 2 STAR
+[operator2(6), PLUS(6)] -> 0 PLUS
+[operator2(6), DOT(7)] -> 3 EPSILON
+[operator2(6), LITERAL(8)] -> 3 EPSILON
+[operator2(6), SEMICOLON(10)] -> 3 EPSILON
+[operator2(6), PIPE(12)] -> 3 EPSILON
+[operator2(6), RP(13)] -> 3 EPSILON
+[operator2(6), LP(14)] -> 3 EPSILON
 [parserconst(7), LEXERID(1)] -> 0 LEXERID
 [parserconst(7), LITERAL(8)] -> 1 LITERAL
 [parserconst(7), PARSERID(9)] -> 3 PARSERID
 [parserconst(7), LP(14)] -> 2 LP parseror RP
-[parserlist(8), LEXERID(1)] -> 0 parserconst
-[parserlist(8), LITERAL(8)] -> 0 parserconst
-[parserlist(8), PARSERID(9)] -> 0 parserconst
-[parserlist(8), LP(14)] -> 0 parserconst
-[parseror(9), LEXERID(1)] -> 0 parserlist
-[parseror(9), LITERAL(8)] -> 0 parserlist
-[parseror(9), PARSERID(9)] -> 0 parserlist
-[parseror(9), LP(14)] -> 0 parserlist
-[parserrule(10), LEXERID(1)] -> 1 EPSILON
-[parserrule(10), PARSERID(9)] -> 0 PARSERID COLON parseror SEMICOLON
-[range(11), LEXERID(1)] -> 1 EPSILON
-[range(11), ARROW(2)] -> 1 EPSILON
-[range(11), QUESTIONMARK(3)] -> 1 EPSILON
-[range(11), CHARSET(4)] -> 1 EPSILON
-[range(11), STAR(5)] -> 1 EPSILON
-[range(11), PLUS(6)] -> 1 EPSILON
-[range(11), DOT(7)] -> 1 EPSILON
-[range(11), LITERAL(8)] -> 0 LITERAL ITERAL LITERAL
-[range(11), SEMICOLON(10)] -> 1 EPSILON
-[range(11), PIPE(12)] -> 1 EPSILON
-[range(11), RP(13)] -> 1 EPSILON
-[range(11), LP(14)] -> 1 EPSILON
-[regex(12), LEXERID(1)] -> 0 operator PIPE regex regex
-[regex(12), ARROW(2)] -> 0 operator PIPE regex regex
-[regex(12), QUESTIONMARK(3)] -> 0 operator PIPE regex regex
-[regex(12), CHARSET(4)] -> 0 operator PIPE regex regex
-[regex(12), STAR(5)] -> 0 operator PIPE regex regex
-[regex(12), PLUS(6)] -> 0 operator PIPE regex regex
-[regex(12), DOT(7)] -> 0 operator PIPE regex regex
-[regex(12), LITERAL(8)] -> 0 operator PIPE regex regex
-[regex(12), SEMICOLON(10)] -> 0 operator PIPE regex regex
-[regex(12), PIPE(12)] -> 0 operator PIPE regex regex
-[regex(12), RP(13)] -> 0 operator PIPE regex regex
-[regex(12), LP(14)] -> 0 operator PIPE regex regex
+[parserlist(8), LEXERID(1)] -> 0 parserconst parserlist
+[parserlist(8), LITERAL(8)] -> 0 parserconst parserlist
+[parserlist(8), PARSERID(9)] -> 0 parserconst parserlist
+[parserlist(8), SEMICOLON(10)] -> 1 EPSILON
+[parserlist(8), PIPE(12)] -> 1 EPSILON
+[parserlist(8), RP(13)] -> 1 EPSILON
+[parserlist(8), LP(14)] -> 0 parserconst parserlist
+[parseror(9), LEXERID(1)] -> 0 parserlist parseror2
+[parseror(9), LITERAL(8)] -> 0 parserlist parseror2
+[parseror(9), PARSERID(9)] -> 0 parserlist parseror2
+[parseror(9), SEMICOLON(10)] -> 0 parserlist parseror2
+[parseror(9), PIPE(12)] -> 0 parserlist parseror2
+[parseror(9), RP(13)] -> 0 parserlist parseror2
+[parseror(9), LP(14)] -> 0 parserlist parseror2
+[parseror2(10), SEMICOLON(10)] -> 1 EPSILON
+[parseror2(10), PIPE(12)] -> 0 PIPE parserlist parseror2
+[parseror2(10), RP(13)] -> 1 EPSILON
+[parserrule(11), PARSERID(9)] -> 0 PARSERID COLON parseror SEMICOLON
+[regex(12), LEXERID(1)] -> 0 lexeror regex
+[regex(12), ARROW(2)] -> 1 EPSILON
+[regex(12), CHARSET(4)] -> 0 lexeror regex
+[regex(12), DOT(7)] -> 0 lexeror regex
+[regex(12), LITERAL(8)] -> 0 lexeror regex
+[regex(12), SEMICOLON(10)] -> 1 EPSILON
+[regex(12), RP(13)] -> 1 EPSILON
+[regex(12), LP(14)] -> 0 lexeror regex
 [rulelist(13), LEXERID(1)] -> 0 lexerrule rulelist
-[rulelist(13), PARSERID(9)] -> 0 lexerrule rulelist
+[rulelist(13), PARSERID(9)] -> 1 parserrule rulelist
 
 Rules:
 [LocalRuleIndex] [NonTerminal] -> [Element] [Element] ...
 0 action(0) -> ARROW(2) PARSERID(9)
 1 action(0) -> EPSILON(-1)
-0 anytime(1) -> lexerconst(2) STAR(5)
-1 anytime(1) -> EPSILON(-1)
-0 lexerconst(2) -> CHARSET(4)
-1 lexerconst(2) -> DOT(7)
-2 lexerconst(2) -> LEXERID(1)
-3 lexerconst(2) -> LITERAL(8)
-4 lexerconst(2) -> LP(14) regex(12) RP(13)
-5 lexerconst(2) -> range(11)
-0 lexerrule(3) -> LEXERID(1) COLON(11) regex(12) action(0) SEMICOLON(10)
-1 lexerrule(3) -> EPSILON(-1)
-0 once(4) -> lexerconst(2) PLUS(6)
-1 once(4) -> EPSILON(-1)
-0 operator(5) -> anytime(1)
-1 operator(5) -> lexerconst(2)
-2 operator(5) -> once(4)
-3 operator(5) -> optional(6)
-0 optional(6) -> lexerconst(2) QUESTIONMARK(3)
-1 optional(6) -> EPSILON(-1)
+0 lexerconst(1) -> CHARSET(4)
+1 lexerconst(1) -> DOT(7)
+2 lexerconst(1) -> LEXERID(1)
+3 lexerconst(1) -> LITERAL(8)
+4 lexerconst(1) -> LP(14) regex(12) RP(13)
+0 lexeror(2) -> operator(5) lexeror2(3)
+0 lexeror2(3) -> PIPE(12) operator(5) lexeror2(3)
+1 lexeror2(3) -> EPSILON(-1)
+0 lexerrule(4) -> LEXERID(1) COLON(11) regex(12) action(0) SEMICOLON(10)
+0 operator(5) -> lexerconst(1) operator2(6)
+0 operator2(6) -> PLUS(6)
+1 operator2(6) -> QUESTIONMARK(3)
+2 operator2(6) -> STAR(5)
+3 operator2(6) -> EPSILON(-1)
 0 parserconst(7) -> LEXERID(1)
 1 parserconst(7) -> LITERAL(8)
 2 parserconst(7) -> LP(14) parseror(9) RP(13)
 3 parserconst(7) -> PARSERID(9)
-0 parserlist(8) -> parserconst(7)
-1 parserlist(8) -> parserconst(7) parserlist(8)
-0 parseror(9) -> parserlist(8)
-1 parseror(9) -> parserlist(8) PIPE(12) parseror(9)
-0 parserrule(10) -> PARSERID(9) COLON(11) parseror(9) SEMICOLON(10)
-1 parserrule(10) -> EPSILON(-1)
-0 range(11) -> LITERAL(8) ITERAL(-1) LITERAL(8)
-1 range(11) -> EPSILON(-1)
-0 regex(12) -> operator(5) PIPE(12) regex(12) regex(12)
-1 regex(12) -> operator(5) regex(12)
-2 regex(12) -> EPSILON(-1)
-0 rulelist(13) -> lexerrule(3) rulelist(13)
-1 rulelist(13) -> parserrule(10) rulelist(13)
+0 parserlist(8) -> parserconst(7) parserlist(8)
+1 parserlist(8) -> EPSILON(-1)
+0 parseror(9) -> parserlist(8) parseror2(10)
+0 parseror2(10) -> PIPE(12) parserlist(8) parseror2(10)
+1 parseror2(10) -> EPSILON(-1)
+0 parserrule(11) -> PARSERID(9) COLON(11) parseror(9) SEMICOLON(10)
+0 regex(12) -> lexeror(2) regex(12)
+1 regex(12) -> EPSILON(-1)
+0 rulelist(13) -> lexerrule(4) rulelist(13)
+1 rulelist(13) -> parserrule(11) rulelist(13)
 2 rulelist(13) -> EPSILON(-1)
 
 Serialized Parsing Table:
 [NonTerminal] [Token] [LocalRuleIndex] ...
-0 2 0 0 10 1 1 1 0 1 2 0 1 3 0 1 4 0 1 5 0 1 6 0 1 7 0 1 8 0 1 10 0 1 12 0 1 13 0 1 14 0 2 1 2 2 2 5 2 3 5 2 4 0 2 5 5 2 6 5 2 7 1 2 8 3 2 10 5 2 12 5 2 13 5 2 14 4 3 1 0 3 9 1 4 1 0 4 2 0 4 3 0 4 4 0 4 5 0 4 6 0 4 7 0 4 8 0 4 10 0 4 12 0 4 13 0 4 14 0 5 1 0 5 2 0 5 3 0 5 4 0 5 5 0 5 6 0 5 7 0 5 8 0 5 10 0 5 12 0 5 13 0 5 14 0 6 1 0 6 2 0 6 3 0 6 4 0 6 5 0 6 6 0 6 7 0 6 8 0 6 10 0 6 12 0 6 13 0 6 14 0 7 1 0 7 8 1 7 9 3 7 14 2 8 1 0 8 8 0 8 9 0 8 14 0 9 1 0 9 8 0 9 9 0 9 14 0 10 1 1 10 9 0 11 1 1 11 2 1 11 3 1 11 4 1 11 5 1 11 6 1 11 7 1 11 8 0 11 10 1 11 12 1 11 13 1 11 14 1 12 1 0 12 2 0 12 3 0 12 4 0 12 5 0 12 6 0 12 7 0 12 8 0 12 10 0 12 12 0 12 13 0 12 14 0 13 1 0 13 9 0 
+0 2 0 0 10 1 1 1 2 1 4 0 1 7 1 1 8 3 1 14 4 2 1 0 2 4 0 2 7 0 2 8 0 2 14 0 3 1 1 3 2 1 3 4 1 3 7 1 3 8 1 3 10 1 3 12 0 3 13 1 3 14 1 4 1 0 5 1 0 5 4 0 5 7 0 5 8 0 5 14 0 6 1 3 6 2 3 6 3 1 6 4 3 6 5 2 6 6 0 6 7 3 6 8 3 6 10 3 6 12 3 6 13 3 6 14 3 7 1 0 7 8 1 7 9 3 7 14 2 8 1 0 8 8 0 8 9 0 8 10 1 8 12 1 8 13 1 8 14 0 9 1 0 9 8 0 9 9 0 9 10 0 9 12 0 9 13 0 9 14 0 10 10 1 10 12 0 10 13 1 11 9 0 12 1 0 12 2 1 12 4 0 12 7 0 12 8 0 12 10 1 12 13 1 12 14 0 13 1 0 13 9 1 

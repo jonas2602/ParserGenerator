@@ -143,6 +143,7 @@
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Test\TokenVisitor.h" />
     <ClInclude Include="src\Utils\StringUtils.h" />
+    <ClInclude Include="src\Generator\Snippets\SwitchSnippet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Generator\Snippets\ConstructorSnippet.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="src\Test\TestVisitor.cpp" />
     <ClCompile Include="src\Test\TokenVisitor.cpp" />
     <ClCompile Include="src\Utils\StringUtils.cpp" />
+    <ClCompile Include="src\Generator\Snippets\SwitchSnippet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

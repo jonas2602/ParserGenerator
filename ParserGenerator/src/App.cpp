@@ -245,6 +245,10 @@ namespace ParserGenerator {
 		TestVisitor* vis = new TestVisitor();
 		if (vis->Visit(root))
 		{
+			for (ParserConfigElement* Element : vis->GetParserConfig()->GetProductionList())
+			{
+				std::cout << Element << std::endl;
+			}
 			ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
 			builder.Generate("src/gen/", "Gen");
 		}

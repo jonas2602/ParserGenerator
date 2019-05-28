@@ -9,6 +9,7 @@
 #include "../Generator/Snippets/ForwardDeclSnippet.h"
 #include "../Generator/Snippets/ClassSnippet.h"
 #include "../Generator/Snippets/ConstructorSnippet.h"
+#include "../Generator/Snippets/SwitchSnippet.h"
 
 #include "../Utils/StringUtils.h"
 
@@ -342,13 +343,15 @@ namespace ParserGenerator {
 
 		// Add Constructor
 		ClassSnippet->CreateNewGroup("public");
-		std::string AutomatonString;
 		ClassSnippet->AttachSnippet(new CodeSnippet_Constructor({ "Init();" }, { "const std::string& InSourceCode" }, { {"Lexer","InSourceCode" } }));
 
+		// Add Serialized Automaton
 		ClassSnippet->CreateNewGroup("protected");
+		std::string AutomatonString;
 		ParserSerializer::SerializeAutomaton(InDFA, AutomatonString);
 		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedAutomaton", { "return \"" + AutomatonString + "\";" }, "std::string", { CONSTANT, VIRTUAL, OVERRIDE }));
 
+		// Add Skipped TokenTypes
 		std::string HiddenList = "{ ";
 		for (const LexerConfigElement& Regex : LexConfig->GetRegexList())
 		{
@@ -361,6 +364,111 @@ namespace ParserGenerator {
 		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetHiddenTokenTypes", { "return " + HiddenList + ";" }, "std::set<int>", { CONSTANT, VIRTUAL, OVERRIDE }));
 
 		return true;
+	}
+
+	bool ParserSerializer::WriteParserCode(ParseTable::ParsingTable* InTable, ParserConfig* ParsConfig, Alphabet* InAlphabet) const
+	{
+		// Create File
+		std::string FileName = ExtendFileName("Parser");
+		FileTemplate* ParserFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+
+		// Add Includes
+		ParserFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Rules") + ".h"));
+		ParserFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+
+		// Add Parser Class
+		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "ParserGenerator::Parser");
+		ParserFile->AddSnippet(ClassSnippet);
+
+		// Add Constructor
+		ClassSnippet->CreateNewGroup("public");
+		std::string AutomatonString;
+		ClassSnippet->AttachSnippet(new CodeSnippet_Constructor({ "LoadParsingTable();" }, { "const std::vector<ParserGenerator::Token*>& TokenStream" }, { {"Parser", "TokenStream" } }));
+
+		// Add Parsing Rules
+		ClassSnippet->CreateNewGroup("public");
+		for (const std::string& NonTerminal : ParsConfig->GetNonTerminals())
+		{
+			std::string FunctionName = NonTerminal;
+			FunctionName[0] = toupper(FunctionName[0]);
+			std::string RuleName = "Rule_" + NonTerminal;
+
+			std::vector<std::string> BodyLines;
+			BodyLines.insert(BodyLines.end(), {
+				"OutRule = new " + RuleName + "();",
+				"EnterRule(OutRule);",
+				"",
+				});
+
+			std::vector<ParserConfigElement*> NonTerminalRules = ParsConfig->GetAllProductionsForNonTerminal(NonTerminal);
+			if (NonTerminalRules.size() == 1)
+			{
+				for (const std::string& Element : NonTerminalRules[0]->m_TokenClasses)
+				{
+					if (ParsConfig->IsNonTerminal(Element))
+					{
+						std::string ElementFunctionName = Element;
+						ElementFunctionName[0] = toupper(ElementFunctionName[0]);
+						std::string ElementRuleName = "Rule_" + Element;
+						BodyLines.push_back("CALL_CHILD(" + ElementFunctionName + ", " + ElementRuleName + ");");
+					}
+					else
+					{
+						std::string ElementTokenName = StringUtils::ToUpperCase(Element);
+						BodyLines.push_back("TRY_MATCH(ETokenType::" + ElementTokenName + ");");
+					}
+				}
+			}
+			else
+			{
+				CodeSnippet_Switch* SwitchSnippet = new CodeSnippet_Switch("PredictProduction()");
+				for (ParserConfigElement* Rule : NonTerminalRules)
+				{
+					std::vector<std::string> CaseLines;
+					for (const std::string& Element : Rule->m_TokenClasses)
+					{
+						if (IsEpsilon(Element))
+						{
+							CaseLines.push_back("// EPSILON");
+						}
+						else if (ParsConfig->IsNonTerminal(Element))
+						{
+							std::string ElementFunctionName = Element;
+							ElementFunctionName[0] = toupper(ElementFunctionName[0]);
+							std::string ElementRuleName = "Rule_" + Element;
+							CaseLines.push_back("CALL_CHILD(" + ElementFunctionName + ", " + ElementRuleName + ");");
+						}
+						else
+						{
+							std::string ElementTokenName = StringUtils::ToUpperCase(Element);
+							CaseLines.push_back("TRY_MATCH(ETokenType::" + ElementTokenName + ");");
+						}
+					}
+
+					SwitchSnippet->AddCase(std::to_string(Rule->m_LocalRuleIndex), CaseLines);
+				}
+
+				std::vector<std::string> RawSwitchLines = SwitchSnippet->GetRawLines();
+				BodyLines.insert(BodyLines.end(), RawSwitchLines.begin(), RawSwitchLines.end());
+			}
+
+			BodyLines.insert(BodyLines.end(), {
+				"",
+				"ExitRule(OutRule);",
+				"return true;"
+				});
+
+			ClassSnippet->AttachSnippet(new CodeSnippet_Function(FunctionName, BodyLines, { RuleName + "*& OutRule" }, "bool"));
+			// bool Rulelist(Rule_rulelist * &OutRule);
+		}
+
+		// Add Serialized ParsingTable
+		ClassSnippet->CreateNewGroup("protected");
+		std::string TableString;
+		ParserSerializer::SerializeParsingTable(InTable, TableString);
+		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedTable", { "return \"" + TableString + "\";" }, "std::string", { CONSTANT, VIRTUAL, OVERRIDE }));
+
+		return false;
 	}
 
 	void ParserSerializer::Finish() const

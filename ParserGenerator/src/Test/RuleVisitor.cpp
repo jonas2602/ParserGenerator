@@ -12,8 +12,8 @@ std::set<std::vector<std::string>> RuleVisitor::VisitRule_parseror(Rule_parseror
 	std::set<std::vector<std::string>> OrSet = VisitRule_parseror2(Context->parseror2());
 	OutSet.insert(OrSet.begin(), OrSet.end());
 
-	// if one child returns empty set, it can be interpreted as an allowed Epsilon at that point
-	if (ListSet.empty() || OrSet.empty())
+	// if list child returns empty set, it can be interpreted as an allowed Epsilon at that point
+	if (ListSet.empty())
 	{
 		// Create Epsilon Element
 		OutSet.insert({ ParserGenerator::EPSILON_S });

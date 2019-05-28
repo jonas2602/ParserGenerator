@@ -137,6 +137,7 @@
     <ClInclude Include="src\Generator\Snippets\ClassSnippet.h" />
     <ClInclude Include="src\Utils\StringUtils.h" />
     <ClInclude Include="src\Generator\Snippets\ConstructorSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\SwitchSnippet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -227,5 +228,6 @@
     <ClCompile Include="src\Generator\Snippets\ClassSnippet.cpp" />
     <ClCompile Include="src\Utils\StringUtils.cpp" />
     <ClCompile Include="src\Generator\Snippets\ConstructorSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\SwitchSnippet.cpp" />
   </ItemGroup>
 </Project>

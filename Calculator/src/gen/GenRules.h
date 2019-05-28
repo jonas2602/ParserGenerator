@@ -4,17 +4,17 @@
 #include "GenAlphabet.h"
 #include <Parser.h>
 class Rule_action;
-class Rule_anytime;
 class Rule_lexerconst;
+class Rule_lexeror;
+class Rule_lexeror2;
 class Rule_lexerrule;
-class Rule_once;
 class Rule_operator;
-class Rule_optional;
+class Rule_operator2;
 class Rule_parserconst;
 class Rule_parserlist;
 class Rule_parseror;
+class Rule_parseror2;
 class Rule_parserrule;
-class Rule_range;
 class Rule_regex;
 class Rule_rulelist;
 
@@ -26,17 +26,6 @@ public:
 public:
 	ParserGenerator::TokenNode* ARROW() const { return GetToken(ETokenType::ARROW, 0); }
 	ParserGenerator::TokenNode* PARSERID() const { return GetToken(ETokenType::PARSERID, 0); }
-
-};
-
-class Rule_anytime: public ParserGenerator::RuleNode
-{
-public:
-	virtual int GetRuleType() const override { return ERuleType::ANYTIME; }
-
-public:
-	ParserGenerator::TokenNode* STAR() const { return GetToken(ETokenType::STAR, 0); }
-	Rule_lexerconst* lexerconst() const { return GetRule<Rule_lexerconst>(0); }
 
 };
 
@@ -52,8 +41,30 @@ public:
 	ParserGenerator::TokenNode* LITERAL() const { return GetToken(ETokenType::LITERAL, 0); }
 	ParserGenerator::TokenNode* LP() const { return GetToken(ETokenType::LP, 0); }
 	ParserGenerator::TokenNode* RP() const { return GetToken(ETokenType::RP, 0); }
-	Rule_range* range() const { return GetRule<Rule_range>(0); }
 	Rule_regex* regex() const { return GetRule<Rule_regex>(0); }
+
+};
+
+class Rule_lexeror: public ParserGenerator::RuleNode
+{
+public:
+	virtual int GetRuleType() const override { return ERuleType::LEXEROR; }
+
+public:
+	Rule_lexeror2* lexeror2() const { return GetRule<Rule_lexeror2>(0); }
+	Rule_operator* operator() const { return GetRule<Rule_operator>(0); }
+
+};
+
+class Rule_lexeror2: public ParserGenerator::RuleNode
+{
+public:
+	virtual int GetRuleType() const override { return ERuleType::LEXEROR2; }
+
+public:
+	ParserGenerator::TokenNode* PIPE() const { return GetToken(ETokenType::PIPE, 0); }
+	Rule_lexeror2* lexeror2() const { return GetRule<Rule_lexeror2>(0); }
+	Rule_operator* operator() const { return GetRule<Rule_operator>(0); }
 
 };
 
@@ -71,38 +82,26 @@ public:
 
 };
 
-class Rule_once: public ParserGenerator::RuleNode
-{
-public:
-	virtual int GetRuleType() const override { return ERuleType::ONCE; }
-
-public:
-	ParserGenerator::TokenNode* PLUS() const { return GetToken(ETokenType::PLUS, 0); }
-	Rule_lexerconst* lexerconst() const { return GetRule<Rule_lexerconst>(0); }
-
-};
-
 class Rule_operator: public ParserGenerator::RuleNode
 {
 public:
 	virtual int GetRuleType() const override { return ERuleType::OPERATOR; }
 
 public:
-	Rule_anytime* anytime() const { return GetRule<Rule_anytime>(0); }
 	Rule_lexerconst* lexerconst() const { return GetRule<Rule_lexerconst>(0); }
-	Rule_once* once() const { return GetRule<Rule_once>(0); }
-	Rule_optional* optional() const { return GetRule<Rule_optional>(0); }
+	Rule_operator2* operator2() const { return GetRule<Rule_operator2>(0); }
 
 };
 
-class Rule_optional: public ParserGenerator::RuleNode
+class Rule_operator2: public ParserGenerator::RuleNode
 {
 public:
-	virtual int GetRuleType() const override { return ERuleType::OPTIONAL; }
+	virtual int GetRuleType() const override { return ERuleType::OPERATOR2; }
 
 public:
+	ParserGenerator::TokenNode* PLUS() const { return GetToken(ETokenType::PLUS, 0); }
 	ParserGenerator::TokenNode* QUESTIONMARK() const { return GetToken(ETokenType::QUESTIONMARK, 0); }
-	Rule_lexerconst* lexerconst() const { return GetRule<Rule_lexerconst>(0); }
+	ParserGenerator::TokenNode* STAR() const { return GetToken(ETokenType::STAR, 0); }
 
 };
 
@@ -138,9 +137,20 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::PARSEROR; }
 
 public:
+	Rule_parserlist* parserlist() const { return GetRule<Rule_parserlist>(0); }
+	Rule_parseror2* parseror2() const { return GetRule<Rule_parseror2>(0); }
+
+};
+
+class Rule_parseror2: public ParserGenerator::RuleNode
+{
+public:
+	virtual int GetRuleType() const override { return ERuleType::PARSEROR2; }
+
+public:
 	ParserGenerator::TokenNode* PIPE() const { return GetToken(ETokenType::PIPE, 0); }
 	Rule_parserlist* parserlist() const { return GetRule<Rule_parserlist>(0); }
-	Rule_parseror* parseror() const { return GetRule<Rule_parseror>(0); }
+	Rule_parseror2* parseror2() const { return GetRule<Rule_parseror2>(0); }
 
 };
 
@@ -157,25 +167,13 @@ public:
 
 };
 
-class Rule_range: public ParserGenerator::RuleNode
-{
-public:
-	virtual int GetRuleType() const override { return ERuleType::RANGE; }
-
-public:
-	ParserGenerator::TokenNode* ITERAL() const { return GetToken(ETokenType::ITERAL, 0); }
-	ParserGenerator::TokenNode* LITERAL() const { return GetToken(ETokenType::LITERAL, 0); }
-
-};
-
 class Rule_regex: public ParserGenerator::RuleNode
 {
 public:
 	virtual int GetRuleType() const override { return ERuleType::REGEX; }
 
 public:
-	ParserGenerator::TokenNode* PIPE() const { return GetToken(ETokenType::PIPE, 0); }
-	Rule_operator* operator() const { return GetRule<Rule_operator>(0); }
+	Rule_lexeror* lexeror() const { return GetRule<Rule_lexeror>(0); }
 	Rule_regex* regex() const { return GetRule<Rule_regex>(0); }
 
 };

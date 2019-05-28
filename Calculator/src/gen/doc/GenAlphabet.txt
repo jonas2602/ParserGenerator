@@ -21,17 +21,17 @@ Avaliable Tokens:
 Avaliable Non Terminals:
 [Index] [Name]
 0 action
-1 anytime
-2 lexerconst
-3 lexerrule
-4 once
+1 lexerconst
+2 lexeror
+3 lexeror2
+4 lexerrule
 5 operator
-6 optional
+6 operator2
 7 parserconst
 8 parserlist
 9 parseror
-10 parserrule
-11 range
+10 parseror2
+11 parserrule
 12 regex
 13 rulelist
 

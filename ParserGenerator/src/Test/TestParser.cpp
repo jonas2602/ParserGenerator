@@ -1,5 +1,4 @@
 #include "TestParser.h"
-#include <iostream>
 
 
 TestParser::TestParser(const std::vector<ParserGenerator::Token*>& TokenStream)
@@ -38,6 +37,7 @@ bool TestParser::Rulelist(Rule_rulelist*& OutRule)
 			break;
 		}
 	}
+
 	ExitRule(OutRule);
 	return true;
 }

@@ -2,7 +2,6 @@
 
 #include "../Parser/Parser.h"
 #include "TestRules.h"
-#include "../Lexer/Token.h"
 
 
 class TestParser : public ParserGenerator::Parser
@@ -11,6 +10,7 @@ public:
 	TestParser(const std::vector<ParserGenerator::Token*>& TokenStream);
 	~TestParser();
 
+public:
 	bool Rulelist(Rule_rulelist*& OutRule);
 
 	bool Parserrule(Rule_parserrule*& OutRule);
