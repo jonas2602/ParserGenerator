@@ -3,6 +3,9 @@
 #include <sstream>
 #include <Parser.h>
 
+#include "gen/GenLexer.h"
+#include "gen/GenParser.h"
+
 int main()
 {
 	std::cout << "Start Calculator" << std::endl;
@@ -10,10 +13,12 @@ int main()
 	std::ifstream File("src/calc.g");
 	std::stringstream buffer;
 	buffer << File.rdbuf();
-	std::cout << "Grammar:" << std::endl << buffer.str() << std::endl << std::endl;
+	//std::cout << "Grammar:" << std::endl << buffer.str() << std::endl << std::endl;
 
 
-	PG::App::Generate(buffer.str());
+	//PG::App::Generate(buffer.str());
+	GenLexer lex = GenLexer("test123");
+	//std::vector<ParserGenerator::Token*> TokenStream = lex.GetTokenStream();
 
 	std::cin.get();
 	return 0;

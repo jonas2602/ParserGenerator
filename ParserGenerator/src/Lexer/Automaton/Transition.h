@@ -1,11 +1,14 @@
-#include <set>
 #pragma once
 
+#include <set>
+
+
+#include "..//..//Core.h"
 
 namespace ParserGenerator::Automaton {
 	class State;
 
-	class Transition
+	class PARSER_API Transition
 	{
 	protected:
 		State* m_TargetState;

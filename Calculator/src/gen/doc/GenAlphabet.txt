@@ -25,8 +25,8 @@ Avaliable Non Terminals:
 2 lexeror
 3 lexeror2
 4 lexerrule
-5 operator
-6 operator2
+5 operatorr
+6 operatorr2
 7 parserconst
 8 parserlist
 9 parseror

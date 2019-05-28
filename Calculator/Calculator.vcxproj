@@ -93,6 +93,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\gen\GenLexer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\calc.g" />
@@ -101,6 +102,11 @@
     <ProjectReference Include="..\ParserGenerator\ParserGenerator.vcxproj">
       <Project>{F9329C5E-65BE-0923-6ECF-8C17DAD96523}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\gen\GenAlphabet.h" />
+    <ClInclude Include="src\gen\GenLexer.h" />
+    <ClInclude Include="src\gen\GenRules.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,10 +3,11 @@
 #include <string>
 #include <vector>
 
+#include "..//..//Core.h"
 
 namespace ParserGenerator::Automaton {
 
-	class Transition;
+	class PARSER_API Transition;
 
 	class State
 	{

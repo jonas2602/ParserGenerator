@@ -70,7 +70,7 @@ bool GenParser::Lexeror(Rule_lexeror*& OutRule)
 	OutRule = new Rule_lexeror();
 	EnterRule(OutRule);
 	
-	CALL_CHILD(Operator, Rule_operator);
+	CALL_CHILD(Operatorr, Rule_operatorr);
 	CALL_CHILD(Lexeror2, Rule_lexeror2);
 	
 	ExitRule(OutRule);
@@ -87,7 +87,7 @@ bool GenParser::Lexeror2(Rule_lexeror2*& OutRule)
 		case 0:
 		{
 			TRY_MATCH(ETokenType::PIPE);
-			CALL_CHILD(Operator, Rule_operator);
+			CALL_CHILD(Operatorr, Rule_operatorr);
 			CALL_CHILD(Lexeror2, Rule_lexeror2);
 		}
 		case 1:
@@ -115,21 +115,21 @@ bool GenParser::Lexerrule(Rule_lexerrule*& OutRule)
 	return true;
 }
 
-bool GenParser::Operator(Rule_operator*& OutRule)
+bool GenParser::Operatorr(Rule_operatorr*& OutRule)
 {
-	OutRule = new Rule_operator();
+	OutRule = new Rule_operatorr();
 	EnterRule(OutRule);
 	
 	CALL_CHILD(Lexerconst, Rule_lexerconst);
-	CALL_CHILD(Operator2, Rule_operator2);
+	CALL_CHILD(Operatorr2, Rule_operatorr2);
 	
 	ExitRule(OutRule);
 	return true;
 }
 
-bool GenParser::Operator2(Rule_operator2*& OutRule)
+bool GenParser::Operatorr2(Rule_operatorr2*& OutRule)
 {
-	OutRule = new Rule_operator2();
+	OutRule = new Rule_operatorr2();
 	EnterRule(OutRule);
 	
 	switch (PredictProduction())

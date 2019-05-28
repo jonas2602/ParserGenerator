@@ -12,7 +12,7 @@
 
 namespace ParserGenerator {
 
-	class Lexer
+	class PARSER_API Lexer
 	{
 	protected:
 		Automaton::DFA* m_DFA;

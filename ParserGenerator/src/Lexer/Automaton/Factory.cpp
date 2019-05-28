@@ -173,8 +173,11 @@ namespace ParserGenerator::Automaton {
 				OutAutomaton->CreateNewState(StateName, StatePriority);
 			}
 
+			std::cout << "DFA States Loaded" << std::endl;
+
 			// Mark Start State
 			OutAutomaton->SetStartState(StartState);
+			std::cout << "DFA Start State Set" << std::endl;
 		}
 
 		// Read Transition Lines
@@ -198,7 +201,8 @@ namespace ParserGenerator::Automaton {
 			// Create Transition
 			OutAutomaton->CreateNewTransition(StartState, EndState, Condition);
 		}
-
+		
+		std::cout << "Automaton States Connected" << std::endl;
 		return true;
 	}
 

@@ -2,10 +2,11 @@
 
 #include <string>
 #include "Automaton.h"
+#include "..//..//Core.h"
 
 namespace ParserGenerator::Automaton {
 	
-	class Factory
+	class PARSER_API Factory
 	{
 	public:
 		//static bool Serialize(Lexer* InLexer, const std::string& FilePath);

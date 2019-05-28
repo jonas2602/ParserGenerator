@@ -51,10 +51,14 @@ namespace ParserGenerator {
 
 	void Lexer::Init()
 	{
+		std::cout << "Init Lexer" << std::endl;
+
 		m_HiddenTypes = GetHiddenTokenTypes();
-		LoadAutomaton();
+		this->LoadAutomaton();
+		std::cout << "Automaton Loaded" << std::endl;
 
 		Tokenize();
+		std::cout << "Input Tokenized" << std::endl;
 	}
 
 	void Lexer::LoadAutomaton()

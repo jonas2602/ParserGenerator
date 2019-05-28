@@ -2,6 +2,7 @@
 
 #include "ParseTree.h"
 #include "TokenNode.h"
+#include "../../Core.h"
 
 namespace ParserGenerator {
 	class RuleNode : public ParseTree
