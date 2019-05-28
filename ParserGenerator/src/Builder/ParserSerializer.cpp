@@ -471,6 +471,46 @@ namespace ParserGenerator {
 		return false;
 	}
 
+	bool ParserSerializer::WriteVisitorCode(ParserConfig* ParsConfig) const
+	{
+		// Create File
+		std::string FileName = ExtendFileName("VisitorBase");
+		FileTemplate* VisitorFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+
+		// Add Includes
+		VisitorFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Rules") + ".h"));
+		VisitorFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+
+		// Add Visitor BaseClass
+		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "ParserGenerator::Visitor<T>");
+		VisitorFile->AddSnippet(ClassSnippet);
+		ClassSnippet->AddTemplating({ "T" });
+
+		// Add virtual Visit Functions
+		ClassSnippet->CreateNewGroup("public");
+		for (const std::string& NonTerminal : ParsConfig->GetNonTerminals())
+		{
+			std::string FunctionName = "VisitRule_" + NonTerminal;
+			std::string RuleName = "Rule_" + NonTerminal;
+			ClassSnippet->AttachSnippet(new CodeSnippet_Function(FunctionName, { "return T();" }, { RuleName + "* Context" }, "T", { VIRTUAL, SINGLELINE, HEADERDEFINITION }));
+		}
+
+		// Add Templated visit "caller"
+		ClassSnippet->CreateNewGroup("public");
+		CodeSnippet_Function* VisitTemplate = new CodeSnippet_Function("Visit", { "static_assert(false);" }, { "U* Context" }, "T", { HEADERDEFINITION });
+		ClassSnippet->AttachSnippet(VisitTemplate);
+		VisitTemplate->AddTemplating({ "U" });
+
+		for (const std::string& NonTerminal : ParsConfig->GetNonTerminals())
+		{
+			std::string FunctionName = "VisitRule_" + NonTerminal;
+			std::string RuleName = "Rule_" + NonTerminal;
+			ClassSnippet->AttachSnippet(new CodeSnippet_Function("Visit<" + RuleName + ">", { "return " + FunctionName + "(Context);" }, { RuleName + "* Context" }, "T", { TEMPLATE, SINGLELINE, HEADERDEFINITION }));
+		}
+
+		return false;
+	}
+
 	void ParserSerializer::Finish() const
 	{
 		m_Generator->GenerateFiles();

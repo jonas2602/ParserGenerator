@@ -69,6 +69,7 @@ namespace ParserGenerator {
 		Serializer.WriteRuleCode(m_ParsConfig, m_Alphabet);
 		Serializer.WriteLexerCode(m_DFA, m_LexConfig, m_Alphabet);
 		Serializer.WriteParserCode(m_Table, m_ParsConfig, m_Alphabet);
+		Serializer.WriteVisitorCode(m_ParsConfig);
 		Serializer.Finish();
 
 		

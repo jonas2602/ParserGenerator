@@ -37,6 +37,7 @@ namespace ParserGenerator {
 		bool WriteRuleCode(ParserConfig* ParsConfig, Alphabet* InAlphabet) const;
 		bool WriteLexerCode(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet) const;
 		bool WriteParserCode(ParseTable::ParsingTable* InTable, ParserConfig* ParsConfig, Alphabet* InAlphabet) const;
+		bool WriteVisitorCode(ParserConfig* ParsConfig) const;
 
 		void Finish() const;
 

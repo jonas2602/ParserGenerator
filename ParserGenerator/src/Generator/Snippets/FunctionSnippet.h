@@ -13,6 +13,7 @@ namespace ParserGenerator {
 		STATIC,
 		HEADERDEFINITION,
 		SINGLELINE,
+		TEMPLATE
 	};
 
 	class CodeSnippet_Function : public CodeSnippet_Base
@@ -23,6 +24,8 @@ namespace ParserGenerator {
 		std::vector<std::string> m_FunctionParameters;
 		//CodeSnippet_Parameter* m_ReturnParameter;
 		std::string m_ReturnType;
+
+		std::vector<std::string> m_TypeNames;
 
 		std::set<EFunctionModifier> m_ModifierList;
 
@@ -43,6 +46,8 @@ namespace ParserGenerator {
 			: CodeSnippet_Base(1), m_FunctionName(InFunctionName), m_FunctionBody(InFunctionBody), m_FunctionParameters(InFunctionParameters), m_ReturnType(InReturnType), m_ModifierList(InModifier)
 		{ }
 
+		void AddTemplating(const std::vector<std::string>& InTypeNames);
+
 	public:
 		// Inherited via CodeSnippet_Base
 		virtual void Write() const override;
@@ -55,6 +60,7 @@ namespace ParserGenerator {
 		inline bool IsOverride() const { return m_ModifierList.find(EFunctionModifier::OVERRIDE) != m_ModifierList.end(); }
 		inline bool IsHeaderDefinition() const { return m_ModifierList.find(EFunctionModifier::HEADERDEFINITION) != m_ModifierList.end(); }
 		inline bool IsSingleLine() const { return m_ModifierList.find(EFunctionModifier::SINGLELINE) != m_ModifierList.end(); }
+		inline bool IsTemplate() const { return m_ModifierList.find(EFunctionModifier::TEMPLATE) != m_ModifierList.end(); }
 
 		const std::string GetClassName() const;
 		std::string CreateParameterString() const;

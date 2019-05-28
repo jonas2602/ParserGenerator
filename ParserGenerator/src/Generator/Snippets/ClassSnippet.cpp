@@ -5,7 +5,7 @@
 namespace ParserGenerator {
 
 	CodeSnippet_Class::CodeSnippet_Class(const std::string& InClassName, const std::string& InParentName)
-		: CodeSnippet_Base(2), m_ClassName(InClassName), m_ParentName(InParentName)
+		: CodeSnippet_Base(2), m_ClassName(InClassName), m_ParentName(InParentName), m_bTemplate(false)
 	{
 		// Start with Private Group
 		CreateNewGroup("private");
@@ -25,11 +25,35 @@ namespace ParserGenerator {
 		m_PrivacyGroups.push_back(std::pair<std::string, std::vector<CodeSnippet_Base*>>(InPrivacy, {}));
 	}
 
+	void CodeSnippet_Class::AddTemplating(const std::vector<std::string>& InTypeNames)
+	{
+		m_bTemplate = true;
+		m_TypeNames = InTypeNames;
+	}
+
 	void CodeSnippet_Class::Write() const
 	{
 		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
 
 		HeaderStream << std::endl;
+		if (m_bTemplate)
+		{
+			HeaderStream << m_InitialHeaderSpaces << "template<";
+			bool bFirst = true;
+			for (const std::string& TypeName : m_TypeNames)
+			{
+				if (bFirst) {
+					HeaderStream << "typename " << TypeName;
+					bFirst = false;
+				}
+				else
+				{
+					HeaderStream << ", typename " << TypeName;
+				}
+			}
+			HeaderStream << ">" << std::endl;
+		}
+
 		HeaderStream << m_InitialHeaderSpaces << "class " << m_ClassName;
 		if (!m_ParentName.empty())
 		{
@@ -53,7 +77,7 @@ namespace ParserGenerator {
 			// 
 			std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
 			HeaderStream << PrivacyGroup.first << ":" << std::endl;
-			
+
 			// 
 			for (CodeSnippet_Base* Child : PrivacyGroup.second)
 			{

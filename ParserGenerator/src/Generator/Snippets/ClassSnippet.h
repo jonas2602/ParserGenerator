@@ -9,6 +9,8 @@ namespace ParserGenerator {
 	protected:
 		std::string m_ClassName;
 		std::string m_ParentName;
+		bool m_bTemplate;
+		std::vector<std::string> m_TypeNames;
 
 		std::vector<std::pair<std::string, std::vector<CodeSnippet_Base*>>> m_PrivacyGroups;
 
@@ -19,6 +21,7 @@ namespace ParserGenerator {
 
 		virtual void AttachSnippet(CodeSnippet_Base* InChild) override;
 		void CreateNewGroup(const std::string& InPrivacy);
+		void AddTemplating(const std::vector<std::string>& InTypeNames);
 
 	public:
 		// Inherited via CodeSnippet_Base
