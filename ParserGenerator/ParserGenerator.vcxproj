@@ -98,6 +98,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Generator\Snippets\ConstructorSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\ClassSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\ForwardDeclSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\FunctionSnippet.h" />
     <ClInclude Include="src\Test\ListParser\ListInterpreter.h" />
     <ClInclude Include="src\Test\ListParser\ListAlphabet.h" />
     <ClInclude Include="src\Test\ListParser\ListLexer.h" />
@@ -138,8 +142,13 @@
     <ClInclude Include="src\Test\TestVisitorBase.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Test\TokenVisitor.h" />
+    <ClInclude Include="src\Utils\StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Generator\Snippets\ConstructorSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\ClassSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\ForwardDeclSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\FunctionSnippet.cpp" />
     <ClCompile Include="src\Test\ListParser\ListInterpreter.cpp" />
     <ClCompile Include="src\Test\ListParser\ListLexer.cpp" />
     <ClCompile Include="src\Test\RuleVisitor.cpp" />
@@ -171,6 +180,7 @@
     <ClCompile Include="src\Test\TestParser.cpp" />
     <ClCompile Include="src\Test\TestVisitor.cpp" />
     <ClCompile Include="src\Test\TokenVisitor.cpp" />
+    <ClCompile Include="src\Utils\StringUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

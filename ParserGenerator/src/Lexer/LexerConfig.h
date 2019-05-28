@@ -40,7 +40,7 @@ namespace ParserGenerator {
 
 		void Add(const std::string& Name, RegExp* Expression, ELexerAction Action = ELexerAction::DEFAULT);
 
-		std::vector<LexerConfigElement> GetRegexList() const { return m_RegexList; }
+		const std::vector<LexerConfigElement>& GetRegexList() const { return m_RegexList; }
 		const LexerConfigElement& GetConfigElementByIndex(int Index) const { return m_RegexList[Index]; }
 
 		std::map<std::string, int> GetTokenMap() const;

@@ -5,6 +5,12 @@
 #include <iostream>
 
 #include "../ParserTypes.h"
+#include "../Generator/Snippets/FunctionSnippet.h"
+#include "../Generator/Snippets/ForwardDeclSnippet.h"
+#include "../Generator/Snippets/ClassSnippet.h"
+#include "../Generator/Snippets/ConstructorSnippet.h"
+
+#include "../Utils/StringUtils.h"
 
 namespace ParserGenerator {
 	ParserSerializer::ParserSerializer(const std::string& InDirPath, const std::string& InParserName, const std::string& InCodePath, const std::string& InDocuPath)
@@ -20,7 +26,7 @@ namespace ParserGenerator {
 		ParserSerializer::WriteTokenList(InAlphabet, TokenStream);
 		std::stringstream NonTerminalStream;
 		ParserSerializer::WriteNonTerminalList(InAlphabet, NonTerminalStream);
-		
+
 		// Create File
 		std::string FileName = ExtendFileName("Alphabet");
 		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_DocuPath);
@@ -28,7 +34,7 @@ namespace ParserGenerator {
 		AlphabetFile->AddSnippet(PlainSnippet);
 
 		// Write Content to Snippet
-		std::stringstream& OutStream = PlainSnippet->GetTextStream(); 
+		std::stringstream& OutStream = PlainSnippet->GetTextStream();
 		OutStream << "Avaliable Tokens:" << std::endl << "[Index] [Name]" << std::endl;
 		OutStream << TokenStream.str();
 		OutStream << std::endl;
@@ -120,7 +126,7 @@ namespace ParserGenerator {
 		return true;
 	}
 
-	bool ParserSerializer::WriteAutomaton(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet)
+	bool ParserSerializer::WriteAutomatonDoc(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet)
 	{
 		// Create Output Streams
 		std::stringstream TokenStream;
@@ -253,11 +259,107 @@ namespace ParserGenerator {
 		// Create File
 		std::string FileName = ExtendFileName("Alphabet");
 		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
-		
+
 		// Add Enums
 		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenMap()));
 		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ERuleType", InAlphabet->GetNonTerminalMap()));
-		
+
+		return true;
+	}
+
+	bool ParserSerializer::WriteRuleCode(ParserConfig* ParsConfig, Alphabet* InAlphabet) const
+	{
+		// Create File
+		std::string FileName = ExtendFileName("Rules");
+		FileTemplate* RuleFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+
+		// Add Includes
+		RuleFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Alphabet") + ".h"));
+		RuleFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+
+		for (const std::string& NonTerminal : ParsConfig->GetNonTerminals())
+		{
+			CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class("Rule_" + NonTerminal, "ParserGenerator::RuleNode");
+			RuleFile->AddSnippet(ClassSnippet);
+			RuleFile->AddSnippet(new CodeSnippet_ForwardDecl("class", "Rule_" + NonTerminal));
+
+			ClassSnippet->CreateNewGroup("public");
+			std::string UpperCaseName = StringUtils::ToUpperCase(NonTerminal);
+			ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetRuleType", { "return ERuleType::" + UpperCaseName + ";" }, "int", { CONSTANT, OVERRIDE, VIRTUAL, SINGLELINE, HEADERDEFINITION }));
+
+			ClassSnippet->CreateNewGroup("public");
+
+			std::set<std::string> TokenClasses;
+			std::set<std::string> NonTerminalClasses;
+
+			for (ParserConfigElement* Production : ParsConfig->GetAllProductionsForNonTerminal(NonTerminal))
+			{
+				for (const std::string& Element : Production->m_TokenClasses)
+				{
+					// Ignore Epsilon
+					if (IsEpsilon(Element)) continue;
+
+					if (ParsConfig->IsNonTerminal(Element))
+					{
+						NonTerminalClasses.insert(Element);
+					}
+					else
+					{
+						TokenClasses.insert(Element);
+					}
+				}
+			}
+
+			for (const std::string& TokenName : TokenClasses)
+			{
+				std::string UpperCaseName = StringUtils::ToUpperCase(TokenName);
+				ClassSnippet->AttachSnippet(new CodeSnippet_Function(UpperCaseName, { "return GetToken(ETokenType::" + UpperCaseName + ", 0);" }, "ParserGenerator::TokenNode*", { CONSTANT, SINGLELINE, HEADERDEFINITION }));
+			}
+
+			for (const std::string& NonTerminalName : NonTerminalClasses)
+			{
+				std::string RuleName = "Rule_" + NonTerminalName;
+				ClassSnippet->AttachSnippet(new CodeSnippet_Function(NonTerminalName, { "return GetRule<" + RuleName + ">(0);" }, RuleName + "*", { CONSTANT, SINGLELINE, HEADERDEFINITION }));
+			}
+		}
+
+		return true;
+	}
+
+	bool ParserSerializer::WriteLexerCode(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet) const
+	{
+		// Create File
+		std::string FileName = ExtendFileName("Lexer");
+		FileTemplate* LexerFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+
+		// Add Includes
+		LexerFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Alphabet") + ".h"));
+		LexerFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+
+		// Add Lexer Class
+		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "ParserGenerator::Lexer");
+		LexerFile->AddSnippet(ClassSnippet);
+
+		// Add Constructor
+		ClassSnippet->CreateNewGroup("public");
+		std::string AutomatonString;
+		ClassSnippet->AttachSnippet(new CodeSnippet_Constructor({ "Init();" }, { "const std::string& InSourceCode" }, { {"Lexer","InSourceCode" } }));
+
+		ClassSnippet->CreateNewGroup("protected");
+		ParserSerializer::SerializeAutomaton(InDFA, AutomatonString);
+		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedAutomaton", { "return \"" + AutomatonString + "\";" }, "std::string", { CONSTANT, VIRTUAL, OVERRIDE }));
+
+		std::string HiddenList = "{ ";
+		for (const LexerConfigElement& Regex : LexConfig->GetRegexList())
+		{
+			if (Regex.m_Action == ELexerAction::SKIP)
+			{
+				HiddenList += "ETokenType::" + Regex.m_Name + ", ";
+			}
+		}
+		HiddenList += "}";
+		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetHiddenTokenTypes", { "return " + HiddenList + ";" }, "std::set<int>", { CONSTANT, VIRTUAL, OVERRIDE }));
+
 		return true;
 	}
 

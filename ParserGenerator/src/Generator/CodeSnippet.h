@@ -5,7 +5,11 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <string>
 
+// #define H_SPACES() { m_OwningFile->GetHeaderSpaces() }
+// #define S_SPACES() { m_OwningFile->GetSourceSpaces() }
+// #define NEWLINE_TABBED() { std::endl << }
 
 namespace ParserGenerator {
 	class FileTemplate;
@@ -18,6 +22,9 @@ namespace ParserGenerator {
 		std::vector<CodeSnippet_Base*> m_ChildSnippets;
 		CodeSnippet_Base* m_ParentSnippet;
 		FileTemplate* m_OwningFile;
+
+		std::string m_InitialHeaderSpaces;
+		std::string m_InitialSourceSpaces;
 
 	public:
 		CodeSnippet_Base(const int& InPriority, const std::vector<CodeSnippet_Base*> InChildSnippets);
@@ -34,9 +41,13 @@ namespace ParserGenerator {
 		virtual void SetOwningFile(FileTemplate* InFile);
 
 	public:
+		void TriggerWrite();
 		virtual void Write() const = 0;
-		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const = 0;
-		virtual void GenerateChildren(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream) const;
+		virtual void GenerateChildren() const;
+
+	protected:
+		const std::string& GetHeaderSpaces() const;
+		const std::string& GetSourceSpaces() const;
 	};
 
 	class CodeSnippet_Plain : public CodeSnippet_Base
@@ -54,7 +65,6 @@ namespace ParserGenerator {
 	public:
 		// Inherited via CodeSnippet_Base
 		virtual void Write() const override;
-		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const override {};
 	};
 
 	class CodeSnippet_Include : public CodeSnippet_Base
@@ -69,55 +79,11 @@ namespace ParserGenerator {
 			: CodeSnippet_Base(0), m_Path(InPath), m_bIntern(InIntern), m_bHeader(InHeader)
 		{ }
 
-		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const override;
+		virtual void Write() const override;
 	};
 
 	class CodeSnippet_Parameter : public CodeSnippet_Base
 	{
-
-	};
-
-	class CodeSnippet_Class : public CodeSnippet_Base
-	{
-	protected:
-		std::string m_ClassName;
-		std::string m_ParentName;
-
-	public:
-		CodeSnippet_Class(const std::string& InClassName, const std::vector<CodeSnippet_Base*>& InChildSnippets, const std::string& InParentName = "")
-			: CodeSnippet_Base(1, InChildSnippets), m_ClassName(InClassName), m_ParentName(InParentName)
-		{ }
-
-		const std::string& GetClassName() const { return m_ClassName; }
-
-		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const override;
-	};
-
-	class CodeSnippet_Function : public CodeSnippet_Base
-	{
-	protected:
-		std::string m_FunctionName;
-		std::vector<std::string> m_FunctionBody;
-		std::vector<std::string> m_FunctionParameters;
-		//CodeSnippet_Parameter* m_ReturnParameter;
-		std::string m_ReturnType;
-
-		bool m_bHeaderDefinition;
-		bool m_bStatic;
-		bool m_bConstant;
-		bool m_bInline;
-
-	public:
-		CodeSnippet_Function(const std::string& InFunctionName, const std::vector<std::string>& InFunctionParameters, const std::vector<std::string>& InFunctionBody, const std::string& InReturnType = "void", const bool& InConstant = false, const bool& InStatic = false, const bool& InInline = false, const bool& InHeaderDefinition = false)
-			: CodeSnippet_Base(0), m_FunctionName(InFunctionName), m_FunctionParameters(InFunctionParameters), m_FunctionBody(InFunctionBody), m_ReturnType(InReturnType), m_bConstant(InConstant), m_bStatic(InStatic), m_bInline(InInline), m_bHeaderDefinition(InHeaderDefinition)
-		{ }
-
-		/*~CodeSnippet_Function()
-		{
-			delete m_ReturnParameter;
-		}*/
-
-		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const override;
 
 	};
 
@@ -129,9 +95,10 @@ namespace ParserGenerator {
 
 	public:
 		CodeSnippet_Enum(const std::string& InEnumName, const std::map<std::string, int>& InEnumEntries);
-
+			
+	public:
+		// Inherited via CodeSnippet_Base
 		virtual void Write() const override;
-		virtual void Write(IWriterInterface* Writer, std::ofstream& HeaderStream, std::ofstream& SourceStream, const CodeSnippet_Base* ParentSnippet) const override;
 	};
 
 }

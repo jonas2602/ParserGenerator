@@ -62,7 +62,9 @@ namespace ParserGenerator {
 		{
 			m_Writer->GetFileStream(m_FileName, m_SourceStream, m_DirectoryPath, ".cpp");
 			m_SourceStream << "// Automatically generated File" << std::endl
+				<< "#include \"" << m_FileName << ".h\"" << std::endl
 				<< std::endl;
+
 		}
 
 		return m_SourceStream;
@@ -79,6 +81,7 @@ namespace ParserGenerator {
 
 		return m_TextStream;
 	}
+
 
 	void FileTemplate::AddDefaults(std::ofstream& HeaderStream, std::ofstream& SourceStream)
 	{

@@ -18,6 +18,9 @@ namespace ParserGenerator {
 		std::ofstream m_SourceStream;
 		std::ofstream m_TextStream;
 
+		std::string m_HeaderSpaces;
+		std::string m_SourceSpaces;
+
 		IWriterInterface* m_Writer;
 
 	public:
@@ -34,6 +37,14 @@ namespace ParserGenerator {
 		std::ofstream& GetHeaderStream();
 		std::ofstream& GetSourceStream();
 		std::ofstream& GetTextStream();
+
+		void PushHeaderTab() { m_HeaderSpaces.push_back('\t'); }
+		void PopHeaderTab() { m_HeaderSpaces.pop_back(); }
+		void PushSourceTab() { m_SourceSpaces.push_back('\t'); }
+		void PopSourceTab() { m_SourceSpaces.pop_back(); }
+
+		const std::string& GetHeaderSpaces() const { return m_HeaderSpaces; }
+		const std::string& GetSourceSpaces() const { return m_SourceSpaces; }
 
 	protected:
 		void AddDefaults(std::ofstream& HeaderStream, std::ofstream& SourceStream);

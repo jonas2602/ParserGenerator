@@ -26,7 +26,7 @@ namespace ParserGenerator {
 		// Human readable Versions (Doku)
 		bool WriteAlphabetDoc(Alphabet* InAlphabet) const;
 		bool WriteParsingTableDoc(ParseTable::ParsingTable* InTable, ParserConfig* ParsConfig, Alphabet* InAlphabet) const;
-		bool WriteAutomaton(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet);
+		bool WriteAutomatonDoc(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet);
 
 		// Versions stored in the Lexer/Parser class, used at runtime
 		static bool SerializeParsingTable(ParseTable::ParsingTable* InTable, std::string& OutString);
@@ -34,6 +34,8 @@ namespace ParserGenerator {
 
 		// Code used in the final application
 		bool WriteAlphabetCode(Alphabet* InAlphabet) const;
+		bool WriteRuleCode(ParserConfig* ParsConfig, Alphabet* InAlphabet) const;
+		bool WriteLexerCode(Automaton::DFA* InDFA, LexerConfig* LexConfig, Alphabet* InAlphabet) const;
 
 		void Finish() const;
 

@@ -246,7 +246,7 @@ namespace ParserGenerator {
 		if (vis->Visit(root))
 		{
 			ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
-			builder.Generate("src/gen/", "Test");
+			builder.Generate("src/gen/", "Gen");
 		}
 		else
 		{
