@@ -9,6 +9,5 @@
 #include "Parser/Visitor.h"
 
 #include "App.h"
-#include "Core.h"
 
 namespace PG = ParserGenerator;

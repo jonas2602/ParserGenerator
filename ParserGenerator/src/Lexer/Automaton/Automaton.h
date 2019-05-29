@@ -8,7 +8,7 @@
 
 namespace ParserGenerator::Automaton {
 
-	class PARSER_API Automaton
+	class Automaton
 	{
 	protected:
 		std::map<std::string, State*> m_StateMap;
@@ -32,7 +32,7 @@ namespace ParserGenerator::Automaton {
 
 
 
-	class PARSER_API DFA : public Automaton
+	class DFA : public Automaton
 	{
 	protected:
 		State* m_StartState;

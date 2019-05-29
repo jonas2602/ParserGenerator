@@ -361,7 +361,7 @@ bool TestParser::Lexerconst(Rule_lexerconst*& OutRule)
 	return true;
 }
 
-std::string TestParser::GetSerializedTable() const
+const char* TestParser::GetSerializedTable() const
 {
 	return "0 4 0 0 12 1 1 7 0 2 3 1 2 6 3 2 9 2 2 10 4 2 16 0 3 3 0 3 6 0 3 9 0 3 10 0 3 16 0 4 3 1 4 4 1 "
 		"4 6 1 4 9 1 4 10 1 4 12 1 4 14 0 4 15 1 4 16 1 5 3 0 6 8 0 7 3 0 7 6 0 7 9 0 7 10 0 7 16 0 8 3 3 "

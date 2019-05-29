@@ -30,6 +30,6 @@ public:
 	bool Lexerconst(Rule_lexerconst*& OutRule);
 	
 protected:
-	virtual std::string GetSerializedTable() const override;
+	virtual const char* GetSerializedTable() const override;
 };
 

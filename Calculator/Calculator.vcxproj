@@ -92,8 +92,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ExpressionVisitor.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\gen\GenLexer.cpp" />
+    <ClCompile Include="src\gen\GenParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\calc.g" />
@@ -104,9 +106,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ExpressionVisitor.h" />
     <ClInclude Include="src\gen\GenAlphabet.h" />
     <ClInclude Include="src\gen\GenLexer.h" />
+    <ClInclude Include="src\gen\GenParser.h" />
     <ClInclude Include="src\gen\GenRules.h" />
+    <ClInclude Include="src\gen\GenVisitorBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

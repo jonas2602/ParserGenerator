@@ -26,6 +26,6 @@ public:
 	bool Rulelist(Rule_rulelist*& OutRule);
 
 protected:
-	virtual std::string GetSerializedTable() const override;
+	virtual const char* GetSerializedTable() const override;
 
 };

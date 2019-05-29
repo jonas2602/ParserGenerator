@@ -349,7 +349,7 @@ namespace ParserGenerator {
 		ClassSnippet->CreateNewGroup("protected");
 		std::string AutomatonString;
 		ParserSerializer::SerializeAutomaton(InDFA, AutomatonString);
-		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedAutomaton", { "return \"" + AutomatonString + "\";" }, "std::string", { CONSTANT, VIRTUAL, OVERRIDE }));
+		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedAutomaton", { "return \"" + AutomatonString + "\";" }, "const char*", { CONSTANT, VIRTUAL, OVERRIDE }));
 
 		// Add Skipped TokenTypes
 		std::string HiddenList = "{ ";
@@ -466,7 +466,7 @@ namespace ParserGenerator {
 		ClassSnippet->CreateNewGroup("protected");
 		std::string TableString;
 		ParserSerializer::SerializeParsingTable(InTable, TableString);
-		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedTable", { "return \"" + TableString + "\";" }, "std::string", { CONSTANT, VIRTUAL, OVERRIDE }));
+		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedTable", { "return \"" + TableString + "\";" }, "const char*", { CONSTANT, VIRTUAL, OVERRIDE }));
 
 		return false;
 	}

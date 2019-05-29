@@ -17,8 +17,24 @@ int main()
 
 
 	//PG::App::Generate(buffer.str());
-	GenLexer lex = GenLexer("test123");
-	//std::vector<ParserGenerator::Token*> TokenStream = lex.GetTokenStream();
+	GenLexer Lexer = GenLexer("test123");
+	std::vector<ParserGenerator::Token*> TokenStream = Lexer.GetTokenStream();
+	//std::cout << TokenStream << std::endl << std::endl;
+
+	GenParser Parser = GenParser(TokenStream);
+	Rule_rulelist* root;
+	Parser.Rulelist(root);
+	
+	TestVisitor* vis = new TestVisitor();
+	if (vis->Visit(root))
+	{
+		for (ParserConfigElement* Element : vis->GetParserConfig()->GetProductionList())
+		{
+			std::cout << Element << std::endl;
+		}
+		ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
+		builder.Generate("src/gen/", "Gen");
+	}
 
 	std::cin.get();
 	return 0;

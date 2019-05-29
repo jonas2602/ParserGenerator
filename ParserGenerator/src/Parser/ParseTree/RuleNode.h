@@ -1,11 +1,13 @@
 #pragma once
 
+#include <vector>
+
 #include "ParseTree.h"
 #include "TokenNode.h"
 #include "../../Core.h"
 
 namespace ParserGenerator {
-	class RuleNode : public ParseTree
+	class PARSER_API RuleNode : public ParseTree
 	{
 	protected:
 		std::vector<ParseTree*> m_Children;

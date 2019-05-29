@@ -138,7 +138,7 @@ namespace ParserGenerator {
 
 
 
-	class PARSER_API RegExp
+	class RegExp
 	{
 	public:
 		// Special signs

@@ -8,7 +8,7 @@
 namespace ParserGenerator::Automaton {
 	class State;
 
-	class PARSER_API Transition
+	class Transition
 	{
 	protected:
 		State* m_TargetState;

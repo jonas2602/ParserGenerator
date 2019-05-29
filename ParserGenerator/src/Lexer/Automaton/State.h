@@ -7,7 +7,7 @@
 
 namespace ParserGenerator::Automaton {
 
-	class PARSER_API Transition;
+	class Transition;
 
 	class State
 	{

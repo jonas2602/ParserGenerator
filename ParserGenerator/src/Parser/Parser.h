@@ -10,12 +10,14 @@
 #include "../Lexer/Token.h"
 #include "ParseTable/ParsingTable.h"
 
+#include "../Core.h"
+
 #define TRY_MATCH(x) if(!Match(x)) return false; // std::cout << "Token mismatch, Expected: " << x << std::endl;
 #define CALL_CHILD(func, type) { type* temp; if(!func(temp)) return false; }
 
 namespace ParserGenerator {
 
-	class Parser
+	class PARSER_API Parser
 	{
 	protected:
 		// ParserConfig* m_Config;
@@ -35,7 +37,7 @@ namespace ParserGenerator {
 
 	protected:
 		void LoadParsingTable();
-		virtual std::string GetSerializedTable() const = 0;
+		virtual const char* GetSerializedTable() const = 0;
 
 		void EnterRule(RuleNode* Rule);
 		void ExitRule(RuleNode* Rule);

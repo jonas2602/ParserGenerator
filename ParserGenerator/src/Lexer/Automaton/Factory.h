@@ -6,7 +6,7 @@
 
 namespace ParserGenerator::Automaton {
 	
-	class PARSER_API Factory
+	class Factory
 	{
 	public:
 		//static bool Serialize(Lexer* InLexer, const std::string& FilePath);
