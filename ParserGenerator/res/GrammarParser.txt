@@ -1,20 +1,21 @@
+// Grammar Parser
 rulelist: (parserrule | lexerrule) rulelist | ;
 
 parserrule: PARSERID COLON parseror SEMICOLON;
-parseror: parserlist | parserlist PIPE parseror;
-parserlist: parserconst | parserconst parserlist;
+parseror: parserlist parseror2;
+parseror2: PIPE parserlist parseror2 | ;
+parserlist: parserconst parserlist | ;
 parserconst: LEXERID | PARSERID | LITERAL | LP parseror RP;
+
 
 lexerrule: LEXERID COLON regex action SEMICOLON;
 action: ARROW PARSERID | ;
 regex: lexeror regex | ;
-lexeror: operator PIPE lexeror | operator;
-operator: lexerconst (anytime | once | optional | );
-anytime: STAR;
-once: PLUS;
-optional: QUESTIONMARK;
-lexerconst: LP regex RP | range | LEXERID | DOT | CHARSET | LITERAL;
-range: LITERAL '..' LITERAL;
+lexeror: operatorr lexeror2;
+lexeror2: PIPE operatorr lexeror2 | ;
+operatorr: lexerconst operatorr2;
+operatorr2: STAR | PLUS | QUESTIONMARK | ;
+lexerconst: LP regex RP | LEXERID | DOT | CHARSET | LITERAL;
 
 LP: '(';
 RP: ')';
@@ -33,3 +34,14 @@ ARROW: '->';
 LEXERID: [A-Z][a-zA-Z0-9_]*;
 
 WS: [ \n\t\r]+ -> skip;
+
+
+
+// List Parser
+//MINUS: '-';
+//ESCAPED: '\\'.;
+//CHAR: .;
+
+//elements: (range | symbol)*;
+//range: symbol MINUS symbol;
+//symbol: MINUS | CHAR | ESCAPED;

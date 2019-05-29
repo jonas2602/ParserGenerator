@@ -5,6 +5,7 @@
 
 #include "gen/GenLexer.h"
 #include "gen/GenParser.h"
+#include "ExpressionVisitor.h"
 
 int main()
 {
@@ -24,17 +25,9 @@ int main()
 	GenParser Parser = GenParser(TokenStream);
 	Rule_rulelist* root;
 	Parser.Rulelist(root);
-	
-	TestVisitor* vis = new TestVisitor();
-	if (vis->Visit(root))
-	{
-		for (ParserConfigElement* Element : vis->GetParserConfig()->GetProductionList())
-		{
-			std::cout << Element << std::endl;
-		}
-		ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
-		builder.Generate("src/gen/", "Gen");
-	}
+
+	ExpressionVisitor Visitor = ExpressionVisitor();
+	float Result = Visitor.Visit(root);
 
 	std::cin.get();
 	return 0;
