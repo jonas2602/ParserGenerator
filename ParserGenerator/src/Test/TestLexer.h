@@ -13,7 +13,7 @@ public:
 
 protected:
 	// Inherited via Lexer
-	virtual std::string GetSerializedAutomaton() const override;
+	virtual const char* GetSerializedAutomaton() const override;
 	virtual std::set<int> GetHiddenTokenTypes() const override;
 
 };

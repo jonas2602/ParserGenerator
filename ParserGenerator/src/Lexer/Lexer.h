@@ -37,7 +37,7 @@ namespace ParserGenerator {
 		void LoadAutomaton();
 		void Tokenize();
 
-		virtual std::string GetSerializedAutomaton() const = 0;
+		virtual const char* GetSerializedAutomaton() const = 0;
 		virtual std::set<int> GetHiddenTokenTypes() const = 0;
 
 	public:

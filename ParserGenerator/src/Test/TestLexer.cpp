@@ -15,7 +15,7 @@ TestLexer::~TestLexer()
 	
 }
 
-std::string TestLexer::GetSerializedAutomaton() const
+const char* TestLexer::GetSerializedAutomaton() const
 {
 	return "21 0 -1 1 4 2 -1 4 -1 5 -1 3 -1 7 -1 8 -1 6 1 9 -1 11 -1 10 -1 12 -1 14 -1 15 -1 13 6 16 13 17 9 18 16 19 3 20 3 21 "
 		"-1 22 -1 32 2 33 2 34 -1 36 -1 35 -1 27 -1 38 -1 37 10 29 11 39 11 30 14 26 8 24 5 31 15 28 12 25 7 23 0 40 0\n0 1 "
