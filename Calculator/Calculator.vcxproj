@@ -92,8 +92,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ExpressionVisitor.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\ExpressionVisitor.cpp" />
     <ClCompile Include="src\gen\GenLexer.cpp" />
     <ClCompile Include="src\gen\GenParser.cpp" />
   </ItemGroup>

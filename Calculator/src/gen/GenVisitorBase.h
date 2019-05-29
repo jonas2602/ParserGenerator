@@ -8,20 +8,14 @@ template<typename T>
 class GenVisitorBase: public ParserGenerator::Visitor<T>
 {
 public:
-	virtual T VisitRule_action(Rule_action* Context) { return T(); }
-	virtual T VisitRule_lexerconst(Rule_lexerconst* Context) { return T(); }
-	virtual T VisitRule_lexeror(Rule_lexeror* Context) { return T(); }
-	virtual T VisitRule_lexeror2(Rule_lexeror2* Context) { return T(); }
-	virtual T VisitRule_lexerrule(Rule_lexerrule* Context) { return T(); }
-	virtual T VisitRule_operatorr(Rule_operatorr* Context) { return T(); }
-	virtual T VisitRule_operatorr2(Rule_operatorr2* Context) { return T(); }
-	virtual T VisitRule_parserconst(Rule_parserconst* Context) { return T(); }
-	virtual T VisitRule_parserlist(Rule_parserlist* Context) { return T(); }
-	virtual T VisitRule_parseror(Rule_parseror* Context) { return T(); }
-	virtual T VisitRule_parseror2(Rule_parseror2* Context) { return T(); }
-	virtual T VisitRule_parserrule(Rule_parserrule* Context) { return T(); }
-	virtual T VisitRule_regex(Rule_regex* Context) { return T(); }
-	virtual T VisitRule_rulelist(Rule_rulelist* Context) { return T(); }
+	virtual T VisitRule_additive(Rule_additive* Context) { return T(); }
+	virtual T VisitRule_constant(Rule_constant* Context) { return T(); }
+	virtual T VisitRule_divide(Rule_divide* Context) { return T(); }
+	virtual T VisitRule_expression(Rule_expression* Context) { return T(); }
+	virtual T VisitRule_multiplicative(Rule_multiplicative* Context) { return T(); }
+	virtual T VisitRule_product(Rule_product* Context) { return T(); }
+	virtual T VisitRule_subtract(Rule_subtract* Context) { return T(); }
+	virtual T VisitRule_sum(Rule_sum* Context) { return T(); }
 
 public:
 	template<typename U>
@@ -30,32 +24,20 @@ public:
 		static_assert(false);
 	}
 	template<>
-	T Visit<Rule_action>(Rule_action* Context) { return VisitRule_action(Context); }
+	T Visit<Rule_additive>(Rule_additive* Context) { return VisitRule_additive(Context); }
 	template<>
-	T Visit<Rule_lexerconst>(Rule_lexerconst* Context) { return VisitRule_lexerconst(Context); }
+	T Visit<Rule_constant>(Rule_constant* Context) { return VisitRule_constant(Context); }
 	template<>
-	T Visit<Rule_lexeror>(Rule_lexeror* Context) { return VisitRule_lexeror(Context); }
+	T Visit<Rule_divide>(Rule_divide* Context) { return VisitRule_divide(Context); }
 	template<>
-	T Visit<Rule_lexeror2>(Rule_lexeror2* Context) { return VisitRule_lexeror2(Context); }
+	T Visit<Rule_expression>(Rule_expression* Context) { return VisitRule_expression(Context); }
 	template<>
-	T Visit<Rule_lexerrule>(Rule_lexerrule* Context) { return VisitRule_lexerrule(Context); }
+	T Visit<Rule_multiplicative>(Rule_multiplicative* Context) { return VisitRule_multiplicative(Context); }
 	template<>
-	T Visit<Rule_operatorr>(Rule_operatorr* Context) { return VisitRule_operatorr(Context); }
+	T Visit<Rule_product>(Rule_product* Context) { return VisitRule_product(Context); }
 	template<>
-	T Visit<Rule_operatorr2>(Rule_operatorr2* Context) { return VisitRule_operatorr2(Context); }
+	T Visit<Rule_subtract>(Rule_subtract* Context) { return VisitRule_subtract(Context); }
 	template<>
-	T Visit<Rule_parserconst>(Rule_parserconst* Context) { return VisitRule_parserconst(Context); }
-	template<>
-	T Visit<Rule_parserlist>(Rule_parserlist* Context) { return VisitRule_parserlist(Context); }
-	template<>
-	T Visit<Rule_parseror>(Rule_parseror* Context) { return VisitRule_parseror(Context); }
-	template<>
-	T Visit<Rule_parseror2>(Rule_parseror2* Context) { return VisitRule_parseror2(Context); }
-	template<>
-	T Visit<Rule_parserrule>(Rule_parserrule* Context) { return VisitRule_parserrule(Context); }
-	template<>
-	T Visit<Rule_regex>(Rule_regex* Context) { return VisitRule_regex(Context); }
-	template<>
-	T Visit<Rule_rulelist>(Rule_rulelist* Context) { return VisitRule_rulelist(Context); }
+	T Visit<Rule_sum>(Rule_sum* Context) { return VisitRule_sum(Context); }
 
 };

@@ -97,14 +97,15 @@ ParserGenerator::Node_BASE* TokenVisitor::VisitRule_lexerconst(Rule_lexerconst* 
 	}
 	if (Context->LITERAL())
 	{
-		return ParserGenerator::RegExp::SEQUENCE(Context->LITERAL()->GetText());
+		const std::string& LiteralString = Context->LITERAL()->GetText();
+		std::string LiteralContent = LiteralString.substr(1, LiteralString.size() - 2);
+		return ParserGenerator::RegExp::SEQUENCE(LiteralContent);
 	}
 	if (Context->CHARSET())
 	{
-		// TODO: Interpret the charset content
 		const std::string& CharsetString = Context->CHARSET()->GetText();
 		std::string CharsetContent = CharsetString.substr(1, CharsetString.size() - 2);
-		std::vector<ParserGenerator::Node_CONST*> CharsetElements;
+ 		std::vector<ParserGenerator::Node_CONST*> CharsetElements;
 		ListInterpreter::Analyse(CharsetContent, CharsetElements);
 
 		return ParserGenerator::RegExp::LIST(CharsetElements);

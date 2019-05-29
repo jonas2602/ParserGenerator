@@ -85,6 +85,11 @@ namespace ParserGenerator {
 		}
 	}
 
+	void CodeSnippet_Enum::AddPair(const std::string& InKey, int InValue)
+	{
+		m_Entries[InValue] = InKey;
+	}
+
 	void CodeSnippet_Enum::Write() const
 	{
 		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();

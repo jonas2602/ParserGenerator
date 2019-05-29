@@ -95,6 +95,8 @@ namespace ParserGenerator {
 
 	public:
 		CodeSnippet_Enum(const std::string& InEnumName, const std::map<std::string, int>& InEnumEntries);
+
+		void AddPair(const std::string& InKey, int InValue);
 			
 	public:
 		// Inherited via CodeSnippet_Base

@@ -262,7 +262,9 @@ namespace ParserGenerator {
 		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
 
 		// Add Enums
-		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenMap()));
+		CodeSnippet_Enum* TokenEnum = new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenMap());
+		AlphabetFile->AddSnippet(TokenEnum);
+		TokenEnum->AddPair("EOS", -1);
 		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ERuleType", InAlphabet->GetNonTerminalMap()));
 
 		return true;
@@ -297,8 +299,8 @@ namespace ParserGenerator {
 			{
 				for (const std::string& Element : Production->m_TokenClasses)
 				{
-					// Ignore Epsilon
-					if (IsEpsilon(Element)) continue;
+					// Ignore Epsilon or EOF
+					if (IsEpsilon(Element) || IsEOS(Element)) continue;
 
 					if (ParsConfig->IsNonTerminal(Element))
 					{

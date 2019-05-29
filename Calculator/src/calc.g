@@ -1,44 +1,41 @@
-rulelist: (parserrule | lexerrule) rulelist | ;
+expression: additive EOS;
 
-parserrule: PARSERID COLON parseror SEMICOLON;
-// parseror: parserlist | parserlist PIPE parseror;
-parseror: parserlist parseror2;
-parseror2: PIPE parserlist parseror2 | ;
-// parserlist: parserconst | parserconst parserlist;
-parserlist: parserconst parserlist | ;
-parserconst: LEXERID | PARSERID | LITERAL | LP parseror RP;
+additive: multiplicative | sum | subtract;
+sum: multiplicative PLUS additive;
+subtract : multiplicative MINUS additive;
+
+multiplicative: constant | product | divide;
+product: constant STAR multiplicative;
+divide : constant SLASH multiplicative;
+
+constant: FLOAT
+		| INTEGER
+        | LP additive RP;
 
 
-lexerrule: LEXERID COLON regex action SEMICOLON;
-action: ARROW PARSERID | ;
-// regex: (operatorr PIPE regex | operatorr) regex | ;
-regex: lexeror regex | ;
-lexeror: operatorr lexeror2;
-lexeror2: PIPE operatorr lexeror2 | ;
-// operatorr: anytime | once | optional | lexerconst;
-operatorr: lexerconst operatorr2;
-operatorr2: STAR | PLUS | QUESTIONMARK | ;
-// anytime: lexerconst STAR;
-// once: lexerconst PLUS;
-// optional: lexerconst QUESTIONMARK;
-// lexerconst: LP regex RP | range | LEXERID | DOT | CHARSET | LITERAL;
-lexerconst: LP regex RP | LEXERID | DOT | CHARSET | LITERAL;
-// range: LITERAL '..' LITERAL;
+// sum1: product1 sum2;
+// sum2: '+' product1 sum2
+//     | /** EPSILON */
+//     ;
+// 
+// product1: constant1 product2;
+// product2: '*' constant1 product2
+//         | /** EPSILON */
+//         ;
+// 
+// constant1: '(' sum1 ')'
+//          | NUMBER
+//          ;*
 
+STAR: '*';
+PLUS: '+';
+MINUS: '-';
+SLASH: '/';
 LP: '(';
 RP: ')';
-PIPE: '|';
-COLON: ':';
-SEMICOLON: ';';
-PARSERID: [a-z][a-zA-Z0-9_]*;
-LITERAL: '\''~['\\]*('\\'.~['\\]*)*'\'';
+// NUMBER: FLOAT | INTEGER;
+FLOAT: [0-9]+ ('.' [0-9]+)?;
+INTEGER: [0-9]+;
 
-DOT: '.';
-PLUS: '+';
-STAR: '*';
-CHARSET: '~'?'['~[\]\\]*('\\'.~[\]\\]*)*']';
-QUESTIONMARK: '?';
-ARROW: '->';
-LEXERID: [A-Z][a-zA-Z0-9_]*;
 
 WS: [ \n\t\r]+ -> skip;
