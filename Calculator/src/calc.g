@@ -1,31 +1,37 @@
-expression: additive EOS;
+expression: sum1 EOS;
 
-additive: multiplicative | sum | subtract;
+/*additive: multiplicative | sum | subtract;
 sum: multiplicative PLUS additive;
-subtract : multiplicative MINUS additive;
+subtract : multiplicative MINUS additive;*/
 
-multiplicative: constant | product | divide;
+// additive: multiplicative additive2;
+// additive2: PLUS additive
+// 		 | MINUS additive
+// 		 | /** EPSILON */
+// 		 ;
+
+/*multiplicative: constant | product | divide;
 product: constant STAR multiplicative;
 divide : constant SLASH multiplicative;
 
 constant: FLOAT
 		| INTEGER
-        | LP additive RP;
+        | LP additive RP;*/
 
 
-// sum1: product1 sum2;
-// sum2: '+' product1 sum2
-//     | /** EPSILON */
-//     ;
-// 
-// product1: constant1 product2;
-// product2: '*' constant1 product2
-//         | /** EPSILON */
-//         ;
-// 
-// constant1: '(' sum1 ')'
-//          | NUMBER
-//          ;*
+sum1: product1 sum2;
+sum2: '+' product1 sum2
+    | /** EPSILON */
+    ;
+
+product1: constant1 product2;
+product2: '*' constant1 product2
+        | /** EPSILON */
+        ;
+
+constant1: '(' sum1 ')'
+         | NUMBER
+         ;*
 
 STAR: '*';
 PLUS: '+';

@@ -30,9 +30,9 @@ int main()
 	buffer << File.rdbuf();
 	//std::cout << "Grammar:" << std::endl << buffer.str() << std::endl << std::endl;
 
-	// PG::App::Generate(buffer.str());
+	PG::App::Generate(buffer.str());
 
-	GenLexer Lexer = GenLexer("123 + 12");
+	/*GenLexer Lexer = GenLexer("123 + 12");
 	std::vector<ParserGenerator::Token*> TokenStream = Lexer.GetTokenStream();
 	std::cout << TokenStream << std::endl << std::endl;
 
@@ -41,7 +41,7 @@ int main()
 	Parser.Expression(root);
 
 	ExpressionVisitor Visitor = ExpressionVisitor();
-	float Result = Visitor.Visit(root);
+	float Result = Visitor.Visit(root);*/
 
 	std::cin.get();
 	return 0;
