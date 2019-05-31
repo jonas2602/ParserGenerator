@@ -5,7 +5,7 @@
 #include <ostream>
 #include <functional>
 #include <iterator>
-#include <Parser.h>
+#include <ParserCore.h>
 
 #include "gen/GenLexer.h"
 #include "gen/GenParser.h"
@@ -32,7 +32,7 @@ int main()
 	//PG::App::Generate(buffer.str());
 
 	std::cout << "Please Enter your formular!" << std::endl
-		<< "Allowed Operators are [+-*/()] and Digits with a Dot." << std::endl;
+		<< "Allowed Operators are [+-/*()] and Digits with a Dot." << std::endl;
 	std::string Formular;
 	std::cin >> Formular;
 	std::cin.get();

@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\ParserGenerator\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ParserCore\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -75,7 +75,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\ParserGenerator\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ParserCore\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -92,6 +92,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\ExpressionVisitor.h" />
+    <ClInclude Include="src\gen\GenAlphabet.h" />
+    <ClInclude Include="src\gen\GenLexer.h" />
+    <ClInclude Include="src\gen\GenParser.h" />
+    <ClInclude Include="src\gen\GenRules.h" />
+    <ClInclude Include="src\gen\GenVisitorBase.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\ExpressionVisitor.cpp" />
     <ClCompile Include="src\gen\GenLexer.cpp" />
@@ -101,17 +109,9 @@
     <None Include="src\calc.g" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ParserGenerator\ParserGenerator.vcxproj">
-      <Project>{F9329C5E-65BE-0923-6ECF-8C17DAD96523}</Project>
+    <ProjectReference Include="..\ParserCore\ParserCore.vcxproj">
+      <Project>{7BB7AA59-676F-ECA6-D076-C502BC4D8797}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\ExpressionVisitor.h" />
-    <ClInclude Include="src\gen\GenAlphabet.h" />
-    <ClInclude Include="src\gen\GenLexer.h" />
-    <ClInclude Include="src\gen\GenParser.h" />
-    <ClInclude Include="src\gen\GenRules.h" />
-    <ClInclude Include="src\gen\GenVisitorBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

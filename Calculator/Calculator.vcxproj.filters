@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gen">
+      <UniqueIdentifier>{7F76880B-EB7F-887C-74FB-9E7CE003947C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ExpressionVisitor.h" />
+    <ClInclude Include="src\gen\GenAlphabet.h">
+      <Filter>gen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gen\GenLexer.h">
+      <Filter>gen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gen\GenParser.h">
+      <Filter>gen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gen\GenRules.h">
+      <Filter>gen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gen\GenVisitorBase.h">
+      <Filter>gen</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\ExpressionVisitor.cpp" />
+    <ClCompile Include="src\gen\GenLexer.cpp">
+      <Filter>gen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gen\GenParser.cpp">
+      <Filter>gen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\calc.g" />
+  </ItemGroup>
+</Project>

@@ -1,16 +1,16 @@
 #pragma once
 
-#include <map>
-#include <string>
-#include <functional>
+//#include <map>
+//#include <string>
+//#include <functional>
 
 #include "../Core.h"
-#include "ParseTree/RuleNode.h"
+//#include "ParseTree/RuleNode.h"
 
 namespace ParserGenerator {
 
 	template<typename T>
-	class Visitor
+	class PARSER_API Visitor
 	{
 	protected:
 		//std::map<int, std::function<void(void)>> m_FunctionMap;

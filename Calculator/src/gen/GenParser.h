@@ -2,7 +2,7 @@
 #pragma once
 
 #include "GenRules.h"
-#include <Parser.h>
+#include <ParserCore.h>
 
 class GenParser: public ParserGenerator::Parser
 {

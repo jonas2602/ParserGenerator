@@ -2,7 +2,7 @@
 #pragma once
 
 #include "GenAlphabet.h"
-#include <Parser.h>
+#include <ParserCore.h>
 
 class GenLexer: public ParserGenerator::Lexer
 {

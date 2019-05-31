@@ -2,7 +2,7 @@
 #pragma once
 
 #include "GenAlphabet.h"
-#include <Parser.h>
+#include <ParserCore.h>
 class Rule_additive;
 class Rule_additive2;
 class Rule_constant;

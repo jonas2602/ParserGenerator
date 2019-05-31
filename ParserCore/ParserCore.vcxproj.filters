@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Builder">
+      <UniqueIdentifier>{6CD5D7F4-D8B4-5690-E1CC-E1664D2BBDF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generator">
+      <UniqueIdentifier>{8C17FE7D-F881-B2F4-41C0-639AAD699049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generator\Snippets">
+      <UniqueIdentifier>{11BE5D51-FDA1-1EA7-6602-19FA52050929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lexer">
+      <UniqueIdentifier>{A5B4970D-11C9-BFBE-DA4A-631E461EBCEF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lexer\Automaton">
+      <UniqueIdentifier>{2CE96492-9874-D256-A185-554B0D902E57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser">
+      <UniqueIdentifier>{D27997C9-BE1B-C29F-A7D6-D5F3931749F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser\ParseTable">
+      <UniqueIdentifier>{E4EDEF09-5004-EE9F-997B-79C105D1BE27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser\ParseTree">
+      <UniqueIdentifier>{4C02D92E-38FB-F780-612D-DD054D85D78C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{45DC8C7C-3113-8E0D-DAFF-7310C6150A0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\ListParser">
+      <UniqueIdentifier>{DDDAC49D-4966-3262-5277-B556BE818E62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{F68B420E-62A0-6ABF-2B22-0E1F97F566F0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Builder\Alphabet.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Builder\FirstFollowTable.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Builder\ParserBuilder.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Builder\ParserSerializer.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core.h" />
+    <ClInclude Include="src\Generator\CodeGenerator.h">
+      <Filter>Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\CodeSnippet.h">
+      <Filter>Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\FileTemplate.h">
+      <Filter>Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\Snippets\ClassSnippet.h">
+      <Filter>Generator\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\Snippets\ConstructorSnippet.h">
+      <Filter>Generator\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\Snippets\ForwardDeclSnippet.h">
+      <Filter>Generator\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\Snippets\FunctionSnippet.h">
+      <Filter>Generator\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\Snippets\SwitchSnippet.h">
+      <Filter>Generator\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\WriterInterface.h">
+      <Filter>Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\Automaton\Automaton.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\Automaton\Factory.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\Automaton\State.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\Automaton\Transition.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\Lexer.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\LexerConfig.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\RegExp.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lexer\Token.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParseTable\ParsingTable.h">
+      <Filter>Parser\ParseTable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParseTable\TableFactory.h">
+      <Filter>Parser\ParseTable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParseTree\ParseTree.h">
+      <Filter>Parser\ParseTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParseTree\RuleNode.h">
+      <Filter>Parser\ParseTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParseTree\TokenNode.h">
+      <Filter>Parser\ParseTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\Parser.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\ParserConfig.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser\Visitor.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserTypes.h" />
+    <ClInclude Include="src\Test\ListParser\ListAlphabet.h">
+      <Filter>Test\ListParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\ListParser\ListInterpreter.h">
+      <Filter>Test\ListParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\ListParser\ListLexer.h">
+      <Filter>Test\ListParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\RuleVisitor.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\TestAlphabet.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\TestLexer.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\TestParser.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\TestRules.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\TestVisitor.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\TestVisitorBase.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\TokenVisitor.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Math.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\StringUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Builder\Alphabet.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Builder\FirstFollowTable.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Builder\ParserBuilder.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Builder\ParserSerializer.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\CodeGenerator.cpp">
+      <Filter>Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\CodeSnippet.cpp">
+      <Filter>Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\FileTemplate.cpp">
+      <Filter>Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\Snippets\ClassSnippet.cpp">
+      <Filter>Generator\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\Snippets\ConstructorSnippet.cpp">
+      <Filter>Generator\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\Snippets\ForwardDeclSnippet.cpp">
+      <Filter>Generator\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\Snippets\FunctionSnippet.cpp">
+      <Filter>Generator\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\Snippets\SwitchSnippet.cpp">
+      <Filter>Generator\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Automaton\Automaton.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Automaton\Factory.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Automaton\State.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Automaton\Transition.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Lexer.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\LexerConfig.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\RegExp.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lexer\Token.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParseTable\ParsingTable.cpp">
+      <Filter>Parser\ParseTable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParseTable\TableFactory.cpp">
+      <Filter>Parser\ParseTable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParseTree\ParseTree.cpp">
+      <Filter>Parser\ParseTree</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp">
+      <Filter>Parser\ParseTree</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp">
+      <Filter>Parser\ParseTree</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\Parser.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\ParserConfig.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Parser\Visitor.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\ListParser\ListInterpreter.cpp">
+      <Filter>Test\ListParser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\ListParser\ListLexer.cpp">
+      <Filter>Test\ListParser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\RuleVisitor.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\TestLexer.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\TestParser.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\TestVisitor.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\TokenVisitor.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\StringUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -2,7 +2,7 @@
 #pragma once
 
 #include "GenRules.h"
-#include <Parser.h>
+#include <ParserCore.h>
 
 template<typename T>
 class GenVisitorBase: public ParserGenerator::Visitor<T>

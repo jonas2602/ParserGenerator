@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7BB7AA59-676F-ECA6-D076-C502BC4D8797}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ParserCore</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug-windows-x86_64\ParserCore\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\ParserCore\</IntDir>
+    <TargetName>ParserCore</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Release-windows-x86_64\ParserCore\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\ParserCore\</IntDir>
+    <TargetName>ParserCore</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>PARSER_BUILD_DLL;_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\ParserCore\ParserCore.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Debug-windows-x86_64\Calculator &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Debug-windows-x86_64\Calculator &gt; nul)
+IF EXIST ..\bin\Debug-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Debug-windows-x86_64\ParserGenerator &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Debug-windows-x86_64\ParserGenerator &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>PARSER_BUILD_DLL;_WINDLL;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MT %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ImportLibrary>..\bin\Release-windows-x86_64\ParserCore\ParserCore.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Release-windows-x86_64\Calculator &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Release-windows-x86_64\Calculator &gt; nul)
+IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Release-windows-x86_64\ParserGenerator &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll ..\bin\Release-windows-x86_64\ParserGenerator &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Builder\Alphabet.h" />
+    <ClInclude Include="src\Builder\FirstFollowTable.h" />
+    <ClInclude Include="src\Builder\ParserBuilder.h" />
+    <ClInclude Include="src\Builder\ParserSerializer.h" />
+    <ClInclude Include="src\Core.h" />
+    <ClInclude Include="src\Generator\CodeGenerator.h" />
+    <ClInclude Include="src\Generator\CodeSnippet.h" />
+    <ClInclude Include="src\Generator\FileTemplate.h" />
+    <ClInclude Include="src\Generator\Snippets\ClassSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\ConstructorSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\ForwardDeclSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\FunctionSnippet.h" />
+    <ClInclude Include="src\Generator\Snippets\SwitchSnippet.h" />
+    <ClInclude Include="src\Generator\WriterInterface.h" />
+    <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
+    <ClInclude Include="src\Lexer\Automaton\Factory.h" />
+    <ClInclude Include="src\Lexer\Automaton\State.h" />
+    <ClInclude Include="src\Lexer\Automaton\Transition.h" />
+    <ClInclude Include="src\Lexer\Lexer.h" />
+    <ClInclude Include="src\Lexer\LexerConfig.h" />
+    <ClInclude Include="src\Lexer\RegExp.h" />
+    <ClInclude Include="src\Lexer\Token.h" />
+    <ClInclude Include="src\ParserCore.h" />
+    <ClInclude Include="src\Parser\ParseTable\ParsingTable.h" />
+    <ClInclude Include="src\Parser\ParseTable\TableFactory.h" />
+    <ClInclude Include="src\Parser\ParseTree\ParseTree.h" />
+    <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
+    <ClInclude Include="src\Parser\ParseTree\TokenNode.h" />
+    <ClInclude Include="src\Parser\Parser.h" />
+    <ClInclude Include="src\Parser\ParserConfig.h" />
+    <ClInclude Include="src\Parser\Visitor.h" />
+    <ClInclude Include="src\ParserTypes.h" />
+    <ClInclude Include="src\Test\ListParser\ListAlphabet.h" />
+    <ClInclude Include="src\Test\ListParser\ListInterpreter.h" />
+    <ClInclude Include="src\Test\ListParser\ListLexer.h" />
+    <ClInclude Include="src\Test\RuleVisitor.h" />
+    <ClInclude Include="src\Test\TestAlphabet.h" />
+    <ClInclude Include="src\Test\TestLexer.h" />
+    <ClInclude Include="src\Test\TestParser.h" />
+    <ClInclude Include="src\Test\TestRules.h" />
+    <ClInclude Include="src\Test\TestVisitor.h" />
+    <ClInclude Include="src\Test\TestVisitorBase.h" />
+    <ClInclude Include="src\Test\TokenVisitor.h" />
+    <ClInclude Include="src\Utils\Math.h" />
+    <ClInclude Include="src\Utils\StringUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Builder\Alphabet.cpp" />
+    <ClCompile Include="src\Builder\FirstFollowTable.cpp" />
+    <ClCompile Include="src\Builder\ParserBuilder.cpp" />
+    <ClCompile Include="src\Builder\ParserSerializer.cpp" />
+    <ClCompile Include="src\Generator\CodeGenerator.cpp" />
+    <ClCompile Include="src\Generator\CodeSnippet.cpp" />
+    <ClCompile Include="src\Generator\FileTemplate.cpp" />
+    <ClCompile Include="src\Generator\Snippets\ClassSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\ConstructorSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\ForwardDeclSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\FunctionSnippet.cpp" />
+    <ClCompile Include="src\Generator\Snippets\SwitchSnippet.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\Factory.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\State.cpp" />
+    <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
+    <ClCompile Include="src\Lexer\Lexer.cpp" />
+    <ClCompile Include="src\Lexer\LexerConfig.cpp" />
+    <ClCompile Include="src\Lexer\RegExp.cpp" />
+    <ClCompile Include="src\Lexer\Token.cpp" />
+    <ClCompile Include="src\Parser\ParseTable\ParsingTable.cpp" />
+    <ClCompile Include="src\Parser\ParseTable\TableFactory.cpp" />
+    <ClCompile Include="src\Parser\ParseTree\ParseTree.cpp" />
+    <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
+    <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp" />
+    <ClCompile Include="src\Parser\Parser.cpp" />
+    <ClCompile Include="src\Parser\ParserConfig.cpp" />
+    <ClCompile Include="src\Parser\Visitor.cpp" />
+    <ClCompile Include="src\Test\ListParser\ListInterpreter.cpp" />
+    <ClCompile Include="src\Test\ListParser\ListLexer.cpp" />
+    <ClCompile Include="src\Test\RuleVisitor.cpp" />
+    <ClCompile Include="src\Test\TestLexer.cpp" />
+    <ClCompile Include="src\Test\TestParser.cpp" />
+    <ClCompile Include="src\Test\TestVisitor.cpp" />
+    <ClCompile Include="src\Test\TokenVisitor.cpp" />
+    <ClCompile Include="src\Utils\StringUtils.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
