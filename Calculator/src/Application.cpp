@@ -9,10 +9,10 @@
 
 #include "gen/GenLexer.h"
 #include "gen/GenParser.h"
-//#include "ExpressionVisitor.h"
+#include "ExpressionVisitor.h"
 
 template<typename T>
-std::ostream& operator <<(std::ostream& os, const std::vector<T*>& v) 
+std::ostream& operator <<(std::ostream& os, const std::vector<T*>& v)
 {
 	std::transform(v.begin(), v.end(),
 		std::ostream_iterator<T>(os, " "),
@@ -25,14 +25,19 @@ int main()
 {
 	std::cout << "Start Calculator" << std::endl;
 
-	std::ifstream File("src/calc.g");
-	std::stringstream buffer;
-	buffer << File.rdbuf();
+	//std::ifstream File("src/calc.g");
+	//std::stringstream buffer;
+	//buffer << File.rdbuf();
 	//std::cout << "Grammar:" << std::endl << buffer.str() << std::endl << std::endl;
-
 	//PG::App::Generate(buffer.str());
 
-	GenLexer Lexer = GenLexer("123 + 12");
+	std::cout << "Please Enter your formular!" << std::endl
+		<< "Allowed Operators are [+-*/()] and Digits with a Dot." << std::endl;
+	std::string Formular;
+	std::cin >> Formular;
+	std::cin.get();
+
+	GenLexer Lexer = GenLexer(Formular);
 	std::vector<ParserGenerator::Token*> TokenStream = Lexer.GetTokenStream();
 	std::cout << TokenStream << std::endl << std::endl;
 
@@ -40,9 +45,12 @@ int main()
 	Rule_expression* root;
 	Parser.Expression(root);
 
-	/*ExpressionVisitor Visitor = ExpressionVisitor();
-	float Result = Visitor.Visit(root);*/
+	ExpressionVisitor Visitor = ExpressionVisitor();
+	float Result = Visitor.Visit(root);
+	std::cout << Formular << "=" << Result << std::endl;
 
+	std::cin.get();
+	std::cin.get();
 	std::cin.get();
 	return 0;
 }
