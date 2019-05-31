@@ -13,19 +13,38 @@ bool GenParser::Additive(Rule_additive*& OutRule)
 	OutRule = new Rule_additive();
 	EnterRule(OutRule);
 	
+	CALL_CHILD(Multiplicative, Rule_multiplicative);
+	CALL_CHILD(Additive2, Rule_additive2);
+	
+	ExitRule(OutRule);
+	return true;
+}
+
+bool GenParser::Additive2(Rule_additive2*& OutRule)
+{
+	OutRule = new Rule_additive2();
+	EnterRule(OutRule);
+	
 	switch (PredictProduction())
 	{
 		case 0:
 		{
+			TRY_MATCH(ETokenType::MINUS);
 			CALL_CHILD(Multiplicative, Rule_multiplicative);
+			CALL_CHILD(Additive2, Rule_additive2);
+			break;
 		}
 		case 1:
 		{
-			CALL_CHILD(Subtract, Rule_subtract);
+			TRY_MATCH(ETokenType::PLUS);
+			CALL_CHILD(Multiplicative, Rule_multiplicative);
+			CALL_CHILD(Additive2, Rule_additive2);
+			break;
 		}
 		case 2:
 		{
-			CALL_CHILD(Sum, Rule_sum);
+			// EPSILON
+			break;
 		}
 	}
 	
@@ -43,31 +62,21 @@ bool GenParser::Constant(Rule_constant*& OutRule)
 		case 0:
 		{
 			TRY_MATCH(ETokenType::FLOAT);
+			break;
 		}
 		case 1:
 		{
 			TRY_MATCH(ETokenType::INTEGER);
+			break;
 		}
 		case 2:
 		{
 			TRY_MATCH(ETokenType::LP);
 			CALL_CHILD(Additive, Rule_additive);
 			TRY_MATCH(ETokenType::RP);
+			break;
 		}
 	}
-	
-	ExitRule(OutRule);
-	return true;
-}
-
-bool GenParser::Divide(Rule_divide*& OutRule)
-{
-	OutRule = new Rule_divide();
-	EnterRule(OutRule);
-	
-	CALL_CHILD(Constant, Rule_constant);
-	TRY_MATCH(ETokenType::SLASH);
-	CALL_CHILD(Multiplicative, Rule_multiplicative);
 	
 	ExitRule(OutRule);
 	return true;
@@ -90,19 +99,38 @@ bool GenParser::Multiplicative(Rule_multiplicative*& OutRule)
 	OutRule = new Rule_multiplicative();
 	EnterRule(OutRule);
 	
+	CALL_CHILD(Constant, Rule_constant);
+	CALL_CHILD(Multiplicative2, Rule_multiplicative2);
+	
+	ExitRule(OutRule);
+	return true;
+}
+
+bool GenParser::Multiplicative2(Rule_multiplicative2*& OutRule)
+{
+	OutRule = new Rule_multiplicative2();
+	EnterRule(OutRule);
+	
 	switch (PredictProduction())
 	{
 		case 0:
 		{
+			TRY_MATCH(ETokenType::SLASH);
 			CALL_CHILD(Constant, Rule_constant);
+			CALL_CHILD(Multiplicative2, Rule_multiplicative2);
+			break;
 		}
 		case 1:
 		{
-			CALL_CHILD(Divide, Rule_divide);
+			TRY_MATCH(ETokenType::STAR);
+			CALL_CHILD(Constant, Rule_constant);
+			CALL_CHILD(Multiplicative2, Rule_multiplicative2);
+			break;
 		}
 		case 2:
 		{
-			CALL_CHILD(Product, Rule_product);
+			// EPSILON
+			break;
 		}
 	}
 	
@@ -110,46 +138,7 @@ bool GenParser::Multiplicative(Rule_multiplicative*& OutRule)
 	return true;
 }
 
-bool GenParser::Product(Rule_product*& OutRule)
-{
-	OutRule = new Rule_product();
-	EnterRule(OutRule);
-	
-	CALL_CHILD(Constant, Rule_constant);
-	TRY_MATCH(ETokenType::STAR);
-	CALL_CHILD(Multiplicative, Rule_multiplicative);
-	
-	ExitRule(OutRule);
-	return true;
-}
-
-bool GenParser::Subtract(Rule_subtract*& OutRule)
-{
-	OutRule = new Rule_subtract();
-	EnterRule(OutRule);
-	
-	CALL_CHILD(Multiplicative, Rule_multiplicative);
-	TRY_MATCH(ETokenType::MINUS);
-	CALL_CHILD(Additive, Rule_additive);
-	
-	ExitRule(OutRule);
-	return true;
-}
-
-bool GenParser::Sum(Rule_sum*& OutRule)
-{
-	OutRule = new Rule_sum();
-	EnterRule(OutRule);
-	
-	CALL_CHILD(Multiplicative, Rule_multiplicative);
-	TRY_MATCH(ETokenType::STAR);
-	CALL_CHILD(Additive, Rule_additive);
-	
-	ExitRule(OutRule);
-	return true;
-}
-
 const char* GenParser::GetSerializedTable() const
 {
-	return "0 1 0 0 2 0 0 4 0 1 1 1 1 2 0 1 4 2 2 1 0 2 2 0 2 4 0 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 1 0 5 2 0 5 4 0 6 1 0 6 2 0 6 4 0 7 1 0 7 2 0 7 4 0 ";
+	return "0 1 0 0 2 0 0 4 0 1 -1 2 1 3 2 1 6 0 1 7 1 2 1 1 2 2 0 2 4 2 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 2 5 3 2 5 5 0 5 6 2 5 7 2 5 8 1 ";
 }

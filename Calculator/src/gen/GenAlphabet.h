@@ -16,12 +16,10 @@ enum ETokenType {
 
 enum ERuleType { 
 	ADDITIVE = 0, 
-	CONSTANT = 1, 
-	DIVIDE = 2, 
+	ADDITIVE2 = 1, 
+	CONSTANT = 2, 
 	EXPRESSION = 3, 
 	MULTIPLICATIVE = 4, 
-	PRODUCT = 5, 
-	SUBTRACT = 6, 
-	SUM = 7, 
+	MULTIPLICATIVE2 = 5, 
 };
 

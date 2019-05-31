@@ -83,7 +83,10 @@ namespace ParserGenerator {
 	{
 		int ActiveTerminal = (*m_TokenIterator)->GetTokenType();
 		int ActiveNonTerminal = m_RuleStack.top()->GetRuleType();
-		return m_Table->GetProductionIndex(ActiveNonTerminal, ActiveTerminal);
+		int Prediction = m_Table->GetProductionIndex(ActiveNonTerminal, ActiveTerminal);
+		std::cout << "Chose Option " << Prediction << std::endl;
+
+		return Prediction;
 	}
 }
 

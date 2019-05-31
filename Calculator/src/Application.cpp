@@ -9,7 +9,7 @@
 
 #include "gen/GenLexer.h"
 #include "gen/GenParser.h"
-#include "ExpressionVisitor.h"
+//#include "ExpressionVisitor.h"
 
 template<typename T>
 std::ostream& operator <<(std::ostream& os, const std::vector<T*>& v) 
@@ -30,9 +30,9 @@ int main()
 	buffer << File.rdbuf();
 	//std::cout << "Grammar:" << std::endl << buffer.str() << std::endl << std::endl;
 
-	PG::App::Generate(buffer.str());
+	//PG::App::Generate(buffer.str());
 
-	/*GenLexer Lexer = GenLexer("123 + 12");
+	GenLexer Lexer = GenLexer("123 + 12");
 	std::vector<ParserGenerator::Token*> TokenStream = Lexer.GetTokenStream();
 	std::cout << TokenStream << std::endl << std::endl;
 
@@ -40,7 +40,7 @@ int main()
 	Rule_expression* root;
 	Parser.Expression(root);
 
-	ExpressionVisitor Visitor = ExpressionVisitor();
+	/*ExpressionVisitor Visitor = ExpressionVisitor();
 	float Result = Visitor.Visit(root);*/
 
 	std::cin.get();

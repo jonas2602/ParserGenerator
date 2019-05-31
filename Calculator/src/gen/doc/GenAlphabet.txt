@@ -1,2 +1,23 @@
 // Automatically generated File
 
+Avaliable Tokens:
+[Index] [Name]
+0 WS
+1 INTEGER
+2 FLOAT
+3 RP
+4 LP
+5 SLASH
+6 MINUS
+7 PLUS
+8 STAR
+
+Avaliable Non Terminals:
+[Index] [Name]
+0 additive
+1 additive2
+2 constant
+3 expression
+4 multiplicative
+5 multiplicative2
+

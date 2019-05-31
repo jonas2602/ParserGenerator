@@ -37,6 +37,7 @@ namespace ParserGenerator {
 				OutLines.push_back("\t\t" + Line);
 			}
 
+			OutLines.push_back("\t\tbreak;");
 			OutLines.push_back("\t}");
 		}
 

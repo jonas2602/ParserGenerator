@@ -29,7 +29,7 @@ namespace ParserGenerator {
 		{
 			for (const std::string& Token : Production->m_TokenClasses)
 			{
-				if (!IsNonTerminal(Token) && !IsEpsilon(Token) && !IsEOS(Token))
+				if (!IsNonTerminal(Token) && !IsEpsilon(Token) /*&& !IsEOS(Token)*/)
 				{
 					m_Terminals.insert(Token);
 				}
