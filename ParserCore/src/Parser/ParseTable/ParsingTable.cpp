@@ -3,7 +3,7 @@
 //#include "../Lexer/Token.h"
 #include <iostream>
 
-namespace ParserGenerator::ParseTable {
+namespace ParserCore::ParseTable {
 
 	//FirstFollowSet::FirstFollowSet(bool InNullable, const std::set<std::string>& InFirstSet, const std::set<std::string>& InFollowSet)
 	//	: m_bNullable(InNullable), m_FirstSet(InFirstSet), m_FollowSet(InFollowSet)

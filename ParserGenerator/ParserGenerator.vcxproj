@@ -97,7 +97,39 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\ParserGenerator\Builder\ParserBuilder.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\LexerConfig.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\ListInterpreter.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\ListParser\ListLexer.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\ParserConfig.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\RuleVisitor.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarVisitor.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\TokenVisitor.cpp" />
+    <ClCompile Include="src\ParserGenerator\Regex\NFA.cpp" />
+    <ClCompile Include="src\ParserGenerator\Regex\Node.cpp" />
+    <ClCompile Include="src\ParserGenerator\Regex\RegExp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ParserGenerator\Builder\ParserBuilder.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarAlphabet.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarRules.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarVisitorBase.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\LexerConfig.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\ListInterpreter.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListAlphabet.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListLexer.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\ParserConfig.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\RuleVisitor.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarVisitor.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\TokenVisitor.h" />
+    <ClInclude Include="src\ParserGenerator\Regex\NFA.h" />
+    <ClInclude Include="src\ParserGenerator\Regex\Node.h" />
+    <ClInclude Include="src\ParserGenerator\Regex\RegExp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

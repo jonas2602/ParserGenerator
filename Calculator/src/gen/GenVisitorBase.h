@@ -5,7 +5,7 @@
 #include <ParserCore.h>
 
 template<typename T>
-class GenVisitorBase: public ParserGenerator::Visitor<T>
+class GenVisitorBase: public PC::Visitor<T>
 {
 public:
 	virtual T VisitRule_additive(Rule_additive* Context) { return T(); }

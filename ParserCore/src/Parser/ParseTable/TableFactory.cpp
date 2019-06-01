@@ -6,7 +6,7 @@
 
 
 
-namespace ParserGenerator::ParseTable {
+namespace ParserCore::ParseTable {
 
 	bool TableFactory::Deserialize(ParsingTable*& OutTable, const std::string& InContent)
 	{

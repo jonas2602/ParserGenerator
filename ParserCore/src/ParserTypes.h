@@ -5,7 +5,7 @@
 #include "Core.h"
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	static const char EPSILON = '§';
 	static const std::string EPSILON_S = "§";

@@ -13,7 +13,7 @@
 
 #include "../Utils/StringUtils.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 	ParserSerializer::ParserSerializer(const std::string& InDirPath, const std::string& InParserName, const std::string& InCodePath, const std::string& InDocuPath)
 		: m_DirPath(InDirPath), m_ParserName(InParserName), m_CodePath(InCodePath), m_DocuPath(InDocuPath)
 	{
@@ -278,11 +278,11 @@ namespace ParserGenerator {
 
 		// Add Includes
 		RuleFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Alphabet") + ".h"));
-		RuleFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+		RuleFile->AddSnippet(new CodeSnippet_Include("ParserCore.h", false));
 
 		for (const std::string& NonTerminal : ParsConfig->GetNonTerminals())
 		{
-			CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class("Rule_" + NonTerminal, "ParserGenerator::RuleNode");
+			CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class("Rule_" + NonTerminal, "PC::RuleNode");
 			RuleFile->AddSnippet(ClassSnippet);
 			RuleFile->AddSnippet(new CodeSnippet_ForwardDecl("class", "Rule_" + NonTerminal));
 
@@ -316,7 +316,7 @@ namespace ParserGenerator {
 			for (const std::string& TokenName : TokenClasses)
 			{
 				std::string UpperCaseName = StringUtils::ToUpperCase(TokenName);
-				ClassSnippet->AttachSnippet(new CodeSnippet_Function(UpperCaseName, { "return GetToken(ETokenType::" + UpperCaseName + ", 0);" }, "ParserGenerator::TokenNode*", { CONSTANT, SINGLELINE, HEADERDEFINITION }));
+				ClassSnippet->AttachSnippet(new CodeSnippet_Function(UpperCaseName, { "return GetToken(ETokenType::" + UpperCaseName + ", 0);" }, "PC::TokenNode*", { CONSTANT, SINGLELINE, HEADERDEFINITION }));
 			}
 
 			for (const std::string& NonTerminalName : NonTerminalClasses)
@@ -337,10 +337,10 @@ namespace ParserGenerator {
 
 		// Add Includes
 		LexerFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Alphabet") + ".h"));
-		LexerFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+		LexerFile->AddSnippet(new CodeSnippet_Include("ParserCore.h", false));
 
 		// Add Lexer Class
-		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "ParserGenerator::Lexer");
+		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "PC::Lexer");
 		LexerFile->AddSnippet(ClassSnippet);
 
 		// Add Constructor
@@ -376,16 +376,16 @@ namespace ParserGenerator {
 
 		// Add Includes
 		ParserFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Rules") + ".h"));
-		ParserFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+		ParserFile->AddSnippet(new CodeSnippet_Include("ParserCore.h", false));
 
 		// Add Parser Class
-		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "ParserGenerator::Parser");
+		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "PC::Parser");
 		ParserFile->AddSnippet(ClassSnippet);
 
 		// Add Constructor
 		ClassSnippet->CreateNewGroup("public");
 		std::string AutomatonString;
-		ClassSnippet->AttachSnippet(new CodeSnippet_Constructor({ "LoadParsingTable();" }, { "const std::vector<ParserGenerator::Token*>& TokenStream" }, { {"Parser", "TokenStream" } }));
+		ClassSnippet->AttachSnippet(new CodeSnippet_Constructor({ "LoadParsingTable();" }, { "const std::vector<PC::Token*>& TokenStream" }, { {"Parser", "TokenStream" } }));
 
 		// Add Parsing Rules
 		ClassSnippet->CreateNewGroup("public");
@@ -481,10 +481,10 @@ namespace ParserGenerator {
 
 		// Add Includes
 		VisitorFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Rules") + ".h"));
-		VisitorFile->AddSnippet(new CodeSnippet_Include("Parser.h", false));
+		VisitorFile->AddSnippet(new CodeSnippet_Include("ParserCore.h", false));
 
 		// Add Visitor BaseClass
-		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "ParserGenerator::Visitor<T>");
+		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "PC::Visitor<T>");
 		VisitorFile->AddSnippet(ClassSnippet);
 		ClassSnippet->AddTemplating({ "T" });
 

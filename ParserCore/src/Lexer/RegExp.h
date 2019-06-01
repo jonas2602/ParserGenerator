@@ -7,7 +7,7 @@
 #include "../Core.h"
 #include "Automaton/Automaton.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class Node_BASE
 	{

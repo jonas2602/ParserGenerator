@@ -9,7 +9,7 @@
 #include "ParserSerializer.h"
 #include "../Generator/CodeGenerator.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	ParserBuilder::ParserBuilder(ParserConfig* InParsConfig, LexerConfig* InLexConfig)
 		:m_LexConfig(InLexConfig), m_ParsConfig(InParsConfig)

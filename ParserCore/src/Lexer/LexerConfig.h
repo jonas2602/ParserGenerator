@@ -6,7 +6,7 @@
 #include "RegExp.h"
 #include "Token.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	enum ELexerAction
 	{

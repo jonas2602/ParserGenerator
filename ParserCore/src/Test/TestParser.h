@@ -4,10 +4,10 @@
 #include "TestRules.h"
 
 
-class TestParser : public ParserGenerator::Parser
+class TestParser : public ParserCore::Parser
 {
 public:
-	TestParser(const std::vector<ParserGenerator::Token*>& TokenStream);
+	TestParser(const std::vector<ParserCore::Token*>& TokenStream);
 	~TestParser();
 
 public:

@@ -4,7 +4,7 @@
 #include "WriterInterface.h"
 #include <vector>
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class VirtualFolder
 	{

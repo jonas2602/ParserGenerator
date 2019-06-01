@@ -3,7 +3,7 @@
 
 #include "FileTemplate.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	CodeSnippet_Base::CodeSnippet_Base(const int& InPriority, const std::vector<CodeSnippet_Base*> InChildSnippets)
 		: m_Priority(InPriority), m_ChildSnippets(InChildSnippets), m_OwningFile(nullptr), m_ParentSnippet(nullptr)

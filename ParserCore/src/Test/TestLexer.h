@@ -5,7 +5,7 @@
 
 
 
-class TestLexer : public ParserGenerator::Lexer
+class TestLexer : public ParserCore::Lexer
 {
 public:
 	TestLexer(const std::string& InSourceCode);

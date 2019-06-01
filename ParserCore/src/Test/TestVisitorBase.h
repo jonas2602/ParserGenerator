@@ -4,7 +4,7 @@
 #include "../Parser/Visitor.h"
 
 template<typename T>
-class TestVisitorBase : public ParserGenerator::Visitor<T>
+class TestVisitorBase : public ParserCore::Visitor<T>
 {
 public:
 	virtual T VisitRule_rulelist(Rule_rulelist* Context) { return T(); }

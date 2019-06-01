@@ -10,7 +10,7 @@
 
 #include "../Core.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class PARSER_API Lexer
 	{

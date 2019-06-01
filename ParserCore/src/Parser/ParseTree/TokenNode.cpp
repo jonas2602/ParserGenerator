@@ -2,7 +2,7 @@
 
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	TokenNode::TokenNode(Token* InToken)
 		:m_Token(InToken)

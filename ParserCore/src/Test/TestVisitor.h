@@ -10,8 +10,8 @@
 class TestVisitor : public TestVisitorBase<bool>
 {
 protected:
-	ParserGenerator::LexerConfig* m_LexerConfig;
-	ParserGenerator::ParserConfig* m_ParserConfig;
+	ParserCore::LexerConfig* m_LexerConfig;
+	ParserCore::ParserConfig* m_ParserConfig;
 
 	RuleVisitor* m_RuleVisitor;
 	TokenVisitor* m_TokenVisitor;
@@ -20,8 +20,8 @@ public:
 	TestVisitor();
 	~TestVisitor();
 
-	ParserGenerator::LexerConfig* GetLexerConfig() const { return m_LexerConfig; }
-	ParserGenerator::ParserConfig* GetParserConfig() const { return m_ParserConfig; }
+	ParserCore::LexerConfig* GetLexerConfig() const { return m_LexerConfig; }
+	ParserCore::ParserConfig* GetParserConfig() const { return m_ParserConfig; }
 
 public:
 	// Inherited via TestVisitorBase
@@ -30,6 +30,6 @@ public:
 	virtual bool VisitRule_lexerrule(Rule_lexerrule* Context) override;
 
 protected:
-	ParserGenerator::ELexerAction GetActionType(ParserGenerator::TokenNode* ActionNode) const;
+	ParserCore::ELexerAction GetActionType(ParserCore::TokenNode* ActionNode) const;
 };
 

@@ -1,7 +1,7 @@
 #include "SwitchSnippet.h"
 #include "../FileTemplate.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	void CodeSnippet_Switch::AddCase(const std::string& InCondition, const std::vector<std::string>& InBody)
 	{

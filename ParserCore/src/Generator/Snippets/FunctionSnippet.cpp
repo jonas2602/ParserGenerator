@@ -2,7 +2,7 @@
 #include "../FileTemplate.h"
 #include "ClassSnippet.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 	void CodeSnippet_Function::AddTemplating(const std::vector<std::string>& InTypeNames)
 	{
 		m_ModifierList.insert(TEMPLATE);

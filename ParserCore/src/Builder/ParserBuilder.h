@@ -7,7 +7,7 @@
 #include "../Parser/ParseTable/ParsingTable.h"
 #include "../Lexer/Automaton/Automaton.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class ParserBuilder
 	{

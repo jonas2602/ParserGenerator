@@ -2,7 +2,7 @@
 
 #include "../CodeSnippet.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class CodeSnippet_Switch : public CodeSnippet_Base
 	{

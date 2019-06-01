@@ -27,7 +27,7 @@
 #include "Test/TestVisitor.h"
 #include "Builder/ParserBuilder.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 
 	template<typename T>
@@ -250,7 +250,7 @@ namespace ParserGenerator {
 				std::cout << Element << std::endl;
 			}
 			ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
-			builder.Generate("src/gen/", "Gen");
+			builder.Generate("src/gram/", "Grammar");
 		}
 		else
 		{
@@ -263,7 +263,7 @@ namespace ParserGenerator {
 		delete vis;
 	}
 
-	void App::ListParser(const std::string& SourceCode)
+	void App::ListParser()
 	{
 		LexerConfig LexConfig;
 		LexConfig.Add("MINUS", new RegExp(RegExp::CONST('-')));
@@ -281,6 +281,7 @@ namespace ParserGenerator {
 		ParsConfig.AddProduction("symbol", { "ESCAPED" });
 
 		ParserBuilder builder(&ParsConfig, &LexConfig);
+		builder.Generate("src/list/", "List");
 	}
 
 }

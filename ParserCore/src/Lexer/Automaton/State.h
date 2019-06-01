@@ -3,13 +3,13 @@
 #include <string>
 #include <vector>
 
-#include "..//..//Core.h"
+#include "../../Core.h"
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 
 	class Transition;
 
-	class State
+	class PARSER_API State
 	{
 	protected:
 		std::string m_StateName;

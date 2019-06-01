@@ -11,7 +11,7 @@
 // #define S_SPACES() { m_OwningFile->GetSourceSpaces() }
 // #define NEWLINE_TABBED() { std::endl << }
 
-namespace ParserGenerator {
+namespace ParserCore {
 	class FileTemplate;
 
 	class CodeSnippet_Base // Code Template

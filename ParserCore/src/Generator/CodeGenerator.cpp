@@ -3,7 +3,7 @@
 
 namespace fs = std::experimental::filesystem;
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	CodeGenerator::CodeGenerator(const std::string& InRootPath)
 		: m_RootPath(InRootPath)

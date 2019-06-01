@@ -3,7 +3,7 @@
 #include <fstream>
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	FileTemplate::FileTemplate(const std::string& InFileName, const std::string& InDirectoryPath, IWriterInterface* InWriter, const std::vector<CodeSnippet_Base*> InRootSnippets)
 		: m_FileName(InFileName), m_DirectoryPath(InDirectoryPath), m_Writer(InWriter), m_RootSnippets(InRootSnippets)

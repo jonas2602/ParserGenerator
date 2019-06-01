@@ -3,7 +3,7 @@
 #include "../CodeSnippet.h"
 #include <string>
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class CodeSnippet_ForwardDecl : public CodeSnippet_Base
 	{

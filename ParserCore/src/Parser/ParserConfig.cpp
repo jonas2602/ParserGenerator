@@ -3,7 +3,7 @@
 #include <iostream>
 #include "../ParserTypes.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 
 

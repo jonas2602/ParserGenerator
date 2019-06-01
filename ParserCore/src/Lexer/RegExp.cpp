@@ -5,7 +5,7 @@
 #include "RegExp.h"
 #include "../ParserTypes.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	// Helper
 	std::vector<Node_BASE*> CreateNodeList(const std::vector<char>& SymbolList)

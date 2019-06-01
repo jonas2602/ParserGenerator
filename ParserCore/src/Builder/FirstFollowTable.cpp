@@ -3,7 +3,7 @@
 #include "../Utils/Math.h"
 #include <iostream>
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	FirstFollowSet::FirstFollowSet(bool InNullable, const std::set<std::string>& InFirstSet, const std::set<std::string>& InFollowSet)
 		: m_bNullable(InNullable), m_FirstSet(InFirstSet), m_FollowSet(InFollowSet)

@@ -1,7 +1,7 @@
 #include "ParseTree.h"
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	//ParseTree::ParseTree()
 	//	:m_RootNode(nullptr)

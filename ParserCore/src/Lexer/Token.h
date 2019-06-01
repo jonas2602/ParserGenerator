@@ -5,7 +5,7 @@
 
 #include "../Core.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class Token
 	{

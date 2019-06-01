@@ -8,7 +8,7 @@
 
 #include "Automaton/Factory.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	//Lexer::Lexer(LexerConfig* InConfig)
 	//{

@@ -6,7 +6,7 @@
 #include "TokenNode.h"
 #include "../../Core.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 	class PARSER_API RuleNode : public ParseTree
 	{
 	protected:

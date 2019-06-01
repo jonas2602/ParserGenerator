@@ -1,5 +1,5 @@
 #pragma once
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class Math
 	{

@@ -2,7 +2,7 @@
 #include "GenParser.h"
 
 
-GenParser::GenParser(const std::vector<ParserGenerator::Token*>& TokenStream)
+GenParser::GenParser(const std::vector<PC::Token*>& TokenStream)
 	: Parser(TokenStream)
 {
 	LoadParsingTable();

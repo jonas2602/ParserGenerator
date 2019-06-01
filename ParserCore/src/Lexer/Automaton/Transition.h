@@ -5,10 +5,10 @@
 
 #include "..//..//Core.h"
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 	class State;
 
-	class Transition
+	class PARSER_API Transition
 	{
 	protected:
 		State* m_TargetState;

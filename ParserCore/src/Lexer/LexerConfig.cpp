@@ -2,7 +2,7 @@
 
 #include <utility>
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	LexerConfig::LexerConfig()
 	{

@@ -16,7 +16,7 @@ std::set<std::vector<std::string>> RuleVisitor::VisitRule_parseror(Rule_parseror
 	if (ListSet.empty())
 	{
 		// Create Epsilon Element
-		OutSet.insert({ ParserGenerator::EPSILON_S });
+		OutSet.insert({ ParserCore::EPSILON_S });
 	}
 
 	return OutSet;
@@ -39,7 +39,7 @@ std::set<std::vector<std::string>> RuleVisitor::VisitRule_parseror2(Rule_parsero
 		if (ListSet.empty())
 		{
 			// Create Epsilon Element
-			OutSet.insert({ ParserGenerator::EPSILON_S });
+			OutSet.insert({ ParserCore::EPSILON_S });
 		}
 	}
 
@@ -68,12 +68,12 @@ std::set<std::vector<std::string>> RuleVisitor::VisitRule_parserlist(Rule_parser
 			{
 				for (const std::vector<std::string>& ListElement : ListSet)
 				{
-					if (ParserGenerator::IsEpsilon(ConstElement))
+					if (ParserCore::IsEpsilon(ConstElement))
 					{
 						// Add only list if const is epsilon
 						OutSet.insert(ListElement);
 					}
-					else if (ParserGenerator::IsEpsilon(ListElement))
+					else if (ParserCore::IsEpsilon(ListElement))
 					{
 						// Add only const if list is epsilon
 						OutSet.insert(ConstElement);

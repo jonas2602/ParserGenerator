@@ -4,11 +4,11 @@
 
 #include "State.h"
 #include "Transition.h"
-#include "..//..//Core.h"
+#include "../../Core.h"
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 
-	class Automaton
+	class PARSER_API Automaton
 	{
 	protected:
 		std::map<std::string, State*> m_StateMap;
@@ -32,7 +32,7 @@ namespace ParserGenerator::Automaton {
 
 
 
-	class DFA : public Automaton
+	class PARSER_API DFA : public Automaton
 	{
 	protected:
 		State* m_StartState;

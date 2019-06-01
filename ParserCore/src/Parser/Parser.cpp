@@ -6,7 +6,7 @@
 #include "ParseTree/RuleNode.h"
 #include "ParseTable/TableFactory.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	//Parser::Parser(ParserConfig* InConfig)
 	//	: m_Config(InConfig)

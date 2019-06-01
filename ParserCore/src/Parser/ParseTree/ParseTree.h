@@ -5,7 +5,7 @@
 //#include "ParserConfig.h"
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class ParseTree
 	{

@@ -2,7 +2,7 @@
 
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 	RuleNode::RuleNode()
 	{
 	}

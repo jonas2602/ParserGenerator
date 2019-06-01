@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 
 	//bool LexerFactory::Serialize(Lexer* InLexer, const std::string& FilePath)
 	//{

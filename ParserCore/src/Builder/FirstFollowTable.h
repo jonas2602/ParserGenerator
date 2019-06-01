@@ -8,7 +8,7 @@
 #include "Alphabet.h"
 #include "../Parser/ParseTable/ParsingTable.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	struct FirstFollowSet
 	{

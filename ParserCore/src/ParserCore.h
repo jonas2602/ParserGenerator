@@ -8,7 +8,9 @@
 #include "Parser/ParseTree/TokenNode.h"
 #include "Parser/Visitor.h"
 
+#include "ParserTypes.h"
+
 #include "App.h"
 
-namespace PG = ParserGenerator;
-// namespace PC = ParserCore;
+namespace PC = ParserCore;
+namespace PCA = ParserCore::Automaton;

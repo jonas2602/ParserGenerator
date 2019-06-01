@@ -5,7 +5,7 @@
 #include "CodeSnippet.h"
 #include "WriterInterface.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class FileTemplate
 	{

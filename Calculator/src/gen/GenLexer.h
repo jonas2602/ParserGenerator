@@ -4,7 +4,7 @@
 #include "GenAlphabet.h"
 #include <ParserCore.h>
 
-class GenLexer: public ParserGenerator::Lexer
+class GenLexer: public PC::Lexer
 {
 public:
 	GenLexer(const std::string& InSourceCode);

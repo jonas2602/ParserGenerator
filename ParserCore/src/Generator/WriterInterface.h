@@ -4,7 +4,7 @@
 #include <fstream>
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class IWriterInterface
 	{

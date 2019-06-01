@@ -7,7 +7,7 @@
 #include "../../Utils/Math.h"
 #include "../../ParserTypes.h"
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 
 	Automaton::Automaton()
 	{

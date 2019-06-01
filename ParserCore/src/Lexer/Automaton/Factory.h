@@ -4,7 +4,7 @@
 #include "Automaton.h"
 #include "..//..//Core.h"
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 	
 	class Factory
 	{

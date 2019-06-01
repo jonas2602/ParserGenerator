@@ -4,10 +4,10 @@
 #include "GenRules.h"
 #include <ParserCore.h>
 
-class GenParser: public ParserGenerator::Parser
+class GenParser: public PC::Parser
 {
 public:
-	GenParser(const std::vector<ParserGenerator::Token*>& TokenStream);
+	GenParser(const std::vector<PC::Token*>& TokenStream);
 
 public:
 	bool Additive(Rule_additive*& OutRule);

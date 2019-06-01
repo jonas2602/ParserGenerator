@@ -6,7 +6,7 @@
 #include <set>
 #include <map>
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	struct ParserConfigElement
 	{

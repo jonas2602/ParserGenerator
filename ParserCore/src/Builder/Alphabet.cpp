@@ -3,7 +3,7 @@
 
 #include "../ParserTypes.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 	Alphabet::Alphabet(const std::map<std::string, int>& InTokens, const std::map<std::string, int>& InNonTerminals)
 		:m_Tokens(InTokens), m_NonTerminals(InNonTerminals)
 	{

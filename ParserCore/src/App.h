@@ -3,7 +3,7 @@
 #include <string>
 #include "Core.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class PARSER_API App
 	{
@@ -11,6 +11,6 @@ namespace ParserGenerator {
 		static int main();
 
 		static void Generate(const std::string& SourceCode);
-		static void ListParser(const std::string& SourceCode);
+		static void ListParser();
 	};
 }

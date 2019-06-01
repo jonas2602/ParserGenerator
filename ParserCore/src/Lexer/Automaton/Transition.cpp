@@ -2,7 +2,7 @@
 #include "State.h"
 
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 	Transition::Transition(State* InTargetState, const char& InSymbol)
 		: Transition(InTargetState, std::set<char>({ InSymbol }))
 	{ }

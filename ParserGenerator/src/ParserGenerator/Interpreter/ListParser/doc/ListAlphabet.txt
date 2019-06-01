@@ -1,0 +1,7 @@
+// Automatically generated File
+
+Avaliable Tokens:
+[Index] [Name]
+0 CHAR
+1 ESCAPED
+2 MINUS

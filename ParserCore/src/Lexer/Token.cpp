@@ -2,7 +2,7 @@
 #include "../ParserTypes.h"
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	Token* Token::EOS_TOKEN = new Token(EOS_S, EOS, -1, -1);
 

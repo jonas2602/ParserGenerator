@@ -15,7 +15,7 @@
 #define TRY_MATCH(x) if(!Match(x)) return false; // std::cout << "Token mismatch, Expected: " << x << std::endl;
 #define CALL_CHILD(func, type) { type* temp; if(!func(temp)) return false; }
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class PARSER_API Parser
 	{

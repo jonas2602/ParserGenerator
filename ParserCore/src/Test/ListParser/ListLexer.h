@@ -2,7 +2,7 @@
 
 #include "../../Lexer/Lexer.h"
 
-class ListLexer : public ParserGenerator::Lexer
+class ListLexer : public ParserCore::Lexer
 {
 public:
 	ListLexer(const std::string& InSourceCode);

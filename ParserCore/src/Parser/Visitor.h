@@ -7,7 +7,7 @@
 #include "../Core.h"
 //#include "ParseTree/RuleNode.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	template<typename T>
 	class PARSER_API Visitor

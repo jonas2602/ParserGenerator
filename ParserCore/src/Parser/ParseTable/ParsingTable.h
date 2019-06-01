@@ -2,7 +2,7 @@
 
 #include <map>
 
-namespace ParserGenerator::ParseTable {
+namespace ParserCore::ParseTable {
 
 	//struct FirstFollowSet
 	//{

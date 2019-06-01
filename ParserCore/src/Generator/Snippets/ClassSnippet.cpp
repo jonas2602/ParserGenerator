@@ -2,7 +2,7 @@
 #include "ClassSnippet.h"
 #include "../FileTemplate.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	CodeSnippet_Class::CodeSnippet_Class(const std::string& InClassName, const std::string& InParentName)
 		: CodeSnippet_Base(2), m_ClassName(InClassName), m_ParentName(InParentName), m_bTemplate(false)

@@ -3,7 +3,7 @@
 #include "../CodeSnippet.h"
 #include <set>
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	enum EFunctionModifier {
 		VIRTUAL,

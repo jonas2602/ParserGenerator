@@ -1,5 +1,5 @@
 // Grammar Parser
-rulelist: (parserrule | lexerrule) rulelist | ;
+rulelist: (parserrule | lexerrule) rulelist | EOS;
 
 parserrule: PARSERID COLON parseror SEMICOLON;
 parseror: parserlist parseror2;
@@ -33,6 +33,8 @@ QUESTIONMARK: '?';
 ARROW: '->';
 LEXERID: [A-Z][a-zA-Z0-9_]*;
 
+LINECOMMENT: '//'~[\n]* -> skip;
+BLOCKCOMMENT: '/''*'+(~[/*]~[*]*'*'+'/')+ -> skip;
 WS: [ \n\t\r]+ -> skip;
 
 

@@ -5,7 +5,7 @@
 #include <set>
 #include <string>
 
-namespace ParserGenerator {
+namespace ParserCore {
 	class Alphabet
 	{
 	protected:

@@ -2,7 +2,7 @@
 #include "Transition.h"
 
 
-namespace ParserGenerator::Automaton {
+namespace ParserCore::Automaton {
 	State::State(const std::string& InStateName, int InPriority) 
 		:m_StateName(InStateName), m_Priority(InPriority)
 	{ }

@@ -2,32 +2,32 @@
 #include "ListLexer.h"
 #include "ListAlphabet.h"
 
-void ListInterpreter::Analyse(const std::string& ListContent, std::vector<ParserGenerator::Node_CONST*>& OutNodes)
+void ListInterpreter::Analyse(const std::string& ListContent, std::vector<ParserCore::Node_CONST*>& OutNodes)
 {
-	std::vector<ParserGenerator::Token*> TokenStream = ListLexer(ListContent).GetTokenStream();
+	std::vector<ParserCore::Token*> TokenStream = ListLexer(ListContent).GetTokenStream();
 
 	for (int i = 1; i < TokenStream.size();)
 	{
-		ParserGenerator::Token* CenterToken = TokenStream[i];
+		ParserCore::Token* CenterToken = TokenStream[i];
 		if (CenterToken->GetTokenType() == ETokenType::MINUS && i < (TokenStream.size() - 2))
 		{
 			// Create Range
 			char LeftBorder = GetTokenSymbol(TokenStream[i - 1]);
 			char RightBorder = GetTokenSymbol(TokenStream[i + 1]);
-			OutNodes.push_back(ParserGenerator::RegExp::RANGE(LeftBorder, RightBorder));
+			OutNodes.push_back(ParserCore::RegExp::RANGE(LeftBorder, RightBorder));
 			i += 3;
 		}
 		else
 		{
 			// Create Single Element
 			char TokenSymbol = GetTokenSymbol(TokenStream[i - 1]);
-			OutNodes.push_back(ParserGenerator::RegExp::CONST(TokenSymbol));
+			OutNodes.push_back(ParserCore::RegExp::CONST(TokenSymbol));
 			i += 1;
 		}
 	}
 }
 
-char ListInterpreter::GetTokenSymbol(ParserGenerator::Token* InToken)
+char ListInterpreter::GetTokenSymbol(ParserCore::Token* InToken)
 {
 	if (InToken->GetTokenType() == ETokenType::ESCAPED)
 	{

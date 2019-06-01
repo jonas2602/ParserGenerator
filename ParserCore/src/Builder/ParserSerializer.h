@@ -7,7 +7,7 @@
 #include "../Lexer/Automaton/Automaton.h"
 #include "../Generator/CodeGenerator.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class ParserSerializer
 	{

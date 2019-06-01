@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	//Visitor::Visitor()
 	//{

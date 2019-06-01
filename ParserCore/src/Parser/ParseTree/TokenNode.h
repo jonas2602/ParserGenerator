@@ -3,7 +3,7 @@
 #include "ParseTree.h"
 #include "../../Lexer/Token.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	class TokenNode : public ParseTree
 	{

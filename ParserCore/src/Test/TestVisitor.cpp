@@ -3,8 +3,8 @@
 
 TestVisitor::TestVisitor()
 {
-	m_LexerConfig = new ParserGenerator::LexerConfig();
-	m_ParserConfig = new ParserGenerator::ParserConfig();
+	m_LexerConfig = new ParserCore::LexerConfig();
+	m_ParserConfig = new ParserCore::ParserConfig();
 
 	m_TokenVisitor = new TokenVisitor();
 	m_RuleVisitor = new RuleVisitor();
@@ -60,12 +60,12 @@ bool TestVisitor::VisitRule_lexerrule(Rule_lexerrule* Context)
 	std::cout << "Visit Token: " << TokenName << std::endl;
 
 	// Grab Regex from Parse Tree
-	ParserGenerator::Node_BASE* RootNode = m_TokenVisitor->Visit(Context->regex());
+	ParserCore::Node_BASE* RootNode = m_TokenVisitor->Visit(Context->regex());
 	if (!RootNode) return false;
-	ParserGenerator::RegExp* OutRegex = new ParserGenerator::RegExp(RootNode);
+	ParserCore::RegExp* OutRegex = new ParserCore::RegExp(RootNode);
 
 	// Check for special action
-	ParserGenerator::ELexerAction ActionType = GetActionType(Context->action()->PARSERID());
+	ParserCore::ELexerAction ActionType = GetActionType(Context->action()->PARSERID());
 
 	// Add it to Lexer Config
 	m_LexerConfig->Add(TokenName, OutRegex, ActionType);
@@ -73,12 +73,12 @@ bool TestVisitor::VisitRule_lexerrule(Rule_lexerrule* Context)
 	return true;
 }
 
-ParserGenerator::ELexerAction TestVisitor::GetActionType(ParserGenerator::TokenNode* ActionNode) const
+ParserCore::ELexerAction TestVisitor::GetActionType(ParserCore::TokenNode* ActionNode) const
 {
-	if (!ActionNode) return ParserGenerator::ELexerAction::DEFAULT;
+	if (!ActionNode) return ParserCore::ELexerAction::DEFAULT;
 
 	const std::string& ActionName = ActionNode->GetText();
 
-	if (ActionName == "skip") return ParserGenerator::ELexerAction::SKIP;
-	else return ParserGenerator::ELexerAction::DEFAULT;
+	if (ActionName == "skip") return ParserCore::ELexerAction::SKIP;
+	else return ParserCore::ELexerAction::DEFAULT;
 }

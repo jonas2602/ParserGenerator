@@ -1,7 +1,7 @@
 #include "TestParser.h"
 
 
-TestParser::TestParser(const std::vector<ParserGenerator::Token*>& TokenStream)
+TestParser::TestParser(const std::vector<ParserCore::Token*>& TokenStream)
 	: Parser(TokenStream)
 {
 	LoadParsingTable();

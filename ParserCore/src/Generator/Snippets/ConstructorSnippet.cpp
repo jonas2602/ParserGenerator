@@ -2,7 +2,7 @@
 #include "ClassSnippet.h"
 #include "../FileTemplate.h"
 
-namespace ParserGenerator {
+namespace ParserCore {
 
 	void CodeSnippet_Constructor::Write() const
 	{

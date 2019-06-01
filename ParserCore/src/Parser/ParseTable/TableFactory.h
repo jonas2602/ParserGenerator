@@ -4,7 +4,7 @@
 
 #include "ParsingTable.h"
 
-namespace ParserGenerator::ParseTable {
+namespace ParserCore::ParseTable {
 
 	class TableFactory
 	{
