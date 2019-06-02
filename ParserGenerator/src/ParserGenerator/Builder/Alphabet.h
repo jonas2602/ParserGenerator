@@ -6,6 +6,7 @@
 #include <string>
 
 namespace ParserGenerator {
+	
 	class Alphabet
 	{
 	protected:
@@ -25,8 +26,11 @@ namespace ParserGenerator {
 		int GetTokenIndex(const std::string& TokenName) const;
 		int GetRuleIndex(const std::string& RuleName) const;
 
+		int GetElementIndex(struct RuleElement* InElement) const;
+
 		const std::string& GetTokenName(int TokenId) const;
 		const std::string& GetRuleName(int RuleId) const;
+
 
 		const std::set<std::string>& GetTerminalNames() const { return m_TerminalNames; }
 		const std::set<std::string>& GetNonTerminalNames() const { return m_NonTerminalNames; }

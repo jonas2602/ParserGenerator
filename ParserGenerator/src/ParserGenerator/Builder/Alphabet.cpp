@@ -1,7 +1,9 @@
 #include "Alphabet.h"
-#include <iostream>
 
+#include <iostream>
 #include <ParserCore.h>
+
+#include "../Interpreter/ParserConfig.h"
 
 namespace ParserGenerator {
 	Alphabet::Alphabet(const std::map<std::string, int>& InTokens, const std::map<std::string, int>& InRules)
@@ -46,6 +48,16 @@ namespace ParserGenerator {
 		}
 
 		return RulePair->second;
+	}
+
+	int Alphabet::GetElementIndex(RuleElement* InElement) const
+	{
+		if (InElement->IsEpsilon())
+			return -1;
+		else if (InElement->m_Type == ERuleElementType::RULE)
+			return GetRuleIndex(InElement->m_Content);
+		else
+			return GetTokenIndex(InElement->m_Content);
 	}
 
 	const std::string& Alphabet::GetTokenName(int TokenId) const

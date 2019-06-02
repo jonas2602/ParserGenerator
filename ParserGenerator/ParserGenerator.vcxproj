@@ -97,6 +97,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ParserGenerator\Builder\ParserSerializer.cpp" />
     <ClCompile Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.cpp" />
     <ClCompile Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.cpp" />
     <ClCompile Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ParserGenerator\Builder\ParserSerializer.h" />
     <ClInclude Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.h" />
     <ClInclude Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.h" />
     <ClInclude Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.h" />

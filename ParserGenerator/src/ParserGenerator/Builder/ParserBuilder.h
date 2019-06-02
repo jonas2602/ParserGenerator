@@ -21,12 +21,9 @@ namespace ParserGenerator {
 
 	public:
 		ParserBuilder(const std::string& InSourceCode);
-		ParserBuilder(ParserConfig* InParsConfig, LexerConfig* InLexConfig);
 		~ParserBuilder();
 
 		void Generate(const std::string& InRootPath, const std::string& InGrammarName, const std::string& InNamespaceName = "");
-		// Serialize DFA/Table
-		// Generate Files
 
 	protected:
 		bool CreateConfigsFromSource(const std::string& InSourceCode);

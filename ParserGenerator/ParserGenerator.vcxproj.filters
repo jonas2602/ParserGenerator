@@ -30,6 +30,7 @@
     <ClCompile Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.cpp" />
     <ClCompile Include="src\ParserGenerator\Serializer\Snippets\PlainSnippet.cpp" />
     <ClCompile Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Builder\ParserSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListAlphabet.h" />
@@ -66,5 +67,6 @@
     <ClInclude Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.h" />
     <ClInclude Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.h" />
     <ClInclude Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Builder\ParserSerializer.h" />
   </ItemGroup>
 </Project>

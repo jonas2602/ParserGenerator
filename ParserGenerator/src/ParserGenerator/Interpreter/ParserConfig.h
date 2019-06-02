@@ -26,8 +26,9 @@ namespace ParserGenerator {
 			: m_Content(InContent), m_Type(InType)
 		{ }
 
-		bool IsNonTerminal() { return m_Type == ERuleElementType::RULE; }
-		bool IsEpsilon() { return PC::IsEpsilon(m_Content); }
+		bool IsNonTerminal() const { return m_Type == ERuleElementType::RULE; }
+		bool IsEpsilon() const { return PC::IsEpsilon(m_Content); }
+		std::string GetDisplayName() const;
 		static RuleElement* EPSIlON_ELEMENT;
 	};
 
@@ -82,7 +83,7 @@ namespace ParserGenerator {
 		//void FillTerminals();
 		//void Normalize();
 
-		std::vector<RuleDefinition*> GetAllProductionsForNonTerminal(const std::string& NonTerminal) const;
+		const std::vector<RuleDefinition*>& GetAllProductionsForNonTerminal(const std::string& NonTerminal) const;
 		const std::vector<RuleDefinition*>& GetProductionList() const { return m_ProductionList; }
 		int GetProductionCount() const { return (int)m_ProductionList.size(); }
 

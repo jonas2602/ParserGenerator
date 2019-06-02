@@ -7,6 +7,18 @@ namespace ParserGenerator {
 
 	RuleElement* RuleElement::EPSIlON_ELEMENT = new RuleElement(PC::EPSILON_S, ERuleElementType::LITERAL);
 
+	std::string RuleElement::GetDisplayName() const
+	{
+		if (IsEpsilon())
+		{
+			return "EPSILON";
+		}
+		else
+		{
+			return m_Content;
+		}
+	}
+
 	ParserConfig::ParserConfig()
 	{
 	}
@@ -124,18 +136,15 @@ namespace ParserGenerator {
 	//	}
 	//}
 
-	std::vector<RuleDefinition*> ParserConfig::GetAllProductionsForNonTerminal(const std::string& NonTerminal) const
+	const std::vector<RuleDefinition*>& ParserConfig::GetAllProductionsForNonTerminal(const std::string& NonTerminal) const
 	{
-		std::vector<RuleDefinition*> OutRules;
-		for (RuleDefinition* Element : m_ProductionList)
+		auto ProductionList = m_ProductionMap.find(NonTerminal);
+		if (ProductionList == m_ProductionMap.end())
 		{
-			if (Element->m_NonTerminal == NonTerminal)
-			{
-				OutRules.push_back(Element);
-			}
+			return std::vector<RuleDefinition*>();
 		}
 
-		return OutRules;
+		return ProductionList->second;
 	}
 
 	const std::vector<RuleElement*>& ParserConfig::GetRuleElements(const std::string& NonTerminalName, int LocalRuleIndex)
@@ -168,5 +177,6 @@ namespace ParserGenerator {
 
 		return NonTerminalMap;
 	}
+
 
 }
