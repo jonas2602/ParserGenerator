@@ -1,72 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\App.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\ListParser\ListLexer.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarVisitor.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\LexerConfig.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\ListInterpreter.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\ParserConfig.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\RuleVisitor.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\TokenVisitor.cpp" />
-    <ClCompile Include="src\ParserGenerator\Regex\NFA.cpp" />
-    <ClCompile Include="src\ParserGenerator\Regex\Node.cpp" />
-    <ClCompile Include="src\ParserGenerator\Regex\RegExp.cpp" />
-    <ClCompile Include="src\ParserGenerator\Builder\ParserBuilder.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp" />
-    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp" />
-    <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp" />
-    <ClCompile Include="src\ParserGenerator\Builder\Alphabet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Builder\FirstFollowTable.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ClassSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ConstructorSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ForwardDeclSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\FunctionSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\SwitchSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\CodeGenerator.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\FileTemplate.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\CodeSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\PlainSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.cpp" />
-    <ClCompile Include="src\ParserGenerator\Builder\ParserSerializer.cpp" />
+    <Filter Include="ParserGenerator">
+      <UniqueIdentifier>{F9329C5E-65BE-0923-6ECF-8C17DAD96523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Builder">
+      <UniqueIdentifier>{4F69E626-BBA0-2EBE-C4AA-92E1306155B7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Interpreter">
+      <UniqueIdentifier>{3CEDE4FF-A8FA-12E6-31E1-0ED19DEDDE9C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Interpreter\GrammarParser">
+      <UniqueIdentifier>{1FF5787C-8B0F-DC1D-D431-ECB1408B0325}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Interpreter\ListParser">
+      <UniqueIdentifier>{7403C2CA-6055-99BA-4974-D6CA3565B2A3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Regex">
+      <UniqueIdentifier>{833E8616-EFAA-4111-B89E-D96E24CA6379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Serializer">
+      <UniqueIdentifier>{62CAAF1C-4EDA-5BED-B793-C00BA3C24A86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Serializer\Snippets">
+      <UniqueIdentifier>{A701EDC0-13BB-576B-9C1A-724508D30DDB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParserGenerator\Utils">
+      <UniqueIdentifier>{19CBC416-8537-8011-4E2B-186FBA56A279}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListAlphabet.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListLexer.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarVisitor.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\LexerConfig.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\ListInterpreter.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\ParserConfig.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\RuleVisitor.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\TokenVisitor.h" />
-    <ClInclude Include="src\ParserGenerator\Regex\NFA.h" />
-    <ClInclude Include="src\ParserGenerator\Regex\Node.h" />
-    <ClInclude Include="src\ParserGenerator\Regex\RegExp.h" />
-    <ClInclude Include="src\ParserGenerator\Builder\ParserBuilder.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarAlphabet.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarRules.h" />
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarVisitorBase.h" />
-    <ClInclude Include="src\ParserGenerator\Utils\Math.h" />
-    <ClInclude Include="src\ParserGenerator\Utils\StringUtils.h" />
-    <ClInclude Include="src\ParserGenerator\Builder\Alphabet.h" />
-    <ClInclude Include="src\ParserGenerator\Builder\FirstFollowTable.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ClassSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ConstructorSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ForwardDeclSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\FunctionSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\SwitchSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\CodeGenerator.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\FileTemplate.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\WriterInterface.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\CodeSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\PlainSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.h" />
-    <ClInclude Include="src\ParserGenerator\Builder\ParserSerializer.h" />
+    <ClInclude Include="src\ParserGenerator\Builder\Alphabet.h">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Builder\FirstFollowTable.h">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Builder\ParserBuilder.h">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Builder\ParserSerializer.h">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarAlphabet.h">
+      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.h">
+      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.h">
+      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarRules.h">
+      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarVisitorBase.h">
+      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarVisitor.h">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\LexerConfig.h">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\ListInterpreter.h">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListAlphabet.h">
+      <Filter>ParserGenerator\Interpreter\ListParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListLexer.h">
+      <Filter>ParserGenerator\Interpreter\ListParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\ParserConfig.h">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\RuleVisitor.h">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\TokenVisitor.h">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Regex\NFA.h">
+      <Filter>ParserGenerator\Regex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Regex\Node.h">
+      <Filter>ParserGenerator\Regex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Regex\RegExp.h">
+      <Filter>ParserGenerator\Regex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\CodeGenerator.h">
+      <Filter>ParserGenerator\Serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\FileTemplate.h">
+      <Filter>ParserGenerator\Serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ClassSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\CodeSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ConstructorSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ForwardDeclSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\FunctionSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\PlainSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\SwitchSnippet.h">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Serializer\WriterInterface.h">
+      <Filter>ParserGenerator\Serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Utils\Math.h">
+      <Filter>ParserGenerator\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Utils\StringUtils.h">
+      <Filter>ParserGenerator\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\ParserGenerator\Builder\Alphabet.cpp">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Builder\FirstFollowTable.cpp">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Builder\ParserBuilder.cpp">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Builder\ParserSerializer.cpp">
+      <Filter>ParserGenerator\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp">
+      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp">
+      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarVisitor.cpp">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\LexerConfig.cpp">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\ListInterpreter.cpp">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\ListParser\ListLexer.cpp">
+      <Filter>ParserGenerator\Interpreter\ListParser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\ParserConfig.cpp">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\RuleVisitor.cpp">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\TokenVisitor.cpp">
+      <Filter>ParserGenerator\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Regex\NFA.cpp">
+      <Filter>ParserGenerator\Regex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Regex\Node.cpp">
+      <Filter>ParserGenerator\Regex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Regex\RegExp.cpp">
+      <Filter>ParserGenerator\Regex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\CodeGenerator.cpp">
+      <Filter>ParserGenerator\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\FileTemplate.cpp">
+      <Filter>ParserGenerator\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ClassSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\CodeSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ConstructorSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ForwardDeclSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\FunctionSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\PlainSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\SwitchSnippet.cpp">
+      <Filter>ParserGenerator\Serializer\Snippets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp">
+      <Filter>ParserGenerator\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

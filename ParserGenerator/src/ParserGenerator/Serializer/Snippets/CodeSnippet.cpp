@@ -1,7 +1,4 @@
 #include "CodeSnippet.h"
-#include <algorithm>
-
-#include "../FileTemplate.h"
 
 namespace ParserGenerator {
 

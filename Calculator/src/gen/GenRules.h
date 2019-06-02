@@ -64,8 +64,8 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::MULTIPLICATIVE; }
 
 public:
-	Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
 	Rule_multiplicative2* multiplicative2() const { return GetRule<Rule_multiplicative2>(0); }
+	Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
 
 };
 
@@ -75,9 +75,9 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::MULTIPLICATIVE2; }
 
 public:
-	PC::TokenNode* SLASH() const { return GetToken(ETokenType::SLASH, 0); }
 	PC::TokenNode* STAR() const { return GetToken(ETokenType::STAR, 0); }
-	Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
+	PC::TokenNode* SLASH() const { return GetToken(ETokenType::SLASH, 0); }
 	Rule_multiplicative2* multiplicative2() const { return GetRule<Rule_multiplicative2>(0); }
+	Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
 
 };

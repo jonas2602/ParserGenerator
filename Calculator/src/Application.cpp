@@ -25,14 +25,14 @@ int main()
 {
 	std::cout << "Start Calculator" << std::endl;
 
-	std::ifstream File("src/calc.g");
-	std::stringstream buffer;
-	buffer << File.rdbuf();
+	//std::ifstream File("src/calc.g");
+	//std::stringstream buffer;
+	//buffer << File.rdbuf();
 	//std::cout << "Grammar:" << std::endl << buffer.str() << std::endl << std::endl;
-	PC::App::Generate(buffer.str());
+	//PC::App::Generate(buffer.str());
 	//PC::App::ListParser();
 
-	/*std::cout << "Please Enter your formular!" << std::endl
+	std::cout << "Please Enter your formular!" << std::endl
 		<< "Allowed Operators are [+-/*()] and Digits with a Dot." << std::endl;
 	std::string Formular;
 	std::cin >> Formular;
@@ -48,7 +48,7 @@ int main()
 
 	ExpressionVisitor Visitor = ExpressionVisitor();
 	float Result = Visitor.Visit(root);
-	std::cout << Formular << "=" << Result << std::endl;*/
+	std::cout << Formular << "=" << Result << std::endl;
 
 	std::cin.get();
 	std::cin.get();

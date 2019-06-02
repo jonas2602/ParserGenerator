@@ -8,10 +8,11 @@ enum ETokenType {
 	FLOAT = 2, 
 	RP = 3, 
 	LP = 4, 
-	SLASH = 5, 
-	MINUS = 6, 
-	PLUS = 7, 
-	STAR = 8, 
+	TEST = 5, 
+	SLASH = 6, 
+	MINUS = 7, 
+	PLUS = 8, 
+	STAR = 9, 
 };
 
 enum ERuleType { 

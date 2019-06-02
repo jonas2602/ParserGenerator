@@ -4,7 +4,7 @@
 namespace ParserGenerator {
 
 	GrammarVisitor::GrammarVisitor(LexerConfig* InLexerConfig, ParserConfig* InParserConfig)
-		:m_LexerConfig(InLexerConfig), m_ParserConfig(InParserConfig)
+		: m_LexerConfig(InLexerConfig), m_ParserConfig(InParserConfig)
 	{
 		m_TokenVisitor = new TokenVisitor();
 		m_RuleVisitor = new RuleVisitor();
@@ -12,9 +12,6 @@ namespace ParserGenerator {
 
 	GrammarVisitor::~GrammarVisitor()
 	{
-		delete m_LexerConfig;
-		delete m_ParserConfig;
-
 		delete m_TokenVisitor;
 		delete m_RuleVisitor;
 	}

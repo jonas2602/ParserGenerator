@@ -12,7 +12,7 @@ namespace ParserGenerator {
 
 	public:
 		CodeSnippet_Plain()
-			: CodeSnippet_Base(1)
+			: CodeSnippet_Base(0)
 		{ }
 
 		std::stringstream& GetTextStream() { return m_TextStream; }

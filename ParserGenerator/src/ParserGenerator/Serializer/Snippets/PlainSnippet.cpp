@@ -4,8 +4,9 @@ namespace ParserGenerator {
 
 	void CodeSnippet_Plain::Write() const
 	{
-		std::ofstream& HeaderStream = m_OwningFile->GetTextStream();
-		HeaderStream << m_TextStream.str();
+		std::ofstream& FileStream = m_OwningFile->GetTextStream();
+		FileStream << m_TextStream.str() << std::endl;
+		// endl is required because otehrwise it won't write for no reason
 	}
 
 }

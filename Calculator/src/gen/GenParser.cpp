@@ -29,21 +29,21 @@ bool GenParser::Additive2(Rule_additive2*& OutRule)
 	{
 		case 0:
 		{
-			TRY_MATCH(ETokenType::MINUS);
-			CALL_CHILD(Multiplicative, Rule_multiplicative);
-			CALL_CHILD(Additive2, Rule_additive2);
+			// EPSILON
 			break;
 		}
 		case 1:
 		{
-			TRY_MATCH(ETokenType::PLUS);
+			TRY_MATCH(ETokenType::MINUS);
 			CALL_CHILD(Multiplicative, Rule_multiplicative);
 			CALL_CHILD(Additive2, Rule_additive2);
 			break;
 		}
 		case 2:
 		{
-			// EPSILON
+			TRY_MATCH(ETokenType::PLUS);
+			CALL_CHILD(Multiplicative, Rule_multiplicative);
+			CALL_CHILD(Additive2, Rule_additive2);
 			break;
 		}
 	}
@@ -115,9 +115,7 @@ bool GenParser::Multiplicative2(Rule_multiplicative2*& OutRule)
 	{
 		case 0:
 		{
-			TRY_MATCH(ETokenType::SLASH);
-			CALL_CHILD(Constant, Rule_constant);
-			CALL_CHILD(Multiplicative2, Rule_multiplicative2);
+			// EPSILON
 			break;
 		}
 		case 1:
@@ -129,7 +127,9 @@ bool GenParser::Multiplicative2(Rule_multiplicative2*& OutRule)
 		}
 		case 2:
 		{
-			// EPSILON
+			TRY_MATCH(ETokenType::SLASH);
+			CALL_CHILD(Constant, Rule_constant);
+			CALL_CHILD(Multiplicative2, Rule_multiplicative2);
 			break;
 		}
 	}
@@ -140,5 +140,5 @@ bool GenParser::Multiplicative2(Rule_multiplicative2*& OutRule)
 
 const char* GenParser::GetSerializedTable() const
 {
-	return "0 1 0 0 2 0 0 4 0 1 -1 2 1 3 2 1 6 0 1 7 1 2 1 1 2 2 0 2 4 2 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 2 5 3 2 5 5 0 5 6 2 5 7 2 5 8 1 ";
+	return "0 1 0 0 2 0 0 4 0 1 -1 0 1 3 0 1 7 1 1 8 2 2 1 1 2 2 0 2 4 2 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 0 5 3 0 5 6 2 5 7 0 5 8 0 5 9 1 ";
 }

@@ -123,7 +123,6 @@ IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /
     <ClInclude Include="src\Lexer\LexerConfig.h" />
     <ClInclude Include="src\Lexer\RegExp.h" />
     <ClInclude Include="src\Lexer\Token.h" />
-    <ClInclude Include="src\ParserCore.h" />
     <ClInclude Include="src\Parser\ParseTable\ParsingTable.h" />
     <ClInclude Include="src\Parser\ParseTable\TableFactory.h" />
     <ClInclude Include="src\Parser\ParseTree\ParseTree.h" />
@@ -132,6 +131,7 @@ IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /
     <ClInclude Include="src\Parser\Parser.h" />
     <ClInclude Include="src\Parser\ParserConfig.h" />
     <ClInclude Include="src\Parser\Visitor.h" />
+    <ClInclude Include="src\ParserCore.h" />
     <ClInclude Include="src\ParserTypes.h" />
     <ClInclude Include="src\Test\ListParser\ListAlphabet.h" />
     <ClInclude Include="src\Test\ListParser\ListInterpreter.h" />

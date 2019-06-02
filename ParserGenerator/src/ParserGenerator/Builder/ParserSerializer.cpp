@@ -208,9 +208,7 @@ namespace ParserGenerator {
 		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
 
 		// Add Enums
-		CodeSnippet_Enum* TokenEnum = new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenIndexMap());
-		AlphabetFile->AddSnippet(TokenEnum);
-		//TokenEnum->AddPair("EOS", -1);
+		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenIndexMap()));
 		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ERuleType", InAlphabet->GetRuleIndexMap()));
 
 		return true;

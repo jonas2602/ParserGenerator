@@ -58,15 +58,15 @@ namespace ParserGenerator {
 	void ParserBuilder::Generate(const std::string& InRootPath, const std::string& InGrammarName, const std::string& InNamespaceName)
 	{
 		ParserSerializer Serializer(InRootPath, InGrammarName, InNamespaceName, "", "doc");
-		//Serializer.WriteAlphabetDoc(m_Alphabet);
-		//Serializer.WriteAlphabetCode(m_Alphabet);
-		//Serializer.WriteParsingTableDoc(m_Table, m_ParsConfig, m_Alphabet);
-		//Serializer.WriteAutomatonDoc(m_DFA, m_LexConfig, m_Alphabet);
-		//Serializer.WriteRuleCode(m_ParsConfig, m_Alphabet);
-		//Serializer.WriteLexerCode(m_DFA, m_LexConfig, m_Alphabet);
-		//Serializer.WriteParserCode(m_Table, m_ParsConfig, m_Alphabet);
-		//Serializer.WriteVisitorCode(m_ParsConfig);
-		//Serializer.Finish();
+		Serializer.WriteAlphabetDoc(m_Alphabet);
+		Serializer.WriteAlphabetCode(m_Alphabet);
+		Serializer.WriteParsingTableDoc(m_Table, m_ParsConfig, m_Alphabet);
+		Serializer.WriteAutomatonDoc(m_DFA, m_LexConfig, m_Alphabet);
+		Serializer.WriteRuleCode(m_ParsConfig, m_Alphabet);
+		Serializer.WriteLexerCode(m_DFA, m_LexConfig, m_Alphabet);
+		Serializer.WriteParserCode(m_Table, m_ParsConfig, m_Alphabet);
+		Serializer.WriteVisitorCode(m_Alphabet);
+		Serializer.Finish();
 	}
 
 	bool ParserBuilder::CreateConfigsFromSource(const std::string& InSourceCode)
@@ -127,7 +127,7 @@ namespace ParserGenerator {
 		return true;
 	}
 
-	bool  ParserBuilder::CreateAutomaton()
+	bool ParserBuilder::CreateAutomaton()
 	{
 		// Create Empty Automatons
 		NFA TempNFA = NFA();

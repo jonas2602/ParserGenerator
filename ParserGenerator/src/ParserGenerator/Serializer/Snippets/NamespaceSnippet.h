@@ -12,7 +12,7 @@ namespace ParserGenerator {
 
 	public:
 		CodeSnippet_Namespace(const std::string& InNamespaceName, bool InHeaderAndSource = true)
-			: CodeSnippet_Base(1), m_NamespaceName(m_NamespaceName), m_HeaderAndSource(InHeaderAndSource)
+			: CodeSnippet_Base(1), m_NamespaceName(InNamespaceName), m_HeaderAndSource(InHeaderAndSource)
 		{ }
 
 	public:
