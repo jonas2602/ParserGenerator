@@ -18,6 +18,18 @@
     <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp" />
     <ClCompile Include="src\ParserGenerator\Builder\Alphabet.cpp" />
     <ClCompile Include="src\ParserGenerator\Builder\FirstFollowTable.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ClassSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ConstructorSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\ForwardDeclSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\FunctionSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\SwitchSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\CodeGenerator.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\FileTemplate.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\CodeSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\PlainSnippet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListAlphabet.h" />
@@ -41,5 +53,18 @@
     <ClInclude Include="src\ParserGenerator\Utils\StringUtils.h" />
     <ClInclude Include="src\ParserGenerator\Builder\Alphabet.h" />
     <ClInclude Include="src\ParserGenerator\Builder\FirstFollowTable.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ClassSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ConstructorSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\ForwardDeclSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\FunctionSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\SwitchSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\CodeGenerator.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\FileTemplate.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\WriterInterface.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\CodeSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\PlainSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\EnumSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\IncludeSnippet.h" />
+    <ClInclude Include="src\ParserGenerator\Serializer\Snippets\NamespaceSnippet.h" />
   </ItemGroup>
 </Project>
