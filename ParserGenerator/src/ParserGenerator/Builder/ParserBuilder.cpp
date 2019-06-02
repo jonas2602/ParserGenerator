@@ -28,28 +28,46 @@ namespace ParserGenerator {
 
 	ParserBuilder::ParserBuilder(const std::string& InSourceCode)
 	{
+		// Tokenize Source Code
 		GrammarLexer* Lexer = new GrammarLexer(InSourceCode);
 		const std::vector<PC::Token*>& TokenStream = Lexer->GetTokenStream();
 		std::cout << TokenStream << std::endl << std::endl;
 
+		// Try to parse Tokens as Tree
 		GrammarParser* Parser = new GrammarParser(TokenStream);
 		Rule_rulelist* root;
-		Parser->Rulelist(root);
-
-		GrammarVisitor* Visitor = new GrammarVisitor();
-		if (Visitor->Visit(root))
+		if (!Parser->Rulelist(root))
 		{
-			for (ParserConfigElement* Element : Visitor->GetParserConfig()->GetProductionList())
-			{
-				std::cout << Element << std::endl;
-			}
-		//	/*ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
-		//	builder.Generate("src/gram/", "Grammar");*/
+			std::cout << "Failed to Parse Source Code" << std::endl;
+			return;
 		}
-		//else
-		//{
-		//	std::cout << "Failed to Analyse Parse Tree" << std::endl;
-		//}
+
+		// Extract Rule and Regex Elements from parsed Tree
+		GrammarVisitor* Visitor = new GrammarVisitor();
+		if (!Visitor->Visit(root))
+		{
+			std::cout << "Failed to Analyse Parse Tree" << std::endl;
+			return;
+		}
+
+		for (RuleDefinition* Element : Visitor->GetParserConfig()->GetProductionList())
+		{
+			std::cout << Element << std::endl;
+		}
+
+		m_LexConfig = Visitor->GetLexerConfig();
+		m_ParsConfig = Visitor->GetParserConfig();
+
+		// validate and fill all references between tokens and productions
+		m_LexConfig->FillPlaceholder(Visitor->GetPlaceholder());
+		m_LexConfig->CreateLiterals(Visitor->GetTerminalMap());
+
+		// Fill Regex Placeholder
+
+		// Create Literals
+
+		// ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
+		// builder.Generate("src/gram/", "Grammar");
 	}
 
 	ParserBuilder::ParserBuilder(ParserConfig* InParsConfig, LexerConfig* InLexConfig)
@@ -63,7 +81,7 @@ namespace ParserGenerator {
 		//m_DFA = new Automaton::DFA();
 
 		// Add all regex to "simple" NFA
-		//for (const LexerConfigElement& Regex : m_LexConfig->GetRegexList())
+		//for (const TokenDefinition& Regex : m_LexConfig->GetRegexList())
 		//{
 		//	int Priority = m_Alphabet->GetTokenIndex(Regex.m_Name);
 		//	std::cout << "Added " << Regex.m_Name << " with Priority of " << Priority << std::endl;

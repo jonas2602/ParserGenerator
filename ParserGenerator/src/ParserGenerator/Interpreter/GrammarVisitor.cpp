@@ -46,8 +46,8 @@ namespace ParserGenerator {
 		std::cout << "Visit Rule: " << RuleName << std::endl;
 
 		// Grab Rule Versions from Parse Tree
-		std::set<std::vector<std::string>> OutLists = m_RuleVisitor->Visit(Context->parseror());
-		for (const std::vector<std::string>& RuleVersion : OutLists)
+		std::set<std::vector<RuleElement*>> OutLists = m_RuleVisitor->Visit(Context->parseror());
+		for (const std::vector<RuleElement*>& RuleVersion : OutLists)
 		{
 			// Add them to the Parser Configuration
 			m_ParserConfig->AddProduction(RuleName, RuleVersion);
@@ -70,7 +70,7 @@ namespace ParserGenerator {
 		ELexerAction ActionType = GetActionType(Context->action()->PARSERID());
 
 		// Add it to Lexer Config
-		m_LexerConfig->Add(TokenName, OutRegex, ActionType);
+		m_LexerConfig->AddToken(TokenName, OutRegex, ActionType);
 
 		return true;
 	}

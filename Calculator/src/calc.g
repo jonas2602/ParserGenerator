@@ -13,7 +13,7 @@ constant: FLOAT
         | LP additive RP;*/
 
 additive: multiplicative additive2;
-additive2: PLUS multiplicative additive2
+additive2: '+' multiplicative additive2
 		 | MINUS multiplicative additive2
 		 | /** EPSILON */
 		 ;
@@ -49,6 +49,7 @@ STAR: '*';
 PLUS: '+';
 MINUS: '-';
 SLASH: '/';
+TEST: 'abc\n\'';
 LP: '(';
 RP: ')';
 // NUMBER: FLOAT | INTEGER;

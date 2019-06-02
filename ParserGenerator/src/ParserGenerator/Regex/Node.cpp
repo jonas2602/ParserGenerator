@@ -1,8 +1,9 @@
 #include "Node.h"
+#include <iostream>
 
 namespace ParserGenerator {
 
-	void Node_CONST::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority)
+	void Node_CONST::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority) const
 	{
 		OutStart = OutMachine->CreateNewState(Name);
 		OutEnd = OutMachine->CreateNewState(Name, FinalStatePriority);
@@ -11,7 +12,7 @@ namespace ParserGenerator {
 	}
 
 
-	void Node_OR::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority)
+	void Node_OR::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority) const
 	{
 		OutStart = OutMachine->CreateNewState(Name);
 		OutEnd = OutMachine->CreateNewState(Name, FinalStatePriority);
@@ -28,7 +29,7 @@ namespace ParserGenerator {
 
 
 
-	void Node_AND::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority)
+	void Node_AND::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority) const
 	{
 		for (int i = 0; i < m_Content.size(); i++)
 		{
@@ -51,7 +52,7 @@ namespace ParserGenerator {
 
 
 
-	void Node_STAR::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority)
+	void Node_STAR::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority) const
 	{
 		PCA::State* ContentStart;
 		PCA::State* ContentEnd;
@@ -64,6 +65,17 @@ namespace ParserGenerator {
 		OutMachine->CreateNewTransition(OutStart, ContentStart, { PC::EPSILON });
 		OutMachine->CreateNewTransition(ContentEnd, OutEnd, { PC::EPSILON });
 		OutMachine->CreateNewTransition(OutStart, OutEnd, { PC::EPSILON });
+	}
+
+	void Node_PLACEHOLDER::ExtendMachine(NFA* OutMachine, PCA::State*& OutStart, PCA::State*& OutEnd, const std::string& Name, int FinalStatePriority) const
+	{
+		if (!m_FilledNode)
+		{
+			std::cout << "Placeholder not filled, '" << m_TerminalName << "' missing" << std::endl;
+			return;
+		}
+
+		m_FilledNode->ExtendMachine(OutMachine, OutStart, OutEnd, Name, FinalStatePriority);
 	}
 
 }

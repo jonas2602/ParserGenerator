@@ -15,6 +15,7 @@
     <ClCompile Include="src\ParserGenerator\Builder\ParserBuilder.cpp" />
     <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp" />
     <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp" />
+    <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListAlphabet.h" />
@@ -34,5 +35,7 @@
     <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.h" />
     <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarRules.h" />
     <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarVisitorBase.h" />
+    <ClInclude Include="src\ParserGenerator\Utils\Math.h" />
+    <ClInclude Include="src\ParserGenerator\Utils\StringUtils.h" />
   </ItemGroup>
 </Project>

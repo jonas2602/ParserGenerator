@@ -5,6 +5,8 @@
 
 namespace ParserGenerator {
 
+	RuleElement* RuleElement::EPSIlON_ELEMENT = new RuleElement(PC::EPSILON_S, ERuleElementType::LITERAL);
+
 	ParserConfig::ParserConfig()
 	{
 	}
@@ -18,12 +20,21 @@ namespace ParserGenerator {
 	{
 		m_NonTerminals.insert(NonTerminal);
 		int& RuleCount = m_RuleCountMap[NonTerminal];
-		m_ProductionList.push_back(new ParserConfigElement(NonTerminal, TokenClasses, RuleCount++));
+		m_ProductionList.push_back(new RuleDefinition(NonTerminal, TokenClasses, RuleCount++));
+	}
+
+	void ParserConfig::AddProduction(const std::string& NonTerminal, const std::vector<RuleElement*>& RuleElements)
+	{
+		m_NonTerminals.insert(NonTerminal);
+		int& RuleCount = m_RuleCountMap[NonTerminal];
+		RuleDefinition* NewRule = new RuleDefinition(NonTerminal, RuleElements, RuleCount++);
+		m_ProductionMap[NonTerminal].push_back(NewRule);
+		m_ProductionList.push_back(NewRule);
 	}
 
 	void ParserConfig::FillTerminals()
 	{
-		for (ParserConfigElement* Production : m_ProductionList)
+		for (RuleDefinition* Production : m_ProductionList)
 		{
 			for (const std::string& Token : Production->m_TokenClasses)
 			{
@@ -41,7 +52,7 @@ namespace ParserGenerator {
 		// Fill TerminalList
 		/*m_Terminals = TerminalList;
 
-		for (ParserConfigElement* Production : m_ProductionList)
+		for (RuleDefinition* Production : m_ProductionList)
 		{
 			for (const std::string& Token : Production->m_TokenClasses)
 			{
@@ -58,7 +69,7 @@ namespace ParserGenerator {
 
 	void ParserConfig::Normalize()
 	{
-		std::vector<ParserConfigElement*> NewRuleList;
+		std::vector<RuleDefinition*> NewRuleList;
 		std::set<std::string> NewNonTerminalSet(m_NonTerminals);
 
 		// Eliminate Left Recursion
@@ -68,8 +79,8 @@ namespace ParserGenerator {
 			std::set<std::vector<std::string>> GammaList;
 
 			// Divide rules in Sets of Alphas and Gammas
-			const std::vector<ParserConfigElement*>& ElementRuleList = GetAllProductionsForNonTerminal(NonTerminal);
-			for (ParserConfigElement* ConfigElement : ElementRuleList)
+			const std::vector<RuleDefinition*>& ElementRuleList = GetAllProductionsForNonTerminal(NonTerminal);
+			for (RuleDefinition* ConfigElement : ElementRuleList)
 			{
 				if (ConfigElement->m_TokenClasses[0] == NonTerminal)
 				{
@@ -93,7 +104,7 @@ namespace ParserGenerator {
 				{
 					std::vector<std::string> NewTokenList(AlphaElement);
 					NewTokenList.push_back(NewNonTerminal);
-					ParserConfigElement* NewElement = new ParserConfigElement(NonTerminal, NewTokenList, 0);
+					RuleDefinition* NewElement = new RuleDefinition(NonTerminal, NewTokenList, 0);
 					NewRuleList.push_back(NewElement);
 				}
 
@@ -102,12 +113,12 @@ namespace ParserGenerator {
 				{
 					std::vector<std::string> NewTokenList(GammaElement);
 					NewTokenList.push_back(NewNonTerminal);
-					ParserConfigElement* NewElement = new ParserConfigElement(NewNonTerminal, NewTokenList, 0);
+					RuleDefinition* NewElement = new RuleDefinition(NewNonTerminal, NewTokenList, 0);
 					NewRuleList.push_back(NewElement);
 				}
 
 				// Add Epsilon Rule
-				ParserConfigElement* EpsilonProduction = new ParserConfigElement(NewNonTerminal, { PC::EPSILON_S }, 0);
+				RuleDefinition* EpsilonProduction = new RuleDefinition(NewNonTerminal, { PC::EPSILON_S }, 0);
 				NewRuleList.push_back(EpsilonProduction);
 			}
 			else
@@ -126,8 +137,8 @@ namespace ParserGenerator {
 			std::set<std::string> FirstList;
 
 			// Divide rules in Sets of Alphas and Gammas
-			const std::vector<ParserConfigElement*>& ElementRuleList = GetAllProductionsForNonTerminal(NonTerminal);
-			for (ParserConfigElement* Rule : ElementRuleList)
+			const std::vector<RuleDefinition*>& ElementRuleList = GetAllProductionsForNonTerminal(NonTerminal);
+			for (RuleDefinition* Rule : ElementRuleList)
 			{
 				const std::string& First = Rule->GetTokenClassAtIndex(0);
 				if (FirstList.find(First) != FirstList.end())
@@ -140,10 +151,10 @@ namespace ParserGenerator {
 		}
 	}
 
-	std::vector<ParserConfigElement*> ParserConfig::GetAllProductionsForNonTerminal(const std::string& NonTerminal) const
+	std::vector<RuleDefinition*> ParserConfig::GetAllProductionsForNonTerminal(const std::string& NonTerminal) const
 	{
-		std::vector<ParserConfigElement*> OutRules;
-		for (ParserConfigElement* Element : m_ProductionList)
+		std::vector<RuleDefinition*> OutRules;
+		for (RuleDefinition* Element : m_ProductionList)
 		{
 			if (Element->m_NonTerminal == NonTerminal)
 			{
@@ -156,7 +167,7 @@ namespace ParserGenerator {
 
 	const std::vector<std::string>& ParserConfig::GetRuleElements(const std::string& NonTerminalName, int LocalRuleIndex)
 	{
-		for (ParserConfigElement* Element : m_ProductionList)
+		for (RuleDefinition* Element : m_ProductionList)
 		{
 			if (Element->m_LocalRuleIndex == LocalRuleIndex && Element->m_NonTerminal == NonTerminalName)
 			{

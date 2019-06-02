@@ -29,6 +29,8 @@ namespace ParserGenerator {
 		~RegExp();
 
 		void Parse(NFA* OutMachine, const std::string& Name, int Priority);
+		Node_BASE* GetRootNode() const { return m_Root; }
+		bool IsLiteral(std::string& OutLiteral) const;
 
 	public:
 		static Node_BASE* AND(const char& Left, const char& Right);
@@ -70,6 +72,8 @@ namespace ParserGenerator {
 
 		static Node_BASE* OPTIONAL(const char& Content);
 		static Node_BASE* OPTIONAL(Node_BASE* Content);
+
+		static Node_PLACEHOLDER* PLACEHOLDER(const std::string& TerminalName);
 	};
 
 }

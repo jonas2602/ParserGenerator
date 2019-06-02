@@ -1,6 +1,7 @@
 #include "TokenVisitor.h"
 #include <iostream>
 #include "ListInterpreter.h"
+#include "../Utils/StringUtils.h"
 
 namespace ParserGenerator {
 
@@ -89,9 +90,9 @@ namespace ParserGenerator {
 		}
 		if (Context->LEXERID())
 		{
-			std::cout << "LEXERID currenty not supported in regex creation" << std::endl;
-			// TODO: Copy content of regex in here
-			return nullptr;
+			Node_PLACEHOLDER* OutPlaceholder = RegExp::PLACEHOLDER(Context->LEXERID()->GetText());
+			m_PlaceholderList.push_back(OutPlaceholder);
+			return OutPlaceholder;
 		}
 		if (Context->DOT())
 		{
@@ -100,7 +101,7 @@ namespace ParserGenerator {
 		if (Context->LITERAL())
 		{
 			const std::string& LiteralString = Context->LITERAL()->GetText();
-			std::string LiteralContent = LiteralString.substr(1, LiteralString.size() - 2);
+			std::string LiteralContent = StringUtils::InterpretLiteral(LiteralString.substr(1, LiteralString.size() - 2));
 			return RegExp::SEQUENCE(LiteralContent);
 		}
 		if (Context->CHARSET())
@@ -121,5 +122,4 @@ namespace ParserGenerator {
 
 		return nullptr;
 	}
-
 }

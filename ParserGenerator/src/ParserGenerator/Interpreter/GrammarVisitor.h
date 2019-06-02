@@ -25,6 +25,11 @@ namespace ParserGenerator {
 		LexerConfig* GetLexerConfig() const { return m_LexerConfig; }
 		ParserConfig* GetParserConfig() const { return m_ParserConfig; }
 
+		inline const std::vector<Node_PLACEHOLDER*>& GetPlaceholder() { return m_TokenVisitor->GetOpenPlaceholder(); }
+		inline const std::map<std::string, RuleElement*>& GetLiteralMap() { return m_RuleVisitor->GetLiteralMap(); }
+		inline const std::map<std::string, RuleElement*>& GetNonTerminalMap() { return m_RuleVisitor->GetNonTerminalMap(); }
+		inline const std::map<std::string, RuleElement*>& GetTerminalMap() { return m_RuleVisitor->GetTerminalMap(); }
+
 	public:
 		// Inherited via TestVisitorBase
 		virtual bool VisitRule_rulelist(Rule_rulelist* Context) override;

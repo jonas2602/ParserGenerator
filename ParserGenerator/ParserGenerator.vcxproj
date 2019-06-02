@@ -111,6 +111,7 @@
     <ClCompile Include="src\ParserGenerator\Regex\NFA.cpp" />
     <ClCompile Include="src\ParserGenerator\Regex\Node.cpp" />
     <ClCompile Include="src\ParserGenerator\Regex\RegExp.cpp" />
+    <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ParserGenerator\Builder\ParserBuilder.h" />
@@ -130,6 +131,8 @@
     <ClInclude Include="src\ParserGenerator\Regex\NFA.h" />
     <ClInclude Include="src\ParserGenerator\Regex\Node.h" />
     <ClInclude Include="src\ParserGenerator\Regex\RegExp.h" />
+    <ClInclude Include="src\ParserGenerator\Utils\Math.h" />
+    <ClInclude Include="src\ParserGenerator\Utils\StringUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -44,13 +44,56 @@ namespace ParserGenerator {
 		OutMachine->AddStartState(StartState);
 	}
 
+	bool RegExp::IsLiteral(std::string& OutLiteral) const
+	{
+		// Is only a single Character?
+		Node_CONST* RootConst = dynamic_cast<Node_CONST*>(m_Root);
+		if (RootConst)
+		{
+			char OutSymbol;
+			if (RootConst->IsSingleSymbol(OutSymbol))
+			{
+				OutLiteral = OutSymbol;
+				return true;
+			}
+		}
+
+		// Is a sequence of characters?
+		Node_AND* RootAnd = dynamic_cast<Node_AND*>(m_Root);
+		if (!RootAnd)
+		{
+			return false;
+		}
+
+		for (Node_BASE* Child : RootAnd->GetContent())
+		{
+			// ... therefore no other childs except of Node_CONST with a single symbol allowed 
+			char OutSymbol;
+			Node_CONST* ConstChild = dynamic_cast<Node_CONST*>(Child);
+			if (!ConstChild || !ConstChild->IsSingleSymbol(OutSymbol))
+			{
+				return false;
+			}
+
+			OutLiteral += OutSymbol;
+		}
+
+		return true;
+	}
+
 
 	Node_BASE* RegExp::AND(const char& Left, const char& Right) { return RegExp::AND(new Node_CONST(Left), new Node_CONST(Right)); }
 	Node_BASE* RegExp::AND(const char& Left, Node_BASE* Right) { return RegExp::AND(new Node_CONST(Left), Right); }
 	Node_BASE* RegExp::AND(Node_BASE* Left, const char& Right) { return RegExp::AND(Left, new Node_CONST(Right)); }
 	Node_BASE* RegExp::AND(Node_BASE* Left, Node_BASE* Right) { return new Node_AND(Left, Right); }
 	Node_BASE* RegExp::AND(const std::vector<char>& Content) { return RegExp::AND(CreateNodeList(Content)); }
-	Node_BASE* RegExp::AND(const std::vector<Node_BASE*>& Content) { return new Node_AND(Content); }
+	Node_BASE* RegExp::AND(const std::vector<Node_BASE*>& Content)
+	{
+		if (Content.size() == 1)
+			return Content[0];
+		else
+			return new Node_AND(Content);
+	}
 
 	Node_BASE* RegExp::OR(const char& Left, const char& Right) { return RegExp::OR(new Node_CONST(Left), new Node_CONST(Right)); }
 	Node_BASE* RegExp::OR(const char& Left, Node_BASE* Right) { return RegExp::OR(new Node_CONST(Left), Right); }
@@ -137,4 +180,9 @@ namespace ParserGenerator {
 
 	Node_BASE* RegExp::OPTIONAL(const char& Content) { return RegExp::OPTIONAL(new Node_CONST(Content)); }
 	Node_BASE* RegExp::OPTIONAL(Node_BASE* Content) { return RegExp::OR(Content, PC::EPSILON); }
+
+	Node_PLACEHOLDER* RegExp::PLACEHOLDER(const std::string& TerminalName)
+	{
+		return new Node_PLACEHOLDER(TerminalName);
+	}
 }
