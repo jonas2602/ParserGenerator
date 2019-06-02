@@ -69,17 +69,19 @@ namespace ParserGenerator {
 		for (const std::pair<std::string, RuleElement*>& Pair : InLiteralMap)
 		{
 			TokenDefinition* LiteralDefinition = ExistingLiterals[Pair.first];
-			if (ExistingLiterals.find(Pair.first) != ExistingLiterals.end())
+			if (!LiteralDefinition)
 			{
 				// ... create new definition
-				LiteralDefinition = AddToken("L__" + LiteralCounter, new RegExp(RegExp::SEQUENCE(Pair.first)));
+				std::string LiteralName = std::string("L__") + std::to_string(LiteralCounter++);
+				LiteralDefinition = AddToken(LiteralName, new RegExp(RegExp::SEQUENCE(Pair.first)));
+				ExistingLiterals[Pair.first] = LiteralDefinition;
 			}
 
 			Pair.second->m_Content = LiteralDefinition->m_Name;
 		}
 	}
 
-	std::map<std::string, int> LexerConfig::GetTokenMap() const
+	std::map<std::string, int> LexerConfig::CreateTokenIndexMap() const
 	{
 		std::map<std::string, int> TokenMap;
 

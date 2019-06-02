@@ -16,6 +16,8 @@
     <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp" />
     <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp" />
     <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp" />
+    <ClCompile Include="src\ParserGenerator\Builder\Alphabet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Builder\FirstFollowTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ParserGenerator\Interpreter\ListParser\ListAlphabet.h" />
@@ -37,5 +39,7 @@
     <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarVisitorBase.h" />
     <ClInclude Include="src\ParserGenerator\Utils\Math.h" />
     <ClInclude Include="src\ParserGenerator\Utils\StringUtils.h" />
+    <ClInclude Include="src\ParserGenerator\Builder\Alphabet.h" />
+    <ClInclude Include="src\ParserGenerator\Builder\FirstFollowTable.h" />
   </ItemGroup>
 </Project>

@@ -10,8 +10,7 @@
 #include "../Interpreter/GrammarParser/GrammarParser.h"
 
 //#include "../Parser/ParseTable/ParsingTable.h"
-//#include "Alphabet.h"
-//#include "FirstFollowTable.h"
+#include "FirstFollowTable.h"
 //#include "ParserSerializer.h"
 //#include "../Generator/CodeGenerator.h"
 
@@ -27,47 +26,22 @@ namespace ParserGenerator {
 	}
 
 	ParserBuilder::ParserBuilder(const std::string& InSourceCode)
+		: m_LexConfig(new LexerConfig()), m_ParsConfig(new ParserConfig())
 	{
-		// Tokenize Source Code
-		GrammarLexer* Lexer = new GrammarLexer(InSourceCode);
-		const std::vector<PC::Token*>& TokenStream = Lexer->GetTokenStream();
-		std::cout << TokenStream << std::endl << std::endl;
-
-		// Try to parse Tokens as Tree
-		GrammarParser* Parser = new GrammarParser(TokenStream);
-		Rule_rulelist* root;
-		if (!Parser->Rulelist(root))
+		if (!CreateConfigsFromSource(InSourceCode))
 		{
-			std::cout << "Failed to Parse Source Code" << std::endl;
 			return;
 		}
 
-		// Extract Rule and Regex Elements from parsed Tree
-		GrammarVisitor* Visitor = new GrammarVisitor();
-		if (!Visitor->Visit(root))
+		if (!CreateAutomaton())
 		{
-			std::cout << "Failed to Analyse Parse Tree" << std::endl;
 			return;
 		}
 
-		for (RuleDefinition* Element : Visitor->GetParserConfig()->GetProductionList())
+		if (!CreateParsingTable())
 		{
-			std::cout << Element << std::endl;
+			return;
 		}
-
-		m_LexConfig = Visitor->GetLexerConfig();
-		m_ParsConfig = Visitor->GetParserConfig();
-
-		// validate and fill all references between tokens and productions
-		m_LexConfig->FillPlaceholder(Visitor->GetPlaceholder());
-		m_LexConfig->CreateLiterals(Visitor->GetTerminalMap());
-
-		// Fill Regex Placeholder
-
-		// Create Literals
-
-		// ParserBuilder builder(vis->GetParserConfig(), vis->GetLexerConfig());
-		// builder.Generate("src/gram/", "Grammar");
 	}
 
 	ParserBuilder::ParserBuilder(ParserConfig* InParsConfig, LexerConfig* InLexConfig)
@@ -106,8 +80,11 @@ namespace ParserGenerator {
 
 	ParserBuilder::~ParserBuilder()
 	{
-		/*delete m_Alphabet;
-		delete m_DFA;
+		delete m_LexConfig;
+		delete m_ParsConfig;
+
+		delete m_Alphabet;
+		/*delete m_DFA;
 		delete m_Table;*/
 	}
 
@@ -144,4 +121,97 @@ namespace ParserGenerator {
 		//std::cout << AutomatonString << std::endl;
 		//std::cout << TableString << std::endl;
 	}
+
+	bool ParserBuilder::CreateConfigsFromSource(const std::string& InSourceCode)
+	{
+		// Tokenize Source Code
+		GrammarLexer Lexer = GrammarLexer(InSourceCode);
+		const std::vector<PC::Token*>& TokenStream = Lexer.GetTokenStream();
+		std::cout << TokenStream << std::endl << std::endl;
+
+		// Try to parse Tokens as Tree
+		GrammarParser Parser = GrammarParser(TokenStream);
+		Rule_rulelist* root;
+		if (!Parser.Rulelist(root))
+		{
+			std::cout << "Failed to Parse Source Code" << std::endl;
+			return false;
+		}
+
+		// Extract Rule and Regex Elements from parsed Tree
+		GrammarVisitor Visitor = GrammarVisitor(m_LexConfig, m_ParsConfig);
+		if (!Visitor.Visit(root))
+		{
+			std::cout << "Failed to Analyse Parse Tree" << std::endl;
+			return false;
+		}
+
+		// validate used Token and Rule Names
+		for (const std::pair<std::string, RuleElement*>& Terminal : Visitor.GetTerminalMap())
+		{
+			// Ignore EOS because its predefined
+			if (Terminal.first == PC::EOS_S) continue;
+
+			if (!m_LexConfig->HasDefinition(Terminal.first))
+			{
+				std::cout << "No Terminal with name '" << Terminal.first << "' defined" << std::endl;
+				return false;
+			}
+		}
+
+		for (const std::pair<std::string, RuleElement*>& NonTerminal : Visitor.GetNonTerminalMap())
+		{
+			if (!m_ParsConfig->HasDefinition(NonTerminal.first))
+			{
+				std::cout << "No Rule with name '" << NonTerminal.first << "' defined" << std::endl;
+				return false;
+			}
+		}
+
+		// fill all references between tokens and productions
+		if (!m_LexConfig->FillPlaceholder(Visitor.GetPlaceholder()))
+		{
+			return false;
+		}
+		m_LexConfig->CreateLiterals(Visitor.GetLiteralMap());
+
+		// Create Alphabet from Token-/Ruletypes
+		m_Alphabet = new Alphabet(m_LexConfig->CreateTokenIndexMap(), m_ParsConfig->CreateRuleIndexMap());
+		return true;
+	}
+
+	bool  ParserBuilder::CreateAutomaton()
+	{
+		// Create Empty Automatons
+		NFA TempNFA = NFA();
+		m_DFA = new PCA::DFA();
+
+		// Add all regex to "simple" NFA
+		for (TokenDefinition* Token : m_LexConfig->GetRegexList())
+		{
+			int Priority = m_Alphabet->GetTokenIndex(Token->m_Name);
+			std::cout << "Added " << Token->m_Name << " with Priority of " << Priority << std::endl;
+			Token->m_Expression->Parse(&TempNFA, Token->m_Name, Priority);
+		}
+
+		// Create combined DFA
+		TempNFA.CreateDFA(m_DFA);
+		return true;
+	}
+
+	bool ParserBuilder::CreateParsingTable()
+	{
+		// Create Extended Prediction Table
+		// if entries of [NonTerminal, Terminal] point to a rule of the NonTerminal again -> Left Recursion
+		// if there are multiple possible entries for [NonTerminal, Terminal] -> Left Factoring
+		// => Try to remove Left Factoring (Left recursion is not solvable with LL-Parsing)
+
+		// Create Prediction Table
+		FirstFollowTable FFTable(m_ParsConfig, m_Alphabet);
+		m_Table = new PCT::ParsingTable();
+		FFTable.CreateParsingTable(m_Table);
+
+		return true;
+	}
+
 }

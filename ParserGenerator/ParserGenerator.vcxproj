@@ -98,6 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\ParserGenerator\Builder\Alphabet.cpp" />
+    <ClCompile Include="src\ParserGenerator\Builder\FirstFollowTable.cpp" />
     <ClCompile Include="src\ParserGenerator\Builder\ParserBuilder.cpp" />
     <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp" />
     <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp" />
@@ -114,6 +116,8 @@
     <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ParserGenerator\Builder\Alphabet.h" />
+    <ClInclude Include="src\ParserGenerator\Builder\FirstFollowTable.h" />
     <ClInclude Include="src\ParserGenerator\Builder\ParserBuilder.h" />
     <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarAlphabet.h" />
     <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.h" />

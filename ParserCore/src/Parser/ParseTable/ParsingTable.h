@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include "../../Core.h"
 
 namespace ParserCore::ParseTable {
 
@@ -20,7 +21,7 @@ namespace ParserCore::ParseTable {
 	//	bool AddFollowElement(const std::set<std::string>& Elements);
 	//};
 
-	class ParsingTable
+	class PARSER_API ParsingTable
 	{
 	protected:
 		// ParserConfig* m_Config;

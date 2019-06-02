@@ -3,11 +3,9 @@
 
 namespace ParserGenerator {
 
-	GrammarVisitor::GrammarVisitor()
+	GrammarVisitor::GrammarVisitor(LexerConfig* InLexerConfig, ParserConfig* InParserConfig)
+		:m_LexerConfig(InLexerConfig), m_ParserConfig(InParserConfig)
 	{
-		m_LexerConfig = new LexerConfig();
-		m_ParserConfig = new ParserConfig();
-
 		m_TokenVisitor = new TokenVisitor();
 		m_RuleVisitor = new RuleVisitor();
 	}

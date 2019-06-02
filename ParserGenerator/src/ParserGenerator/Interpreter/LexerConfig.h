@@ -45,10 +45,12 @@ namespace ParserGenerator {
 		bool FillPlaceholder(const std::vector<Node_PLACEHOLDER*>& InPlaceholder);
 		void CreateLiterals(const std::map<std::string, struct RuleElement*>& InLiteralMap);
 
+		bool HasDefinition(const std::string& TokenName) { return m_TokenMap.find(TokenName) != m_TokenMap.end(); }
+
 		const std::vector<TokenDefinition*> GetRegexList() const { return m_RegexList; }
 		TokenDefinition* GetConfigElementByIndex(int Index) const { return m_RegexList[Index]; }
 
-		std::map<std::string, int> GetTokenMap() const;
+		std::map<std::string, int> CreateTokenIndexMap() const;
 	};
 
 }

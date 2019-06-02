@@ -13,4 +13,5 @@
 #include "App.h"
 
 namespace PC = ParserCore;
-namespace PCA = ParserCore::Automaton;
+namespace PCA = ParserCore::Automaton; 
+namespace PCT = ParserCore::ParseTable;

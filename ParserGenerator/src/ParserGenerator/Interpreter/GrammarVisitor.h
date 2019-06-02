@@ -19,7 +19,7 @@ namespace ParserGenerator {
 		TokenVisitor* m_TokenVisitor;
 
 	public:
-		GrammarVisitor();
+		GrammarVisitor(LexerConfig* InLexerConfig, ParserConfig* InParserConfig);
 		~GrammarVisitor();
 
 		LexerConfig* GetLexerConfig() const { return m_LexerConfig; }
