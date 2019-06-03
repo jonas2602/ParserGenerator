@@ -18,88 +18,88 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Core.h" />
-    <ClInclude Include="src\Lexer\Automaton\Automaton.h">
-      <Filter>Lexer\Automaton</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\Automaton\Factory.h">
-      <Filter>Lexer\Automaton</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\Automaton\State.h">
-      <Filter>Lexer\Automaton</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\Automaton\Transition.h">
-      <Filter>Lexer\Automaton</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\Lexer.h">
-      <Filter>Lexer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Lexer\Token.h">
-      <Filter>Lexer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParseTable\ParsingTable.h">
-      <Filter>Parser\ParseTable</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParseTable\TableFactory.h">
-      <Filter>Parser\ParseTable</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParseTree\ParseTree.h">
-      <Filter>Parser\ParseTree</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParseTree\RuleNode.h">
-      <Filter>Parser\ParseTree</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\ParseTree\TokenNode.h">
-      <Filter>Parser\ParseTree</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\Parser.h">
-      <Filter>Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Parser\Visitor.h">
-      <Filter>Parser</Filter>
-    </ClInclude>
     <ClInclude Include="src\ParserCore.h" />
-    <ClInclude Include="src\ParserTypes.h" />
+    <ClInclude Include="src\ParserCore\Core.h" />
+    <ClInclude Include="src\ParserCore\ParserTypes.h" />
+    <ClInclude Include="src\ParserCore\Parser\ParseTable\ParsingTable.h">
+      <Filter>Parser\ParseTable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Parser\ParseTable\TableFactory.h">
+      <Filter>Parser\ParseTable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Parser\ParseTree\ParseTree.h">
+      <Filter>Parser\ParseTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Parser\ParseTree\RuleNode.h">
+      <Filter>Parser\ParseTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Parser\ParseTree\TokenNode.h">
+      <Filter>Parser\ParseTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Parser\Parser.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Parser\Visitor.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Lexer\Automaton\Automaton.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Lexer\Automaton\Factory.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Lexer\Automaton\State.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Lexer\Automaton\Transition.h">
+      <Filter>Lexer\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Lexer\Lexer.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParserCore\Lexer\Token.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Lexer\Automaton\Automaton.cpp">
-      <Filter>Lexer\Automaton</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\Automaton\Factory.cpp">
-      <Filter>Lexer\Automaton</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\Automaton\State.cpp">
-      <Filter>Lexer\Automaton</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\Automaton\Transition.cpp">
-      <Filter>Lexer\Automaton</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\Lexer.cpp">
-      <Filter>Lexer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Lexer\Token.cpp">
-      <Filter>Lexer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Parser\ParseTable\ParsingTable.cpp">
+    <ClCompile Include="src\ParserCore\Parser\ParseTable\ParsingTable.cpp">
       <Filter>Parser\ParseTable</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\ParseTable\TableFactory.cpp">
+    <ClCompile Include="src\ParserCore\Parser\ParseTable\TableFactory.cpp">
       <Filter>Parser\ParseTable</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\ParseTree\ParseTree.cpp">
+    <ClCompile Include="src\ParserCore\Parser\ParseTree\ParseTree.cpp">
       <Filter>Parser\ParseTree</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp">
+    <ClCompile Include="src\ParserCore\Parser\ParseTree\RuleNode.cpp">
       <Filter>Parser\ParseTree</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp">
+    <ClCompile Include="src\ParserCore\Parser\ParseTree\TokenNode.cpp">
       <Filter>Parser\ParseTree</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\Parser.cpp">
+    <ClCompile Include="src\ParserCore\Parser\Parser.cpp">
       <Filter>Parser</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\Visitor.cpp">
+    <ClCompile Include="src\ParserCore\Parser\Visitor.cpp">
       <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserCore\Lexer\Automaton\Automaton.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserCore\Lexer\Automaton\Factory.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserCore\Lexer\Automaton\State.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserCore\Lexer\Automaton\Transition.cpp">
+      <Filter>Lexer\Automaton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserCore\Lexer\Lexer.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParserCore\Lexer\Token.cpp">
+      <Filter>Lexer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

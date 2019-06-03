@@ -2,15 +2,13 @@
 
 // For use by Client Applications only
 
-#include "Lexer/Lexer.h"
-#include "Parser/Parser.h"
-#include "Parser/ParseTree/RuleNode.h"
-#include "Parser/ParseTree/TokenNode.h"
-#include "Parser/Visitor.h"
+#include "ParserCore/Lexer/Lexer.h"
+#include "ParserCore/Parser/Parser.h"
+#include "ParserCore/Parser/ParseTree/RuleNode.h"
+#include "ParserCore/Parser/ParseTree/TokenNode.h"
+#include "ParserCore/Parser/Visitor.h"
 
-#include "ParserTypes.h"
-
-#include "App.h"
+#include "ParserCore/ParserTypes.h"
 
 namespace PC = ParserCore;
 namespace PCA = ParserCore::Automaton; 
