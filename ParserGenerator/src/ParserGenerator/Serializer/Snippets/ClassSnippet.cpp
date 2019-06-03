@@ -31,7 +31,7 @@ namespace ParserGenerator {
 
 	void CodeSnippet_Class::Write() const
 	{
-		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
+		std::ofstream& HeaderStream = GetOwningFile()->GetHeaderStream();
 
 		HeaderStream << std::endl;
 		if (m_bTemplate)
@@ -59,9 +59,9 @@ namespace ParserGenerator {
 		}
 		HeaderStream << std::endl;
 		HeaderStream << m_InitialHeaderSpaces << "{" << std::endl;
-		m_OwningFile->PushHeaderTab();
+		GetOwningFile()->PushHeaderTab();
 		GenerateChildren();
-		m_OwningFile->PopHeaderTab();
+		GetOwningFile()->PopHeaderTab();
 		HeaderStream << m_InitialHeaderSpaces << "};" << std::endl;
 	}
 
@@ -73,8 +73,8 @@ namespace ParserGenerator {
 			if (PrivacyGroup.second.size() == 0) continue;
 
 			// 
-			std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
-			HeaderStream << PrivacyGroup.first << ":" << std::endl;
+			std::ofstream& HeaderStream = GetOwningFile()->GetHeaderStream();
+			HeaderStream << m_InitialHeaderSpaces << PrivacyGroup.first << ":" << std::endl;
 
 			// 
 			for (CodeSnippet_Base* Child : PrivacyGroup.second)

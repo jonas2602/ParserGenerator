@@ -10,7 +10,7 @@ namespace ParserGenerator {
 
 	void CodeSnippet_Function::Write() const
 	{
-		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
+		std::ofstream& HeaderStream = GetOwningFile()->GetHeaderStream();
 
 		if (IsTemplate())
 		{
@@ -59,12 +59,12 @@ namespace ParserGenerator {
 			{
 				HeaderStream << std::endl;
 				HeaderStream << m_InitialHeaderSpaces << "{" << std::endl;
-				m_OwningFile->PushHeaderTab();
+				GetOwningFile()->PushHeaderTab();
 				for (const std::string& Line : m_FunctionBody)
 				{
 					HeaderStream << GetHeaderSpaces() << Line << std::endl;
 				}
-				m_OwningFile->PopHeaderTab();
+				GetOwningFile()->PopHeaderTab();
 				HeaderStream << m_InitialHeaderSpaces << "}" << std::endl;
 			}
 		}
@@ -72,19 +72,19 @@ namespace ParserGenerator {
 		{
 			HeaderStream << ";" << std::endl;
 
-			std::ofstream& SourceStream = m_OwningFile->GetSourceStream();
+			std::ofstream& SourceStream = GetOwningFile()->GetSourceStream();
 			SourceStream << std::endl;
 			SourceStream << m_InitialSourceSpaces << m_ReturnType << " " << GetClassName() << "::" << m_FunctionName << CreateParameterString();
 			if (IsConstant()) SourceStream << " const";
 			SourceStream << std::endl;
 
 			SourceStream << m_InitialSourceSpaces << "{" << std::endl;
-			m_OwningFile->PushSourceTab();
+			GetOwningFile()->PushSourceTab();
 			for (const std::string& Line : m_FunctionBody)
 			{
 				SourceStream << GetSourceSpaces() << Line << std::endl;
 			}
-			m_OwningFile->PopSourceTab();
+			GetOwningFile()->PopSourceTab();
 			SourceStream << m_InitialSourceSpaces << "}" << std::endl;
 		}
 

@@ -32,6 +32,7 @@ namespace ParserGenerator {
 
 	public:
 		void AddSnippet(CodeSnippet_Base* SnippetInstance);
+		void AddSnippet(const std::vector<CodeSnippet_Base*>& SnippetList);
 		void Write(IWriterInterface* Writer);
 
 		std::ofstream& GetHeaderStream();

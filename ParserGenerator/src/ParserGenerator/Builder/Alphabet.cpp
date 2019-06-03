@@ -6,11 +6,14 @@
 #include "../Interpreter/ParserConfig.h"
 
 namespace ParserGenerator {
-	Alphabet::Alphabet(const std::map<std::string, int>& InTokens, const std::map<std::string, int>& InRules)
+	Alphabet::Alphabet(const std::map<std::string, int>& InTokens, const std::map<std::string, int>& InRules, bool bAddEOS)
 		:m_TokenIndexMap(InTokens), m_RuleIndexMap(InRules)
 	{
 		// Make shure EOS Token is contained
-		m_TokenIndexMap[PC::EOS_S] = PC::EOS;
+		if (bAddEOS)
+		{
+			m_TokenIndexMap[PC::EOS_S] = PC::EOS;
+		}
 
 		for (std::pair<std::string, int> Pair : m_TokenIndexMap)
 		{

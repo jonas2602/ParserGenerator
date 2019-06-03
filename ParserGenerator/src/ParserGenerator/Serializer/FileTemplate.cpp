@@ -22,6 +22,15 @@ namespace ParserGenerator {
 		SnippetInstance->SetOwningFile(this);
 	}
 
+	void FileTemplate::AddSnippet(const std::vector<CodeSnippet_Base*>& SnippetList)
+	{
+		for (CodeSnippet_Base* Snippet : SnippetList)
+		{
+			m_RootSnippets.push_back(Snippet);
+			Snippet->SetOwningFile(this);
+		}
+	}
+
 	void FileTemplate::Write(IWriterInterface* Writer)
 	{
 		// Create File + Output Stream

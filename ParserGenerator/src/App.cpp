@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	std::cout << "Grammar:" << std::endl << SourceCode << std::endl << std::endl;
 
 	ParserGenerator::ParserBuilder Builder(SourceCode);
-	Builder.Generate("../Calculator/src/gen/", "Gen");
+	Builder.Generate("../Calculator/src/gen/", "Gen", "Gen");
 
 	std::cin.get();
 

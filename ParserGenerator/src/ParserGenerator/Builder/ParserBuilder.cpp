@@ -94,10 +94,15 @@ namespace ParserGenerator {
 		}
 
 		// validate used Token and Rule Names
+		bool AddEOS = false;
 		for (const std::pair<std::string, RuleElement*>& Terminal : Visitor.GetTerminalMap())
 		{
 			// Ignore EOS because its predefined
-			if (Terminal.first == PC::EOS_S) continue;
+			if (Terminal.first == PC::EOS_S)
+			{
+				AddEOS = true;
+				continue;
+			}
 
 			if (!m_LexConfig->HasDefinition(Terminal.first))
 			{
@@ -123,7 +128,7 @@ namespace ParserGenerator {
 		m_LexConfig->CreateLiterals(Visitor.GetLiteralMap());
 
 		// Create Alphabet from Token-/Ruletypes
-		m_Alphabet = new Alphabet(m_LexConfig->CreateTokenIndexMap(), m_ParsConfig->CreateRuleIndexMap());
+		m_Alphabet = new Alphabet(m_LexConfig->CreateTokenIndexMap(), m_ParsConfig->CreateRuleIndexMap(), AddEOS);
 		return true;
 	}
 

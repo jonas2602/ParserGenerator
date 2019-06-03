@@ -38,12 +38,12 @@ int main()
 	std::cin >> Formular;
 	std::cin.get();
 
-	GenLexer Lexer = GenLexer(Formular);
+	Gen::GenLexer Lexer = Gen::GenLexer(Formular);
 	std::vector<PC::Token*> TokenStream = Lexer.GetTokenStream();
 	std::cout << TokenStream << std::endl << std::endl;
 
-	GenParser Parser = GenParser(TokenStream);
-	Rule_expression* root;
+	Gen::GenParser Parser = Gen::GenParser(TokenStream);
+	Gen::Rule_expression* root;
 	Parser.Expression(root);
 
 	ExpressionVisitor Visitor = ExpressionVisitor();

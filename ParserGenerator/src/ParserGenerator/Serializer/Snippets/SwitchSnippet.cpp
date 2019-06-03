@@ -9,7 +9,7 @@ namespace ParserGenerator {
 
 	void CodeSnippet_Switch::Write() const
 	{
-		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
+		std::ofstream& HeaderStream = GetOwningFile()->GetHeaderStream();
 		HeaderStream << m_InitialHeaderSpaces << "switch (" << m_Statement << ")" << std::endl;
 		HeaderStream << m_InitialHeaderSpaces << "{" << std::endl;
 

@@ -4,8 +4,8 @@ namespace ParserGenerator {
 
 	void CodeSnippet_ForwardDecl::Write() const
 	{
-		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
-		HeaderStream << m_Type << " " << m_Name << ";" << std::endl;
+		std::ofstream& HeaderStream = GetOwningFile()->GetHeaderStream();
+		HeaderStream << m_InitialHeaderSpaces << m_Type << " " << m_Name << ";" << std::endl;
 	}
 
 }

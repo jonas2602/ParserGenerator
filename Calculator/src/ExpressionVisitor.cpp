@@ -1,6 +1,6 @@
 #include "ExpressionVisitor.h"
 
-float ExpressionVisitor::VisitRule_additive(Rule_additive* Context)
+float ExpressionVisitor::VisitRule_additive(Gen::Rule_additive* Context)
 {
 	if (!Context->multiplicative() || !Context->additive2()) return 0.0f;
 
@@ -22,7 +22,7 @@ float ExpressionVisitor::VisitRule_additive(Rule_additive* Context)
 	}
 }
 
-float ExpressionVisitor::VisitRule_additive2(Rule_additive2* Context)
+float ExpressionVisitor::VisitRule_additive2(Gen::Rule_additive2* Context)
 {
 	if (!Context->multiplicative() || !Context->additive2()) return 0.0f;
 
@@ -44,7 +44,7 @@ float ExpressionVisitor::VisitRule_additive2(Rule_additive2* Context)
 	}
 }
 
-float ExpressionVisitor::VisitRule_constant(Rule_constant* Context)
+float ExpressionVisitor::VisitRule_constant(Gen::Rule_constant* Context)
 {
 	if (Context->FLOAT())
 	{
@@ -60,12 +60,12 @@ float ExpressionVisitor::VisitRule_constant(Rule_constant* Context)
 	}
 }
 
-float ExpressionVisitor::VisitRule_expression(Rule_expression* Context)
+float ExpressionVisitor::VisitRule_expression(Gen::Rule_expression* Context)
 {
 	return VisitRule_additive(Context->additive());
 }
 
-float ExpressionVisitor::VisitRule_multiplicative(Rule_multiplicative* Context)
+float ExpressionVisitor::VisitRule_multiplicative(Gen::Rule_multiplicative* Context)
 {
 	if (!Context->constant() || !Context->multiplicative2()) return 0.0f;
 
@@ -87,7 +87,7 @@ float ExpressionVisitor::VisitRule_multiplicative(Rule_multiplicative* Context)
 	}
 }
 
-float ExpressionVisitor::VisitRule_multiplicative2(Rule_multiplicative2* Context)
+float ExpressionVisitor::VisitRule_multiplicative2(Gen::Rule_multiplicative2* Context)
 {
 	if (!Context->constant() || !Context->multiplicative2()) return 0.0f;
 

@@ -6,7 +6,7 @@ namespace ParserGenerator {
 
 	void CodeSnippet_Constructor::Write() const
 	{
-		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
+		std::ofstream& HeaderStream = GetOwningFile()->GetHeaderStream();
 		HeaderStream << m_InitialHeaderSpaces;
 		HeaderStream << GetClassName() << CreateParameterString();
 
@@ -18,7 +18,7 @@ namespace ParserGenerator {
 		{
 			HeaderStream << ";" << std::endl;
 
-			std::ofstream& SourceStream = m_OwningFile->GetSourceStream();
+			std::ofstream& SourceStream = GetOwningFile()->GetSourceStream();
 			SourceStream << std::endl;
 			SourceStream << m_InitialSourceSpaces << GetClassName() << "::" << GetClassName() << CreateParameterString() << std::endl;
 			if (m_PreConstructorCalls.size() > 0)
@@ -37,12 +37,12 @@ namespace ParserGenerator {
 			}
 
 			SourceStream << m_InitialSourceSpaces << "{" << std::endl;
-			m_OwningFile->PushSourceTab();
+			GetOwningFile()->PushSourceTab();
 			for (const std::string& Line : m_ConstructorBody)
 			{
 				SourceStream << GetSourceSpaces() << Line << std::endl;
 			}
-			m_OwningFile->PopSourceTab();
+			GetOwningFile()->PopSourceTab();
 			SourceStream << m_InitialSourceSpaces << "}" << std::endl;
 		}
 	}

@@ -6,8 +6,8 @@
 #include <vector>
 #include <string>
 
-// #define H_SPACES() { m_OwningFile->GetHeaderSpaces() }
-// #define S_SPACES() { m_OwningFile->GetSourceSpaces() }
+// #define H_SPACES() { GetOwningFile()->GetHeaderSpaces() }
+// #define S_SPACES() { GetOwningFile()->GetSourceSpaces() }
 // #define NEWLINE_TABBED() { std::endl << }
 
 namespace ParserGenerator {
@@ -32,11 +32,13 @@ namespace ParserGenerator {
 		const int& GetSnippetPriority() const { return m_Priority; }
 		CodeSnippet_Base* GetParent() const { return m_ParentSnippet; }
 		const std::vector<CodeSnippet_Base*>& GetChildren() const { return m_ChildSnippets; }
-		FileTemplate* GetOwningFile() const { return m_OwningFile; }
+		FileTemplate* GetOwningFile() const;
 
 		virtual void AttachSnippet(CodeSnippet_Base* InChild);
 		virtual void SetParent(CodeSnippet_Base* InParent);
 		virtual void SetOwningFile(FileTemplate* InFile);
+
+		void AttachSnippet(const std::vector<CodeSnippet_Base*>& InChilden);
 
 	public:
 		void TriggerWrite();

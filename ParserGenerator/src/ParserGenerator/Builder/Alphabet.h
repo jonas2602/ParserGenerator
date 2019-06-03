@@ -20,7 +20,7 @@ namespace ParserGenerator {
 		std::set<std::string> m_NonTerminalNames;
 
 	public:
-		Alphabet(const std::map<std::string, int>& InTokens, const std::map<std::string, int>& InRules);
+		Alphabet(const std::map<std::string, int>& InTokens, const std::map<std::string, int>& InRules, bool bAddEOS);
 
 	public:
 		int GetTokenIndex(const std::string& TokenName) const;

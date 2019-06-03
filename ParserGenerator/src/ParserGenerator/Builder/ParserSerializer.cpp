@@ -206,10 +206,21 @@ namespace ParserGenerator {
 		// Create File
 		std::string FileName = ExtendFileName("Alphabet");
 		FileTemplate* AlphabetFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
-
+		std::vector<CodeSnippet_Base*> RootSnippets;
 		// Add Enums
-		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenIndexMap()));
-		AlphabetFile->AddSnippet(new CodeSnippet_Enum("ERuleType", InAlphabet->GetRuleIndexMap()));
+		RootSnippets.push_back(new CodeSnippet_Enum("ETokenType", InAlphabet->GetTokenIndexMap()));
+		RootSnippets.push_back(new CodeSnippet_Enum("ERuleType", InAlphabet->GetRuleIndexMap()));
+
+		if (m_NamespaceName.empty())
+		{
+			AlphabetFile->AddSnippet(RootSnippets);
+		}
+		else
+		{
+			CodeSnippet_Namespace* NamespaceSnippet = new CodeSnippet_Namespace(m_NamespaceName, false);
+			AlphabetFile->AddSnippet(NamespaceSnippet);
+			NamespaceSnippet->AttachSnippet(RootSnippets);
+		}
 
 		return true;
 	}
@@ -219,6 +230,7 @@ namespace ParserGenerator {
 		// Create File
 		std::string FileName = ExtendFileName("Rules");
 		FileTemplate* RuleFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+		std::vector<CodeSnippet_Base*> RootSnippets;
 
 		// Add Includes
 		RuleFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Alphabet") + ".h"));
@@ -227,8 +239,8 @@ namespace ParserGenerator {
 		for (const std::string& NonTerminal : InAlphabet->GetNonTerminalNames())
 		{
 			CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class("Rule_" + NonTerminal, "PC::RuleNode");
-			RuleFile->AddSnippet(ClassSnippet);
-			RuleFile->AddSnippet(new CodeSnippet_ForwardDecl("class", "Rule_" + NonTerminal));
+			RootSnippets.push_back(ClassSnippet);
+			RootSnippets.push_back(new CodeSnippet_ForwardDecl("class", "Rule_" + NonTerminal));
 
 			ClassSnippet->CreateNewGroup("public");
 			std::string UpperCaseName = StringUtils::ToUpperCase(NonTerminal);
@@ -270,6 +282,17 @@ namespace ParserGenerator {
 			}
 		}
 
+		if (m_NamespaceName.empty())
+		{
+			RuleFile->AddSnippet(RootSnippets);
+		}
+		else
+		{
+			CodeSnippet_Namespace* NamespaceSnippet = new CodeSnippet_Namespace(m_NamespaceName, false);
+			RuleFile->AddSnippet(NamespaceSnippet);
+			NamespaceSnippet->AttachSnippet(RootSnippets);
+		}
+
 		return true;
 	}
 
@@ -278,6 +301,7 @@ namespace ParserGenerator {
 		// Create File
 		std::string FileName = ExtendFileName("Lexer");
 		FileTemplate* LexerFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+		std::vector<CodeSnippet_Base*> RootSnippets;
 
 		// Add Includes
 		LexerFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Alphabet") + ".h"));
@@ -285,7 +309,7 @@ namespace ParserGenerator {
 
 		// Add Lexer Class
 		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "PC::Lexer");
-		LexerFile->AddSnippet(ClassSnippet);
+		RootSnippets.push_back(ClassSnippet);
 
 		// Add Constructor
 		ClassSnippet->CreateNewGroup("public");
@@ -309,6 +333,17 @@ namespace ParserGenerator {
 		HiddenList += "}";
 		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetHiddenTokenTypes", { "return " + HiddenList + ";" }, "std::set<int>", { CONSTANT, VIRTUAL, OVERRIDE }));
 
+		if (m_NamespaceName.empty())
+		{
+			LexerFile->AddSnippet(RootSnippets);
+		}
+		else
+		{
+			CodeSnippet_Namespace* NamespaceSnippet = new CodeSnippet_Namespace(m_NamespaceName);
+			LexerFile->AddSnippet(NamespaceSnippet);
+			NamespaceSnippet->AttachSnippet(RootSnippets);
+		}
+
 		return true;
 	}
 
@@ -317,6 +352,7 @@ namespace ParserGenerator {
 		// Create File
 		std::string FileName = ExtendFileName("Parser");
 		FileTemplate* ParserFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+		std::vector<CodeSnippet_Base*> RootSnippets;
 
 		// Add Includes
 		ParserFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Rules") + ".h"));
@@ -324,7 +360,7 @@ namespace ParserGenerator {
 
 		// Add Parser Class
 		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "PC::Parser");
-		ParserFile->AddSnippet(ClassSnippet);
+		RootSnippets.push_back(ClassSnippet);
 
 		// Add Constructor
 		ClassSnippet->CreateNewGroup("public");
@@ -414,7 +450,18 @@ namespace ParserGenerator {
 		ParserSerializer::SerializeParsingTable(InTable, TableString);
 		ClassSnippet->AttachSnippet(new CodeSnippet_Function("GetSerializedTable", { "return \"" + TableString + "\";" }, "const char*", { CONSTANT, VIRTUAL, OVERRIDE }));
 
-		return false;
+		if (m_NamespaceName.empty())
+		{
+			ParserFile->AddSnippet(RootSnippets);
+		}
+		else
+		{
+			CodeSnippet_Namespace* NamespaceSnippet = new CodeSnippet_Namespace(m_NamespaceName);
+			ParserFile->AddSnippet(NamespaceSnippet);
+			NamespaceSnippet->AttachSnippet(RootSnippets);
+		}
+
+		return true;
 	}
 
 	bool ParserSerializer::WriteVisitorCode(Alphabet* InAlphabet) const
@@ -422,6 +469,7 @@ namespace ParserGenerator {
 		// Create File
 		std::string FileName = ExtendFileName("VisitorBase");
 		FileTemplate* VisitorFile = m_Generator->CreateVirtualFile(FileName, m_CodePath);
+		std::vector<CodeSnippet_Base*> RootSnippets;
 
 		// Add Includes
 		VisitorFile->AddSnippet(new CodeSnippet_Include(ExtendFileName("Rules") + ".h"));
@@ -429,7 +477,7 @@ namespace ParserGenerator {
 
 		// Add Visitor BaseClass
 		CodeSnippet_Class* ClassSnippet = new CodeSnippet_Class(FileName, "PC::Visitor<T>");
-		VisitorFile->AddSnippet(ClassSnippet);
+		RootSnippets.push_back(ClassSnippet);
 		ClassSnippet->AddTemplating({ "T" });
 
 		// Add virtual Visit Functions
@@ -454,7 +502,18 @@ namespace ParserGenerator {
 			ClassSnippet->AttachSnippet(new CodeSnippet_Function("Visit<" + RuleName + ">", { "return " + FunctionName + "(Context);" }, { RuleName + "* Context" }, "T", { TEMPLATE, SINGLELINE, HEADERDEFINITION }));
 		}
 
-		return false;
+		if (m_NamespaceName.empty())
+		{
+			VisitorFile->AddSnippet(RootSnippets);
+		}
+		else
+		{
+			CodeSnippet_Namespace* NamespaceSnippet = new CodeSnippet_Namespace(m_NamespaceName, false);
+			VisitorFile->AddSnippet(NamespaceSnippet);
+			NamespaceSnippet->AttachSnippet(RootSnippets);
+		}
+
+		return true;
 	}
 
 	void ParserSerializer::Finish() const

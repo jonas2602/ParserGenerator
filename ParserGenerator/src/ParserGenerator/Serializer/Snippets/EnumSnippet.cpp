@@ -21,16 +21,16 @@ namespace ParserGenerator {
 
 	void CodeSnippet_Enum::Write() const
 	{
-		std::ofstream& HeaderStream = m_OwningFile->GetHeaderStream();
-		HeaderStream << "enum " << m_EnumName << " { " << std::endl;
+		std::ofstream& HeaderStream = GetOwningFile()->GetHeaderStream();
+		HeaderStream << m_InitialHeaderSpaces << "enum " << m_EnumName << " { " << std::endl;
 		for (const std::pair<int, std::string>& Pair : m_Entries)
 		{
 			std::string UpperCaseName = Pair.second;
 			std::transform(UpperCaseName.begin(), UpperCaseName.end(), UpperCaseName.begin(), ::toupper);
 			// TODO: Name toUpperCase
-			HeaderStream << "\t" << UpperCaseName << " = " << Pair.first << ", " << std::endl;
+			HeaderStream << m_InitialHeaderSpaces << "\t" << UpperCaseName << " = " << Pair.first << ", " << std::endl;
 		}
-		HeaderStream << "};" << std::endl << std::endl;
+		HeaderStream << m_InitialHeaderSpaces << "};" << std::endl << std::endl;
 	}
 
 }
