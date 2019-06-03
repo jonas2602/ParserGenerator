@@ -51,14 +51,14 @@ namespace ParserCore {
 
 	void Lexer::Init()
 	{
-		std::cout << "Init Lexer" << std::endl;
+		//std::cout << "Init Lexer" << std::endl;
 
 		m_HiddenTypes = GetHiddenTokenTypes();
 		this->LoadAutomaton();
-		std::cout << "Automaton Loaded" << std::endl;
+		//std::cout << "Automaton Loaded" << std::endl;
 
 		Tokenize();
-		std::cout << "Input Tokenized" << std::endl;
+		//std::cout << "Input Tokenized" << std::endl;
 	}
 
 	void Lexer::LoadAutomaton()
@@ -111,7 +111,7 @@ namespace ParserCore {
 			if (m_HiddenTypes.find(LastPriority) == m_HiddenTypes.end())
 			{
 				std::string FoundString = m_SourceCode.substr(StartingPoint, ConfirmedLength);
-				int LineNumber = (int)std::count(m_SourceCode.begin(), m_SourceCode.begin() + StartingPoint, RegExp::LF);
+				int LineNumber = 0; // (int)std::count(m_SourceCode.begin(), m_SourceCode.begin() + StartingPoint, RegExp::LF);
 				int ColumnNumber = 0;
 				m_TokenStream.push_back(new Token(FoundString, LastPriority, LineNumber, ColumnNumber));
 				//	break;

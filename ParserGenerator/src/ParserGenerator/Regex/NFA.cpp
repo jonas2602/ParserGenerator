@@ -1,5 +1,5 @@
 #include "NFA.h"
-#include "Utils/Math.h"
+#include "../Utils/Math.h"
 #include <sstream>
 
 namespace ParserGenerator {
@@ -122,7 +122,7 @@ namespace ParserGenerator {
 		for (PCA::State* Element : States)
 		{
 			int StatePriority = Element->GetStatePriority();
-			MaxPriority = PC::Math::Max(MaxPriority, StatePriority);
+			MaxPriority = Math::Max(MaxPriority, StatePriority);
 		}
 
 		return MaxPriority;

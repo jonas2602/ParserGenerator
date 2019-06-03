@@ -173,11 +173,11 @@ namespace ParserCore::Automaton {
 				OutAutomaton->CreateNewState(StateName, StatePriority);
 			}
 
-			std::cout << "DFA States Loaded" << std::endl;
+			//std::cout << "DFA States Loaded" << std::endl;
 
 			// Mark Start State
 			OutAutomaton->SetStartState(StartState);
-			std::cout << "DFA Start State Set" << std::endl;
+			//std::cout << "DFA Start State Set" << std::endl;
 		}
 
 		// Read Transition Lines
@@ -202,7 +202,7 @@ namespace ParserCore::Automaton {
 			OutAutomaton->CreateNewTransition(StartState, EndState, Condition);
 		}
 		
-		std::cout << "Automaton States Connected" << std::endl;
+		//std::cout << "Automaton States Connected" << std::endl;
 		return true;
 	}
 

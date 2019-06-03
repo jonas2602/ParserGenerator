@@ -24,8 +24,8 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::ACTION; }
 
 public:
-	PC::TokenNode* ARROW() const { return GetToken(ETokenType::ARROW, 0); }
 	PC::TokenNode* PARSERID() const { return GetToken(ETokenType::PARSERID, 0); }
+	PC::TokenNode* ARROW() const { return GetToken(ETokenType::ARROW, 0); }
 
 };
 
@@ -35,12 +35,12 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::LEXERCONST; }
 
 public:
-	PC::TokenNode* CHARSET() const { return GetToken(ETokenType::CHARSET, 0); }
-	PC::TokenNode* DOT() const { return GetToken(ETokenType::DOT, 0); }
 	PC::TokenNode* LEXERID() const { return GetToken(ETokenType::LEXERID, 0); }
 	PC::TokenNode* LITERAL() const { return GetToken(ETokenType::LITERAL, 0); }
 	PC::TokenNode* LP() const { return GetToken(ETokenType::LP, 0); }
 	PC::TokenNode* RP() const { return GetToken(ETokenType::RP, 0); }
+	PC::TokenNode* CHARSET() const { return GetToken(ETokenType::CHARSET, 0); }
+	PC::TokenNode* DOT() const { return GetToken(ETokenType::DOT, 0); }
 	Rule_regex* regex() const { return GetRule<Rule_regex>(0); }
 
 };
@@ -74,9 +74,9 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::LEXERRULE; }
 
 public:
-	PC::TokenNode* COLON() const { return GetToken(ETokenType::COLON, 0); }
 	PC::TokenNode* LEXERID() const { return GetToken(ETokenType::LEXERID, 0); }
 	PC::TokenNode* SEMICOLON() const { return GetToken(ETokenType::SEMICOLON, 0); }
+	PC::TokenNode* COLON() const { return GetToken(ETokenType::COLON, 0); }
 	Rule_action* action() const { return GetRule<Rule_action>(0); }
 	Rule_regex* regex() const { return GetRule<Rule_regex>(0); }
 
@@ -88,8 +88,8 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::OPERATORR; }
 
 public:
-	Rule_lexerconst* lexerconst() const { return GetRule<Rule_lexerconst>(0); }
 	Rule_operatorr2* operatorr2() const { return GetRule<Rule_operatorr2>(0); }
+	Rule_lexerconst* lexerconst() const { return GetRule<Rule_lexerconst>(0); }
 
 };
 
@@ -114,8 +114,8 @@ public:
 	PC::TokenNode* LEXERID() const { return GetToken(ETokenType::LEXERID, 0); }
 	PC::TokenNode* LITERAL() const { return GetToken(ETokenType::LITERAL, 0); }
 	PC::TokenNode* LP() const { return GetToken(ETokenType::LP, 0); }
-	PC::TokenNode* PARSERID() const { return GetToken(ETokenType::PARSERID, 0); }
 	PC::TokenNode* RP() const { return GetToken(ETokenType::RP, 0); }
+	PC::TokenNode* PARSERID() const { return GetToken(ETokenType::PARSERID, 0); }
 	Rule_parseror* parseror() const { return GetRule<Rule_parseror>(0); }
 
 };
@@ -126,8 +126,8 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::PARSERLIST; }
 
 public:
-	Rule_parserconst* parserconst() const { return GetRule<Rule_parserconst>(0); }
 	Rule_parserlist* parserlist() const { return GetRule<Rule_parserlist>(0); }
+	Rule_parserconst* parserconst() const { return GetRule<Rule_parserconst>(0); }
 
 };
 
@@ -137,8 +137,8 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::PARSEROR; }
 
 public:
-	Rule_parserlist* parserlist() const { return GetRule<Rule_parserlist>(0); }
 	Rule_parseror2* parseror2() const { return GetRule<Rule_parseror2>(0); }
+	Rule_parserlist* parserlist() const { return GetRule<Rule_parserlist>(0); }
 
 };
 
@@ -149,8 +149,8 @@ public:
 
 public:
 	PC::TokenNode* PIPE() const { return GetToken(ETokenType::PIPE, 0); }
-	Rule_parserlist* parserlist() const { return GetRule<Rule_parserlist>(0); }
 	Rule_parseror2* parseror2() const { return GetRule<Rule_parseror2>(0); }
+	Rule_parserlist* parserlist() const { return GetRule<Rule_parserlist>(0); }
 
 };
 
@@ -160,9 +160,9 @@ public:
 	virtual int GetRuleType() const override { return ERuleType::PARSERRULE; }
 
 public:
-	PC::TokenNode* COLON() const { return GetToken(ETokenType::COLON, 0); }
 	PC::TokenNode* PARSERID() const { return GetToken(ETokenType::PARSERID, 0); }
 	PC::TokenNode* SEMICOLON() const { return GetToken(ETokenType::SEMICOLON, 0); }
+	PC::TokenNode* COLON() const { return GetToken(ETokenType::COLON, 0); }
 	Rule_parseror* parseror() const { return GetRule<Rule_parseror>(0); }
 
 };

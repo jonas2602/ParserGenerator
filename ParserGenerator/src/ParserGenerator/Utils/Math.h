@@ -1,4 +1,5 @@
 #pragma once
+
 namespace ParserGenerator {
 
 	class Math
@@ -28,4 +29,5 @@ namespace ParserGenerator {
 			return Max(Max(A, B), C);
 		}
 	};
+
 }

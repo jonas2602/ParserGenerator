@@ -4,8 +4,6 @@
 #include <vector>
 
 #include "Automaton/Automaton.h"
-#include "RegExp.h"
-#include "LexerConfig.h"
 #include "Token.h"
 
 #include "../Core.h"

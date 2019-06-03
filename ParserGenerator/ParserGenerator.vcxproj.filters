@@ -42,21 +42,6 @@
     <ClInclude Include="src\ParserGenerator\Builder\ParserSerializer.h">
       <Filter>ParserGenerator\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarAlphabet.h">
-      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.h">
-      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.h">
-      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarRules.h">
-      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarVisitorBase.h">
-      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
-    </ClInclude>
     <ClInclude Include="src\ParserGenerator\Interpreter\GrammarVisitor.h">
       <Filter>ParserGenerator\Interpreter</Filter>
     </ClInclude>
@@ -135,6 +120,11 @@
     <ClInclude Include="src\ParserGenerator\Utils\StringUtils.h">
       <Filter>ParserGenerator\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarAlphabet.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarRules.h" />
+    <ClInclude Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarVisitorBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -149,12 +139,6 @@
     </ClCompile>
     <ClCompile Include="src\ParserGenerator\Builder\ParserSerializer.cpp">
       <Filter>ParserGenerator\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp">
-      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp">
-      <Filter>ParserGenerator\Interpreter\GrammarParser</Filter>
     </ClCompile>
     <ClCompile Include="src\ParserGenerator\Interpreter\GrammarVisitor.cpp">
       <Filter>ParserGenerator\Interpreter</Filter>
@@ -225,5 +209,7 @@
     <ClCompile Include="src\ParserGenerator\Utils\StringUtils.cpp">
       <Filter>ParserGenerator\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarLexer.cpp" />
+    <ClCompile Include="src\ParserGenerator\Interpreter\GrammarParser\GrammarParser.cpp" />
   </ItemGroup>
 </Project>

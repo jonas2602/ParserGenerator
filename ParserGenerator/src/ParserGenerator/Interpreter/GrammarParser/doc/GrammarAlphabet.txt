@@ -2,6 +2,7 @@
 
 Avaliable Tokens:
 [Index] [Name]
+-1 EOS
 0 WS
 1 BLOCKCOMMENT
 2 LINECOMMENT
@@ -36,4 +37,5 @@ Avaliable Non Terminals:
 11 parserrule
 12 regex
 13 rulelist
+
 

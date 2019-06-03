@@ -17,16 +17,19 @@ int main(int argc, char* argv[])
 	//for (int i = 0; i < argc; ++i)
 	//	std::cout << argv[i] << std::endl;
 
-	std::ifstream File("../Calculator/src/calc.g");
+	//std::ifstream File("../Calculator/src/calc.g");
+	std::ifstream File("./res/GrammarParser.txt");
 	std::stringstream buffer;
 	buffer << File.rdbuf();
 	std::string SourceCode = buffer.str();
-	std::cout << "Grammar:" << std::endl << SourceCode << std::endl << std::endl;
+	//std::cout << "Grammar:" << std::endl << SourceCode << std::endl << std::endl;
 
-	ParserGenerator::ParserBuilder Builder(SourceCode);
-	Builder.Generate("../Calculator/src/gen/", "Gen", "Gen");
+	ParserGenerator::ParserBuilder* Builder = new ParserGenerator::ParserBuilder(SourceCode);
+	Builder->Generate("res/gen/", "Grammar");
+	//Builder.Generate("../Calculator/src/gen/", "Gen", "Gen");
 
 	std::cin.get();
+	delete Builder;
 
 	return 0;
 }

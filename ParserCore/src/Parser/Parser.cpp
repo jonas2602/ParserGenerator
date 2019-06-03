@@ -1,6 +1,5 @@
 #include <iostream>
 #include <set>
-#include "../Utils/Math.h"
 
 #include "Parser.h"
 #include "ParseTree/RuleNode.h"
@@ -46,7 +45,7 @@ namespace ParserCore {
 		}
 
 		m_RuleStack.push(Rule);
-		std::cout << "Entered: " << typeid(*Rule).name() << std::endl;
+		//std::cout << "Entered: " << typeid(*Rule).name() << std::endl;
 	}
 
 	void Parser::ExitRule(RuleNode* Rule)
@@ -54,7 +53,7 @@ namespace ParserCore {
 		if (m_RuleStack.top() == Rule)
 		{
 			m_RuleStack.pop();
-			std::cout << "Left: " << typeid(*Rule).name() << std::endl;
+			//std::cout << "Left: " << typeid(*Rule).name() << std::endl;
 		}
 		else
 		{
@@ -71,7 +70,7 @@ namespace ParserCore {
 			TopRule->AddChild(NextToken);
 			m_TokenIterator++;
 
-			std::cout << "Consumed: " << NextToken << std::endl;
+			//std::cout << "Consumed: " << NextToken << std::endl;
 			return true;
 		}
 
@@ -84,7 +83,7 @@ namespace ParserCore {
 		int ActiveTerminal = (*m_TokenIterator)->GetTokenType();
 		int ActiveNonTerminal = m_RuleStack.top()->GetRuleType();
 		int Prediction = m_Table->GetProductionIndex(ActiveNonTerminal, ActiveTerminal);
-		std::cout << "Chose Option " << Prediction << std::endl;
+		//std::cout << "Chose Option " << Prediction << std::endl;
 
 		return Prediction;
 	}

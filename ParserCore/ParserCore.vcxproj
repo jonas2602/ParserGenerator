@@ -100,28 +100,12 @@ IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\App.h" />
-    <ClInclude Include="src\Builder\Alphabet.h" />
-    <ClInclude Include="src\Builder\FirstFollowTable.h" />
-    <ClInclude Include="src\Builder\ParserBuilder.h" />
-    <ClInclude Include="src\Builder\ParserSerializer.h" />
     <ClInclude Include="src\Core.h" />
-    <ClInclude Include="src\Generator\CodeGenerator.h" />
-    <ClInclude Include="src\Generator\CodeSnippet.h" />
-    <ClInclude Include="src\Generator\FileTemplate.h" />
-    <ClInclude Include="src\Generator\Snippets\ClassSnippet.h" />
-    <ClInclude Include="src\Generator\Snippets\ConstructorSnippet.h" />
-    <ClInclude Include="src\Generator\Snippets\ForwardDeclSnippet.h" />
-    <ClInclude Include="src\Generator\Snippets\FunctionSnippet.h" />
-    <ClInclude Include="src\Generator\Snippets\SwitchSnippet.h" />
-    <ClInclude Include="src\Generator\WriterInterface.h" />
     <ClInclude Include="src\Lexer\Automaton\Automaton.h" />
     <ClInclude Include="src\Lexer\Automaton\Factory.h" />
     <ClInclude Include="src\Lexer\Automaton\State.h" />
     <ClInclude Include="src\Lexer\Automaton\Transition.h" />
     <ClInclude Include="src\Lexer\Lexer.h" />
-    <ClInclude Include="src\Lexer\LexerConfig.h" />
-    <ClInclude Include="src\Lexer\RegExp.h" />
     <ClInclude Include="src\Lexer\Token.h" />
     <ClInclude Include="src\Parser\ParseTable\ParsingTable.h" />
     <ClInclude Include="src\Parser\ParseTable\TableFactory.h" />
@@ -129,45 +113,16 @@ IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /
     <ClInclude Include="src\Parser\ParseTree\RuleNode.h" />
     <ClInclude Include="src\Parser\ParseTree\TokenNode.h" />
     <ClInclude Include="src\Parser\Parser.h" />
-    <ClInclude Include="src\Parser\ParserConfig.h" />
     <ClInclude Include="src\Parser\Visitor.h" />
     <ClInclude Include="src\ParserCore.h" />
     <ClInclude Include="src\ParserTypes.h" />
-    <ClInclude Include="src\Test\ListParser\ListAlphabet.h" />
-    <ClInclude Include="src\Test\ListParser\ListInterpreter.h" />
-    <ClInclude Include="src\Test\ListParser\ListLexer.h" />
-    <ClInclude Include="src\Test\RuleVisitor.h" />
-    <ClInclude Include="src\Test\TestAlphabet.h" />
-    <ClInclude Include="src\Test\TestLexer.h" />
-    <ClInclude Include="src\Test\TestParser.h" />
-    <ClInclude Include="src\Test\TestRules.h" />
-    <ClInclude Include="src\Test\TestVisitor.h" />
-    <ClInclude Include="src\Test\TestVisitorBase.h" />
-    <ClInclude Include="src\Test\TokenVisitor.h" />
-    <ClInclude Include="src\Utils\Math.h" />
-    <ClInclude Include="src\Utils\StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\App.cpp" />
-    <ClCompile Include="src\Builder\Alphabet.cpp" />
-    <ClCompile Include="src\Builder\FirstFollowTable.cpp" />
-    <ClCompile Include="src\Builder\ParserBuilder.cpp" />
-    <ClCompile Include="src\Builder\ParserSerializer.cpp" />
-    <ClCompile Include="src\Generator\CodeGenerator.cpp" />
-    <ClCompile Include="src\Generator\CodeSnippet.cpp" />
-    <ClCompile Include="src\Generator\FileTemplate.cpp" />
-    <ClCompile Include="src\Generator\Snippets\ClassSnippet.cpp" />
-    <ClCompile Include="src\Generator\Snippets\ConstructorSnippet.cpp" />
-    <ClCompile Include="src\Generator\Snippets\ForwardDeclSnippet.cpp" />
-    <ClCompile Include="src\Generator\Snippets\FunctionSnippet.cpp" />
-    <ClCompile Include="src\Generator\Snippets\SwitchSnippet.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Automaton.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Factory.cpp" />
     <ClCompile Include="src\Lexer\Automaton\State.cpp" />
     <ClCompile Include="src\Lexer\Automaton\Transition.cpp" />
     <ClCompile Include="src\Lexer\Lexer.cpp" />
-    <ClCompile Include="src\Lexer\LexerConfig.cpp" />
-    <ClCompile Include="src\Lexer\RegExp.cpp" />
     <ClCompile Include="src\Lexer\Token.cpp" />
     <ClCompile Include="src\Parser\ParseTable\ParsingTable.cpp" />
     <ClCompile Include="src\Parser\ParseTable\TableFactory.cpp" />
@@ -175,16 +130,7 @@ IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /
     <ClCompile Include="src\Parser\ParseTree\RuleNode.cpp" />
     <ClCompile Include="src\Parser\ParseTree\TokenNode.cpp" />
     <ClCompile Include="src\Parser\Parser.cpp" />
-    <ClCompile Include="src\Parser\ParserConfig.cpp" />
     <ClCompile Include="src\Parser\Visitor.cpp" />
-    <ClCompile Include="src\Test\ListParser\ListInterpreter.cpp" />
-    <ClCompile Include="src\Test\ListParser\ListLexer.cpp" />
-    <ClCompile Include="src\Test\RuleVisitor.cpp" />
-    <ClCompile Include="src\Test\TestLexer.cpp" />
-    <ClCompile Include="src\Test\TestParser.cpp" />
-    <ClCompile Include="src\Test\TestVisitor.cpp" />
-    <ClCompile Include="src\Test\TokenVisitor.cpp" />
-    <ClCompile Include="src\Utils\StringUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -38,8 +38,73 @@ BLOCKCOMMENT: '/''*'+(~[/*]~[*]*'*'+'/')+ -> skip;
 WS: [ \n\t\r]+ -> skip;
 
 
+//LexerConfig LexConfig;
+//LexConfig.Add("LEFTPARENTHESE", new RegExp(RegExp::CONST('(')));
+//LexConfig.Add("RIGHTPARENTHESE", new RegExp(RegExp::CONST(')')));
+//LexConfig.Add("PIPE", new RegExp(RegExp::CONST('|')));
+//LexConfig.Add("COLON", new RegExp(RegExp::CONST(':')));
+//LexConfig.Add("SEMICOLON", new RegExp(RegExp::CONST(';')));
+//LexConfig.Add("PARSERID", new RegExp(RegExp::AND(RegExp::RANGE('a', 'z'), RegExp::STAR(RegExp::LIST(std::vector<Node_CONST*>({ RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z'), RegExp::RANGE('0', '9'), RegExp::CONST('_') }))))));
+//LexConfig.Add("LITERAL", new RegExp(RegExp::AND({ RegExp::CONST('\''), RegExp::STAR(RegExp::EXCEPT({ '\'', '\\' })),  RegExp::STAR(RegExp::AND({RegExp::CONST('\\'), RegExp::ANY(), RegExp::STAR(RegExp::EXCEPT({'\\', '\''}))})), RegExp::CONST('\'') })));
 
-// List Parser
+//LexConfig.Add("DOT", new RegExp(RegExp::CONST('.')));
+//LexConfig.Add("PLUS", new RegExp(RegExp::CONST('+')));
+//LexConfig.Add("STAR", new RegExp(RegExp::CONST('*')));
+//LexConfig.Add("CHARSET", new RegExp(RegExp::AND({ RegExp::OPTIONAL('~') , RegExp::CONST('['), RegExp::STAR(RegExp::EXCEPT({ ']', '\\' })),  RegExp::STAR(RegExp::AND({RegExp::CONST('\\'), RegExp::ANY(), RegExp::STAR(RegExp::EXCEPT({'\\', ']'}))})), RegExp::CONST(']') })));
+//LexConfig.Add("QUESTIONMARK", new RegExp(RegExp::CONST('?')));
+//LexConfig.Add("ARROW", new RegExp(RegExp::SEQUENCE("->")));
+//LexConfig.Add("LEXERID", new RegExp(RegExp::AND(RegExp::RANGE('A', 'Z'), RegExp::STAR(RegExp::LIST(std::vector<Node_CONST*>({ RegExp::RANGE('a', 'z'), RegExp::RANGE('A', 'Z'), RegExp::RANGE('0', '9'), RegExp::CONST('_') }))))));
+
+//LexConfig.Add("LINECOMMENT", new RegExp(RegExp::AND(RegExp::SEQUENCE("//"), RegExp::STAR(RegExp::EXCEPT({ RegExp::LF })))), ELexerAction::SKIP);
+//LexConfig.Add("BLOCKCOMMENT", new RegExp(RegExp::AND({ RegExp::CONST('/'), RegExp::PLUS('*'), RegExp::STAR(RegExp::AND({RegExp::EXCEPT({'/','*'}), RegExp::STAR(RegExp::EXCEPT({'*'})),RegExp::PLUS('*') })), RegExp::CONST('/') })), ELexerAction::SKIP);
+//LexConfig.Add("WS", new RegExp(RegExp::PLUS(RegExp::LIST({ ' ', RegExp::TAB, RegExp::CR, RegExp::LF }))), ELexerAction::SKIP);
+
+//ParserConfig ParsConfig = ParserConfig();
+//ParsConfig.AddProduction("rulelist", { "parserrule", "rulelist" });
+//ParsConfig.AddProduction("rulelist", { "lexerrule", "rulelist" });
+//ParsConfig.AddProduction("rulelist", { EOS_S });
+
+//ParsConfig.AddProduction("parserrule", { "PARSERID", "COLON", "parseror", "SEMICOLON" });
+
+//ParsConfig.AddProduction("parseror", { "parserlist", "parseror2" });
+//ParsConfig.AddProduction("parseror2", { "PIPE", "parserlist", "parseror2" });
+//ParsConfig.AddProduction("parseror2", { EPSILON_S });
+
+//ParsConfig.AddProduction("parserlist", { "parserconst",  "parserlist" });
+//ParsConfig.AddProduction("parserlist", { EPSILON_S });
+
+//ParsConfig.AddProduction("parserconst", { "LEXERID" });
+//ParsConfig.AddProduction("parserconst", { "PARSERID" });
+//ParsConfig.AddProduction("parserconst", { "LITERAL" });
+//ParsConfig.AddProduction("parserconst", { "LEFTPARENTHESE", "parseror", "RIGHTPARENTHESE" });
+
+//ParsConfig.AddProduction("lexerrule", { "LEXERID", "COLON" ,"regex", "action", "SEMICOLON" });
+
+//ParsConfig.AddProduction("action", { "ARROW", "PARSERID" });
+//ParsConfig.AddProduction("action", { EPSILON_S });
+
+//ParsConfig.AddProduction("regex", { "lexeror", "regex" });
+//ParsConfig.AddProduction("regex", { EPSILON_S });
+
+//ParsConfig.AddProduction("lexeror2", { "PIPE", "operator", "lexeror2" });
+//ParsConfig.AddProduction("lexeror", { "operator", "lexeror2" });
+//ParsConfig.AddProduction("lexeror2", { EPSILON_S });
+
+//ParsConfig.AddProduction("operator", { "lexerconst", "operator2" });
+//ParsConfig.AddProduction("operator2", { "STAR" });
+//ParsConfig.AddProduction("operator2", { "PLUS" });
+//ParsConfig.AddProduction("operator2", { "QUESTIONMARK" });
+//ParsConfig.AddProduction("operator2", { EPSILON_S });
+
+//ParsConfig.AddProduction("lexerconst", { "LEFTPARENTHESE", "regex", "RIGHTPARENTHESE" });
+//ParsConfig.AddProduction("lexerconst", { "LEXERID" });
+//ParsConfig.AddProduction("lexerconst", { "DOT" });
+//ParsConfig.AddProduction("lexerconst", { "CHARSET" });
+//ParsConfig.AddProduction("lexerconst", { "LITERAL" });
+
+
+
+//List Parser:
 //MINUS: '-';
 //ESCAPED: '\\'.;
 //CHAR: .;
@@ -47,3 +112,18 @@ WS: [ \n\t\r]+ -> skip;
 //elements: (range | symbol)*;
 //range: symbol MINUS symbol;
 //symbol: MINUS | CHAR | ESCAPED;
+
+//LexerConfig LexConfig;
+//LexConfig.Add("MINUS", new RegExp(RegExp::CONST('-')));
+//LexConfig.Add("ESCAPED", new RegExp(RegExp::AND('\\', RegExp::ANY())));
+//LexConfig.Add("CHAR", new RegExp(RegExp::ANY()));
+
+//ParserConfig ParsConfig = ParserConfig();
+//ParsConfig.AddProduction("elements", { "range", "elements" });
+//ParsConfig.AddProduction("elements", { EOS_S });
+//ParsConfig.AddProduction("range", { "symbol", "range2" });
+//ParsConfig.AddProduction("range2", { "MINUS", "symbol" });
+//ParsConfig.AddProduction("range2", { EPSILON_S });
+//ParsConfig.AddProduction("symbol", { "MINUS" });
+//ParsConfig.AddProduction("symbol", { "CHAR" });
+//ParsConfig.AddProduction("symbol", { "ESCAPED" });

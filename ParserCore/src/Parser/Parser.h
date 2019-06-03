@@ -4,7 +4,6 @@
 #include <stack>
 #include <string>
 
-#include "ParserConfig.h"
 #include "ParseTree/ParseTree.h"
 #include "ParseTree/RuleNode.h"
 #include "../Lexer/Token.h"
