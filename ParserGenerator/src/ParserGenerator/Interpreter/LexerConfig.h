@@ -17,7 +17,7 @@ namespace ParserGenerator {
 	struct TokenDefinition
 	{
 		std::string m_Name;
-		RegExp* m_Expression; // Will be empty if deserialized from file
+		RegExp* m_Expression;
 		ELexerAction m_Action;
 
 		TokenDefinition(const std::string& InName, RegExp* InExpression, ELexerAction InAction)
@@ -27,6 +27,11 @@ namespace ParserGenerator {
 		TokenDefinition(const std::string& InName, ELexerAction InAction)
 			: m_Name(InName), m_Expression(nullptr), m_Action(InAction)
 		{ }
+
+		~TokenDefinition()
+		{
+			delete m_Expression;
+		}
 	};
 
 	class LexerConfig

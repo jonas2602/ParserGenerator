@@ -14,6 +14,11 @@ namespace ParserGenerator {
 
 	FileTemplate::~FileTemplate()
 	{
+		for (CodeSnippet_Base* Snippet : m_RootSnippets)
+		{
+			delete Snippet;
+		}
+		m_RootSnippets.clear();
 	}
 
 	void FileTemplate::AddSnippet(CodeSnippet_Base* SnippetInstance)

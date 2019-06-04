@@ -13,6 +13,11 @@ namespace ParserGenerator {
 
 	LexerConfig::~LexerConfig()
 	{
+		for (TokenDefinition* Definition : m_RegexList)
+		{
+			delete Definition;
+		}
+		m_RegexList.clear();
 	}
 
 	TokenDefinition* LexerConfig::AddToken(const std::string& Name, RegExp* Expression, ELexerAction Action)

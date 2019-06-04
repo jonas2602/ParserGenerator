@@ -22,6 +22,7 @@ namespace ParserGenerator {
 
 	public:
 		ParserSerializer(const std::string& InDirPath, const std::string& InParserName = "New", const std::string& InNamespaceName = "", const std::string& InCodePath = "", const std::string& InDocuPath = "");
+		~ParserSerializer();
 
 	public:
 		// Human readable Versions (Doku)

@@ -1,0 +1,152 @@
+// Automatically generated File
+
+Avaliable Tokens:
+[Index] [Name]
+-1 EOS
+0 WS
+1 BLOCKCOMMENT
+2 LINECOMMENT
+3 LEXERID
+4 ARROW
+5 QUESTIONMARK
+6 CHARSET
+7 STAR
+8 PLUS
+9 DOT
+10 LITERAL
+11 PARSERID
+12 SEMICOLON
+13 COLON
+14 PIPE
+15 RP
+16 LP
+
+Avaliable Non Terminals:
+[Index] [Name]
+0 action
+1 lexerconst
+2 lexeror
+3 lexeror2
+4 lexerrule
+5 operatorr
+6 operatorr2
+7 parserconst
+8 parserlist
+9 parseror
+10 parseror2
+11 parserrule
+12 regex
+13 rulelist
+
+Table Entries:
+([NonTerminal], [Token]) -> [Rule]
+[action(0), ARROW(4)] -> 1 ARROW PARSERID
+[action(0), SEMICOLON(12)] -> 0 EPSILON
+[lexerconst(1), LEXERID(3)] -> 3 LEXERID
+[lexerconst(1), CHARSET(6)] -> 2 CHARSET
+[lexerconst(1), DOT(9)] -> 0 DOT
+[lexerconst(1), LITERAL(10)] -> 4 LITERAL
+[lexerconst(1), LP(16)] -> 1 LP regex RP
+[lexeror(2), LEXERID(3)] -> 0 operatorr lexeror2
+[lexeror(2), CHARSET(6)] -> 0 operatorr lexeror2
+[lexeror(2), DOT(9)] -> 0 operatorr lexeror2
+[lexeror(2), LITERAL(10)] -> 0 operatorr lexeror2
+[lexeror(2), LP(16)] -> 0 operatorr lexeror2
+[lexeror2(3), LEXERID(3)] -> 0 EPSILON
+[lexeror2(3), ARROW(4)] -> 0 EPSILON
+[lexeror2(3), CHARSET(6)] -> 0 EPSILON
+[lexeror2(3), DOT(9)] -> 0 EPSILON
+[lexeror2(3), LITERAL(10)] -> 0 EPSILON
+[lexeror2(3), SEMICOLON(12)] -> 0 EPSILON
+[lexeror2(3), PIPE(14)] -> 1 PIPE operatorr lexeror2
+[lexeror2(3), RP(15)] -> 0 EPSILON
+[lexeror2(3), LP(16)] -> 0 EPSILON
+[lexerrule(4), LEXERID(3)] -> 0 LEXERID COLON regex action SEMICOLON
+[operatorr(5), LEXERID(3)] -> 0 lexerconst operatorr2
+[operatorr(5), CHARSET(6)] -> 0 lexerconst operatorr2
+[operatorr(5), DOT(9)] -> 0 lexerconst operatorr2
+[operatorr(5), LITERAL(10)] -> 0 lexerconst operatorr2
+[operatorr(5), LP(16)] -> 0 lexerconst operatorr2
+[operatorr2(6), LEXERID(3)] -> 0 EPSILON
+[operatorr2(6), ARROW(4)] -> 0 EPSILON
+[operatorr2(6), QUESTIONMARK(5)] -> 2 QUESTIONMARK
+[operatorr2(6), CHARSET(6)] -> 0 EPSILON
+[operatorr2(6), STAR(7)] -> 3 STAR
+[operatorr2(6), PLUS(8)] -> 1 PLUS
+[operatorr2(6), DOT(9)] -> 0 EPSILON
+[operatorr2(6), LITERAL(10)] -> 0 EPSILON
+[operatorr2(6), SEMICOLON(12)] -> 0 EPSILON
+[operatorr2(6), PIPE(14)] -> 0 EPSILON
+[operatorr2(6), RP(15)] -> 0 EPSILON
+[operatorr2(6), LP(16)] -> 0 EPSILON
+[parserconst(7), LEXERID(3)] -> 2 LEXERID
+[parserconst(7), LITERAL(10)] -> 3 LITERAL
+[parserconst(7), PARSERID(11)] -> 0 PARSERID
+[parserconst(7), LP(16)] -> 1 LP parseror RP
+[parserlist(8), LEXERID(3)] -> 1 parserconst parserlist
+[parserlist(8), LITERAL(10)] -> 1 parserconst parserlist
+[parserlist(8), PARSERID(11)] -> 1 parserconst parserlist
+[parserlist(8), SEMICOLON(12)] -> 0 EPSILON
+[parserlist(8), PIPE(14)] -> 0 EPSILON
+[parserlist(8), RP(15)] -> 0 EPSILON
+[parserlist(8), LP(16)] -> 1 parserconst parserlist
+[parseror(9), LEXERID(3)] -> 0 parserlist parseror2
+[parseror(9), LITERAL(10)] -> 0 parserlist parseror2
+[parseror(9), PARSERID(11)] -> 0 parserlist parseror2
+[parseror(9), SEMICOLON(12)] -> 0 parserlist parseror2
+[parseror(9), PIPE(14)] -> 0 parserlist parseror2
+[parseror(9), RP(15)] -> 0 parserlist parseror2
+[parseror(9), LP(16)] -> 0 parserlist parseror2
+[parseror2(10), SEMICOLON(12)] -> 0 EPSILON
+[parseror2(10), PIPE(14)] -> 1 PIPE parserlist parseror2
+[parseror2(10), RP(15)] -> 0 EPSILON
+[parserrule(11), PARSERID(11)] -> 0 PARSERID COLON parseror SEMICOLON
+[regex(12), LEXERID(3)] -> 1 lexeror regex
+[regex(12), ARROW(4)] -> 0 EPSILON
+[regex(12), CHARSET(6)] -> 1 lexeror regex
+[regex(12), DOT(9)] -> 1 lexeror regex
+[regex(12), LITERAL(10)] -> 1 lexeror regex
+[regex(12), SEMICOLON(12)] -> 0 EPSILON
+[regex(12), RP(15)] -> 0 EPSILON
+[regex(12), LP(16)] -> 1 lexeror regex
+[rulelist(13), EOS(-1)] -> 2 EOS
+[rulelist(13), LEXERID(3)] -> 1 lexerrule rulelist
+[rulelist(13), PARSERID(11)] -> 0 parserrule rulelist
+
+Rules:
+[LocalRuleIndex] [NonTerminal] -> [Element] [Element] ...
+0 rulelist(13) -> parserrule(11) rulelist(13)
+1 rulelist(13) -> lexerrule(4) rulelist(13)
+2 rulelist(13) -> EOS(-1)
+0 parserrule(11) -> PARSERID(11) COLON(13) parseror(9) SEMICOLON(12)
+0 parseror(9) -> parserlist(8) parseror2(10)
+0 parseror2(10) -> EPSILON(-1)
+1 parseror2(10) -> PIPE(14) parserlist(8) parseror2(10)
+0 parserlist(8) -> EPSILON(-1)
+1 parserlist(8) -> parserconst(7) parserlist(8)
+0 parserconst(7) -> PARSERID(11)
+1 parserconst(7) -> LP(16) parseror(9) RP(15)
+2 parserconst(7) -> LEXERID(3)
+3 parserconst(7) -> LITERAL(10)
+0 lexerrule(4) -> LEXERID(3) COLON(13) regex(12) action(0) SEMICOLON(12)
+0 action(0) -> EPSILON(-1)
+1 action(0) -> ARROW(4) PARSERID(11)
+0 regex(12) -> EPSILON(-1)
+1 regex(12) -> lexeror(2) regex(12)
+0 lexeror(2) -> operatorr(5) lexeror2(3)
+0 lexeror2(3) -> EPSILON(-1)
+1 lexeror2(3) -> PIPE(14) operatorr(5) lexeror2(3)
+0 operatorr(5) -> lexerconst(1) operatorr2(6)
+0 operatorr2(6) -> EPSILON(-1)
+1 operatorr2(6) -> PLUS(8)
+2 operatorr2(6) -> QUESTIONMARK(5)
+3 operatorr2(6) -> STAR(7)
+0 lexerconst(1) -> DOT(9)
+1 lexerconst(1) -> LP(16) regex(12) RP(15)
+2 lexerconst(1) -> CHARSET(6)
+3 lexerconst(1) -> LEXERID(3)
+4 lexerconst(1) -> LITERAL(10)
+
+Serialized Parsing Table:
+[NonTerminal] [Token] [LocalRuleIndex] ...
+0 4 1 0 12 0 1 3 3 1 6 2 1 9 0 1 10 4 1 16 1 2 3 0 2 6 0 2 9 0 2 10 0 2 16 0 3 3 0 3 4 0 3 6 0 3 9 0 3 10 0 3 12 0 3 14 1 3 15 0 3 16 0 4 3 0 5 3 0 5 6 0 5 9 0 5 10 0 5 16 0 6 3 0 6 4 0 6 5 2 6 6 0 6 7 3 6 8 1 6 9 0 6 10 0 6 12 0 6 14 0 6 15 0 6 16 0 7 3 2 7 10 3 7 11 0 7 16 1 8 3 1 8 10 1 8 11 1 8 12 0 8 14 0 8 15 0 8 16 1 9 3 0 9 10 0 9 11 0 9 12 0 9 14 0 9 15 0 9 16 0 10 12 0 10 14 1 10 15 0 11 11 0 12 3 1 12 4 0 12 6 1 12 9 1 12 10 1 12 12 0 12 15 0 12 16 1 13 -1 2 13 3 1 13 11 0 

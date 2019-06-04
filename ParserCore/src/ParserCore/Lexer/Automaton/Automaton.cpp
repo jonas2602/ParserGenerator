@@ -15,6 +15,17 @@ namespace ParserCore::Automaton {
 
 	Automaton::~Automaton()
 	{
+		for (std::pair<std::string, State*> Pair : m_StateMap)
+		{
+			delete Pair.second;
+		}
+		m_StateMap.clear();
+
+		for (Transition* Trans : m_Transitions)
+		{
+			delete Trans;
+		}
+		m_Transitions.clear();
 	}
 
 

@@ -5,10 +5,6 @@
 #include <iterator>
 #include <algorithm>
 
-#include "../Interpreter/GrammarVisitor.h"
-#include "../Interpreter/GrammarParser/GrammarLexer.h"
-#include "../Interpreter/GrammarParser/GrammarParser.h"
-
 //#include "../Parser/ParseTable/ParsingTable.h"
 #include "FirstFollowTable.h"
 #include "ParserSerializer.h"
@@ -49,6 +45,14 @@ namespace ParserGenerator {
 
 	ParserBuilder::~ParserBuilder()
 	{
+		for (PC::Token* Token : m_TokenStream)
+		{
+			delete Token;
+		}
+		m_TokenStream.clear();
+
+		delete m_ParseTreeRoot;
+
 		delete m_LexConfig;
 		delete m_ParsConfig;
 
@@ -75,7 +79,7 @@ namespace ParserGenerator {
 		Serializer.WriteLexerCode(m_DFA, m_LexConfig, m_Alphabet);
 		Serializer.WriteParserCode(m_Table, m_ParsConfig, m_Alphabet);
 		Serializer.WriteVisitorCode(m_Alphabet);
-		
+
 		// Write to Disc
 		Serializer.Finish();
 	}
@@ -84,18 +88,16 @@ namespace ParserGenerator {
 	{
 		// Tokenize Source Code
 		GrammarLexer Lexer = GrammarLexer(InSourceCode);
-		std::vector<PC::Token*> TokenStream;
-		if (!Lexer.Tokenize(TokenStream))
+		if (!Lexer.Tokenize(m_TokenStream))
 		{
 			std::cout << "Failed to Tokenize Source Code" << std::endl;
 			return false;
 		}
-		std::cout << TokenStream << std::endl << std::endl;
+		std::cout << m_TokenStream << std::endl << std::endl;
 
 		// Try to parse Tokens as Tree
-		GrammarParser Parser = GrammarParser(TokenStream);
-		Rule_rulelist* root;
-		if (!Parser.Rulelist(root))
+		GrammarParser Parser = GrammarParser(m_TokenStream);
+		if (!Parser.Rulelist(m_ParseTreeRoot))
 		{
 			std::cout << "Failed to Parse Token Stream" << std::endl;
 			return false;
@@ -103,7 +105,7 @@ namespace ParserGenerator {
 
 		// Extract Rule and Regex Elements from parsed Tree
 		GrammarVisitor Visitor = GrammarVisitor(m_LexConfig, m_ParsConfig);
-		if (!Visitor.Visit(root))
+		if (!Visitor.Visit(m_ParseTreeRoot))
 		{
 			std::cout << "Failed to Analyse Parse Tree" << std::endl;
 			return false;

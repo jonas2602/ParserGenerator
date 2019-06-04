@@ -27,7 +27,7 @@ namespace ParserGenerator {
 	public:
 		CodeSnippet_Base(const int& InPriority, const std::vector<CodeSnippet_Base*> InChildSnippets);
 		CodeSnippet_Base(const int& InPriority);
-		~CodeSnippet_Base();
+		virtual ~CodeSnippet_Base();
 
 		const int& GetSnippetPriority() const { return m_Priority; }
 		CodeSnippet_Base* GetParent() const { return m_ParentSnippet; }

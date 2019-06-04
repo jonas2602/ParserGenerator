@@ -18,7 +18,7 @@ namespace ParserCore::Automaton {
 
 	public:
 		Automaton();
-		~Automaton();
+		virtual ~Automaton();
 
 		const std::map<std::string, State*>& GetStateMap() const { return m_StateMap; }
 		const std::vector<Transition*>& GetTransitions() const { return m_Transitions; }

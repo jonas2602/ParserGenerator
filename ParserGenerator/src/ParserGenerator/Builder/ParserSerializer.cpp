@@ -25,6 +25,11 @@ namespace ParserGenerator {
 		m_Generator = new CodeGenerator(InDirPath);
 	}
 
+	ParserSerializer::~ParserSerializer()
+	{
+		delete m_Generator;
+	}
+
 	bool ParserSerializer::WriteAlphabetDoc(Alphabet* InAlphabet) const
 	{
 		// Create Output Streams

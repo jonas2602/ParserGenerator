@@ -1,4 +1,5 @@
 #include "RuleNode.h"
+#include <iostream>
 
 
 
@@ -10,6 +11,12 @@ namespace ParserCore {
 
 	RuleNode::~RuleNode()
 	{
+		for (ParseTree* Child : m_Children)
+		{
+			delete Child;
+		}
+
+		m_Children.clear();
 	}
 
 	ParseTree* RuleNode::GetParent() const

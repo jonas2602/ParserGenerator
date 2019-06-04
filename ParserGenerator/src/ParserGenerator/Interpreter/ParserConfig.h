@@ -41,7 +41,7 @@ namespace ParserGenerator {
 		RuleDefinition(const std::string& InNonTerminal, const std::vector<RuleElement*>& InRuleElements, int InLocalRuleIndex)
 			: m_NonTerminal(InNonTerminal), m_RuleElements(InRuleElements), m_LocalRuleIndex(InLocalRuleIndex)
 		{ }
-
+		
 		int GetElementCount() const { return (int)m_RuleElements.size(); }
 		RuleElement* GetElementAtIndex(int Index) const { return m_RuleElements[Index]; }
 
@@ -70,6 +70,7 @@ namespace ParserGenerator {
 
 		//std::map<std::string, int> m_RuleCountMap;
 		std::map<std::string, std::vector<RuleDefinition*>> m_ProductionMap;
+		std::set<RuleElement*> m_AllRuleElements;
 
 	public:
 		ParserConfig();

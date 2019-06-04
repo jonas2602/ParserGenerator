@@ -14,7 +14,7 @@ namespace ParserCore {
 
 	public:
 		RuleNode();
-		~RuleNode();
+		virtual ~RuleNode();
 
 		// Inherited via ParseTree
 		virtual ParseTree* GetParent() const override;

@@ -15,6 +15,11 @@ namespace ParserGenerator {
 
 	CodeSnippet_Base::~CodeSnippet_Base()
 	{
+		for (CodeSnippet_Base* Child : m_ChildSnippets)
+		{
+			delete Child;
+		}
+		m_ChildSnippets.clear();
 	}
 
 	FileTemplate* CodeSnippet_Base::GetOwningFile() const

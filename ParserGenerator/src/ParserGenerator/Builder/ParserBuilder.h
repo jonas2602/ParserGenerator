@@ -7,11 +7,19 @@
 #include <ParserCore.h>
 #include "../Regex/NFA.h"
 
+#include "../Interpreter/GrammarVisitor.h"
+#include "../Interpreter/GrammarParser/GrammarLexer.h"
+#include "../Interpreter/GrammarParser/GrammarParser.h"
+
+
 namespace ParserGenerator {
 
 	class ParserBuilder
 	{
 	protected:
+		std::vector<PC::Token*> m_TokenStream;
+		Rule_rulelist* m_ParseTreeRoot;
+
 		Alphabet* m_Alphabet;
 		PCA::DFA* m_DFA;
 		PCT::ParsingTable* m_Table;

@@ -106,7 +106,7 @@ namespace ParserGenerator {
 	Node_BASE* RegExp::STAR(Node_BASE* Content) { return new Node_STAR(Content); }
 
 	Node_BASE* RegExp::PLUS(const char& Content) { return RegExp::PLUS(new Node_CONST(Content)); }
-	Node_BASE* RegExp::PLUS(Node_BASE* Content) { return RegExp::AND(Content, RegExp::STAR(Content)); }
+	Node_BASE* RegExp::PLUS(Node_BASE* Content) { return RegExp::AND(Content, RegExp::STAR(Content->Copy())); }
 
 	Node_CONST* RegExp::CONST(const char& Content) { return new Node_CONST(Content); }
 	Node_BASE* RegExp::SEQUENCE(const std::string& Content)

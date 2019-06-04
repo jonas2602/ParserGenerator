@@ -1,11 +1,12 @@
 #include "TokenNode.h"
+#include <iostream>
 
 
 
 namespace ParserCore {
 
 	TokenNode::TokenNode(Token* InToken)
-		:m_Token(InToken)
+		:m_Token(InToken), m_Parent(nullptr)
 	{
 
 	}
@@ -13,7 +14,8 @@ namespace ParserCore {
 
 	TokenNode::~TokenNode()
 	{
-		delete m_Token;
+		// Tokens will be deleted by the using application
+		// delete m_Token;
 	}
 
 	ParseTree* TokenNode::GetParent() const

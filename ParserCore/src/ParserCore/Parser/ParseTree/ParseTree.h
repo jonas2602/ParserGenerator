@@ -10,6 +10,8 @@ namespace ParserCore {
 	class ParseTree
 	{
 	public:
+		virtual ~ParseTree() {};
+
 		virtual ParseTree* GetParent() const = 0;
 		virtual ParseTree* GetChild(int Index) const = 0;
 		virtual int GetChildCount() const = 0;

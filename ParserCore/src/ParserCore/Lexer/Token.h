@@ -15,22 +15,25 @@ namespace ParserCore {
 
 	protected:
 		std::string m_Data;
-		std::string m_Name;
 		int m_Type;
 
-		int m_LineNumber;
-		int m_ColumnNumber;
+		int m_StartLine;
+		int m_StartColumn;
+		int m_EndLine;
+		int m_EndColumn;
 
 	public:
-		Token(const std::string& InData, int InType, int InLineNumber, int InColumnNumber);
-		~Token();
+		Token::Token(const std::string& InData, int InType, int InStartLine, int InStartColumn, int InEndLine, int InEndColumn)
+			: m_Data(InData), m_Type(InType), m_StartLine(InStartLine), m_StartColumn(InStartColumn), m_EndLine(InEndLine), m_EndColumn(InEndColumn)
+		{ }
 
 
 		const std::string& GetTokenData() const { return m_Data; }
 		int GetTokenType() const { return m_Type; }
-		const std::string& GetTokenName() const { return m_Name; }
-		int GetLineNumber() const { return m_LineNumber; }
-		int GetColumnNumber() const { return m_ColumnNumber; }
+		int GetStartLine() const { return m_StartLine; }
+		int GetStartColumn() const { return m_StartColumn; }
+		int GetEndLine() const { return m_EndLine; }
+		int GetEndColumn() const { return m_EndColumn; }
 
 		friend std::ostream& operator<<(std::ostream& os, const Token& InToken)
 		{

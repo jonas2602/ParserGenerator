@@ -13,6 +13,11 @@ namespace ParserGenerator {
 
 	CodeGenerator::~CodeGenerator()
 	{
+		for (FileTemplate* File : m_TemplateList)
+		{
+			delete File;
+		}
+		m_TemplateList.clear();
 	}
 
 	void CodeGenerator::GenerateFiles()

@@ -92,12 +92,22 @@ namespace ParserCore {
 
 
 			int TokenType = LastFinalState->GetStatePriority();
-			std::string FoundString = std::string(StartingPoint, ConfirmedEnd);
 			if (IsVisibleToken(TokenType))
 			{
-				m_TokenStream.push_back(new Token(FoundString, TokenType, Tracker.GetLine(), Tracker.GetColumn() + 1));
+				std::string FoundString = std::string(StartingPoint, ConfirmedEnd);
+
+				int StartLine = Tracker.GetLine();
+				int StartColumn = Tracker.GetColumn() + 1;
+				Tracker.Analyze(FoundString);
+				int EndLine = Tracker.GetLine();
+				int EndColumn = Tracker.GetColumn();
+
+				m_TokenStream.push_back(new Token(FoundString, TokenType, StartLine, StartColumn, EndLine, EndColumn));
 			}
-			Tracker.Analyze(FoundString);
+			else
+			{
+				Tracker.Analyze(std::string(StartingPoint, ConfirmedEnd));
+			}
 
 			StartingPoint = ConfirmedEnd;
 			SymbolIterator = ConfirmedEnd;

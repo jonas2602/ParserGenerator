@@ -26,6 +26,17 @@ namespace ParserGenerator {
 
 	ParserConfig::~ParserConfig()
 	{
+		for (RuleDefinition* Definition : m_ProductionList)
+		{
+			delete Definition;
+		}
+		m_ProductionList.clear();
+
+		for (RuleElement* Element : m_AllRuleElements)
+		{
+			delete Element;
+		}
+		m_AllRuleElements.clear();
 	}
 
 	void ParserConfig::AddProduction(const std::string& NonTerminal, const std::vector<RuleElement*>& RuleElements)
@@ -35,6 +46,8 @@ namespace ParserGenerator {
 		RuleDefinition* NewRule = new RuleDefinition(NonTerminal, RuleElements, RuleId);
 		m_ProductionMap[NonTerminal].push_back(NewRule);
 		m_ProductionList.push_back(NewRule);
+
+		m_AllRuleElements.insert(RuleElements.begin(), RuleElements.end());
 	}
 
 	//void ParserConfig::FillTerminals()
