@@ -7,35 +7,27 @@
 #include <set>
 
 #include "Automaton/Factory.h"
+#include "../ParserTypes.h"
 
 namespace ParserCore {
 
-	//Lexer::Lexer(LexerConfig* InConfig)
-	//{
-	//	// Create Empty Automatons
-	//	Automaton::NFA* TempNFA = new Automaton::NFA();
-	//	m_DFA = new Automaton::DFA();
+	void LineTracker::Analyze(const std::string& InData)
+	{
+		for (const char& Symbol : InData)
+		{
+			if (Symbol == LF)
+			{
+				m_Line++;
+				m_Column = 0;
+			}
+			else
+			{
+				m_Column++;
+			}
 
-	//	// Add all regex to "simple" NFA
-	//	int Priority = 0;
-	//	for (const LexerConfigElement& Regex : InConfig->GetRegexList())
-	//	{
-	//		std::cout << "Added " << Regex.m_Name << " with Priority of " << Priority << std::endl;
-	//		Regex.m_Expression->Parse(TempNFA, Regex.m_Name, Priority++);
-	//	}
-
-	//	// Create combined DFA
-	//	TempNFA->CreateDFA(m_DFA);
-	//	delete TempNFA;
-
-	//	m_TokenTypes = InConfig->GetRegexList();
-	//}
-
-	//Lexer::Lexer(Automaton::DFA* InDFA, const std::vector<LexerConfigElement>& InTokenTypes)
-	//	: m_DFA(InDFA), m_TokenTypes(InTokenTypes)
-	//{
-
-	//}
+			m_TotalCount++;
+		}
+	}
 
 	Lexer::Lexer(const std::string& InSourceCode)
 		: m_SourceCode(InSourceCode), m_DFA(nullptr)
@@ -69,65 +61,111 @@ namespace ParserCore {
 
 	void Lexer::Tokenize()
 	{
-		int StartingPoint = 0;
-		int ActiveSymbolIndex = 0;
-		while (ActiveSymbolIndex < m_SourceCode.size())
+		std::string::iterator StartingPoint = m_SourceCode.begin();
+		std::string::iterator SymbolIterator = m_SourceCode.begin();
+		while (SymbolIterator < m_SourceCode.end())
 		{
-			int ConfirmedLength = 0;
-			int LastPriority = -1;
+			std::string::iterator ConfirmedEnd;
+			Automaton::State* LastFinalState = nullptr;
 			Automaton::State* ActiveState = m_DFA->GetStartState();
 
 			// Read Input while DEA has not reached a dead end
 			while (ActiveState != nullptr)
 			{
 				// Override final state if new final state is reached
-				int StatePriority = ActiveState->GetStatePriority();
-				if (StatePriority > -1)
+				if (ActiveState->IsFinalState())
 				{
-					ConfirmedLength = ActiveSymbolIndex - StartingPoint;
-					LastPriority = StatePriority;
+					ConfirmedEnd = SymbolIterator;
+					LastFinalState = ActiveState;
 				}
 
 				// Perform Step in State Machine, break if no valid Transition available
-				const char& ActiveSymbol = m_SourceCode[ActiveSymbolIndex];
+				char ActiveSymbol = SymbolIterator == m_SourceCode.end() ? '\0' : *SymbolIterator++;
 				ActiveState = m_DFA->Step(ActiveState, ActiveSymbol);
-				if (ActiveState)
-				{
-					// Move to next Symbol in String
-					ActiveSymbolIndex += 1;
-				}
 			}
 
-			if (ConfirmedLength == 0)
+			if (!LastFinalState)
 			{
-				std::cout << "Unable to find Rule for: '" << m_SourceCode.substr(StartingPoint) << "'" << std::endl;
+				std::cout << "Unable to find Rule for: '" << std::string(StartingPoint, m_SourceCode.end()) << "'" << std::endl;
 				break;
 			}
 
-			//const LexerConfigElement& ConfigElement = m_TokenTypes[LastPriority];
-			//switch (ConfigElement.m_Action)
-			//{
-			//case ELexerAction::DEFAULT:
-			if (m_HiddenTypes.find(LastPriority) == m_HiddenTypes.end())
-			{
-				std::string FoundString = m_SourceCode.substr(StartingPoint, ConfirmedLength);
-				int LineNumber = 0; // (int)std::count(m_SourceCode.begin(), m_SourceCode.begin() + StartingPoint, RegExp::LF);
-				int ColumnNumber = 0;
-				m_TokenStream.push_back(new Token(FoundString, LastPriority, LineNumber, ColumnNumber));
-				//	break;
-			}
-			//case ELexerAction::SKIP:
-			//{
-			//	// Nothing to do here ...
-			//	break;
-			//}
-			//}
 
-			StartingPoint += ConfirmedLength;
-			ActiveSymbolIndex = StartingPoint;
+			int TokenType = LastFinalState->GetStatePriority();
+			std::string FoundString = std::string(StartingPoint, ConfirmedEnd);
+			if (IsVisibleToken(TokenType))
+			{
+				m_TokenStream.push_back(new Token(FoundString, TokenType, Tracker.GetLine(), Tracker.GetColumn() + 1));
+			}
+			Tracker.Analyze(FoundString);
+
+			StartingPoint = ConfirmedEnd;
+			SymbolIterator = ConfirmedEnd;
 		}
 
 		// Push EOF Token to the End
 		m_TokenStream.push_back(Token::EOS_TOKEN);
 	}
+
+	//void Lexer::CreateToken()
+	//{
+	//	//if (m_HiddenTypes.find(LastPriority) == m_HiddenTypes.end())
+	//	//{
+	//	//	std::string FoundString = m_SourceCode.substr(StartingPoint, ConfirmedLength);
+	//	//	int LineNumber = 0; // (int)std::count(m_SourceCode.begin(), m_SourceCode.begin() + StartingPoint, RegExp::LF);
+	//	//	int ColumnNumber = 0;
+	//	//	m_TokenStream.push_back(new Token(FoundString, LastPriority, LineNumber, ColumnNumber));
+	//	//}
+
+	//	//StartingPoint += ConfirmedLength;
+	//	//ActiveSymbolIndex = StartingPoint;
+	//}
+
+	//bool Lexer::ValidateActiveState()
+	//{
+	//	return false;
+	//}
+
+	//bool Lexer::TryStepAutomaton()
+	//{
+	//	// Perform Step in State Machine, break if no valid Transition available
+	//	const char& ActiveSymbol = *m_SymbolIterator;
+	//	m_ActiveState = m_DFA->Step(m_ActiveState, ActiveSymbol);
+	//	if (!m_ActiveState)
+	//	{
+	//		return false;
+	//	}
+
+	//	if (ActiveSymbol == LF)
+	//	{
+	//		EnhancedLineCounter++;
+	//		EnhancedCharCount = 0;
+	//	}
+	//	EnhancedTotalCounter++;
+
+	//	// Move to next Symbol in String
+	//	m_SymbolIterator++;
+
+	//	//// Override final state if new final state is reached
+	//	//int StatePriority = ActiveState->GetStatePriority();
+	//	//if (StatePriority > -1)
+	//	//{
+	//	//	ConfirmedLength = ActiveSymbolIndex - StartingPoint;
+	//	//	LastPriority = StatePriority;
+	//	//}
+	//	return true;
+	//}
+
+	//void Lexer::Fallback()
+	//{
+	//	m_StartSymbol += m_ConfirmedTokenLength;
+	//	m_SymbolIterator = m_StartSymbol;
+	//	m_ActiveState = m_DFA->GetStartState();
+	//}
+
+	//void Lexer::FindFinalState()
+	//{
+	//	int LinesPassed = 0;
+	//	//int 
+	//}
 }

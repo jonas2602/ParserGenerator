@@ -18,4 +18,8 @@ namespace ParserCore {
 	static const int EOS = -1;
 	static bool IsEOS(const std::string& TokenData) { return TokenData == EOS_S; }
 	static bool IsEOS(int TokenType) { return TokenType == EOS; }
+
+	static const char TAB = '\t';	// Horizontal Tabulator
+	static const char LF = '\n';	// Line Feed / New Line
+	static const char CR = '\r';	// Carriage Return
 }

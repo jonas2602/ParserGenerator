@@ -14,9 +14,6 @@ namespace ParserGenerator {
 	{
 	public:
 		// Special signs
-		static const char TAB = '\t';	// Horizontal Tabulator
-		static const char LF = '\n';	// Line Feed / New Line
-		static const char CR = '\r';	// Carriage Return
 		static const char ASCII_MIN = 1;
 		static const char ASCII_MAX = 126;
 

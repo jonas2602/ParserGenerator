@@ -29,6 +29,7 @@ namespace ParserCore::Automaton {
 		inline void SetStatePriority(int InPriority) { m_Priority = InPriority; }
 
 		const std::vector<Transition*>& GetTransitions() const { return m_Transitions; }
+		bool IsFinalState() const { return m_Priority >= 0; }
 
 	public:
 		void AddTransition(Transition* InTransition) { m_Transitions.push_back(InTransition); }
