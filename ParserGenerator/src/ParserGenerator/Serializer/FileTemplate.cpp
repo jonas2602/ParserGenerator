@@ -19,6 +19,10 @@ namespace ParserGenerator {
 			delete Snippet;
 		}
 		m_RootSnippets.clear();
+
+		m_HeaderStream.close();
+		m_SourceStream.close();
+		m_TextStream.close();
 	}
 
 	void FileTemplate::AddSnippet(CodeSnippet_Base* SnippetInstance)

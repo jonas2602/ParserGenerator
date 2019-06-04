@@ -41,29 +41,29 @@ bool GrammarParser::Lexerconst(Rule_lexerconst*& OutRule)
 	{
 		case 0:
 		{
-			TRY_MATCH(ETokenType::DOT);
+			TRY_MATCH(ETokenType::CHARSET);
 			break;
 		}
 		case 1:
 		{
-			TRY_MATCH(ETokenType::LP);
-			CALL_CHILD(Regex, Rule_regex);
-			TRY_MATCH(ETokenType::RP);
+			TRY_MATCH(ETokenType::LEXERID);
 			break;
 		}
 		case 2:
 		{
-			TRY_MATCH(ETokenType::CHARSET);
+			TRY_MATCH(ETokenType::LITERAL);
 			break;
 		}
 		case 3:
 		{
-			TRY_MATCH(ETokenType::LEXERID);
+			TRY_MATCH(ETokenType::DOT);
 			break;
 		}
 		case 4:
 		{
-			TRY_MATCH(ETokenType::LITERAL);
+			TRY_MATCH(ETokenType::LP);
+			CALL_CHILD(Regex, Rule_regex);
+			TRY_MATCH(ETokenType::RP);
 			break;
 		}
 	}
@@ -150,7 +150,7 @@ bool GrammarParser::Operatorr2(Rule_operatorr2*& OutRule)
 		}
 		case 1:
 		{
-			TRY_MATCH(ETokenType::PLUS);
+			TRY_MATCH(ETokenType::STAR);
 			break;
 		}
 		case 2:
@@ -160,7 +160,7 @@ bool GrammarParser::Operatorr2(Rule_operatorr2*& OutRule)
 		}
 		case 3:
 		{
-			TRY_MATCH(ETokenType::STAR);
+			TRY_MATCH(ETokenType::PLUS);
 			break;
 		}
 	}
@@ -183,19 +183,19 @@ bool GrammarParser::Parserconst(Rule_parserconst*& OutRule)
 		}
 		case 1:
 		{
-			TRY_MATCH(ETokenType::LP);
-			CALL_CHILD(Parseror, Rule_parseror);
-			TRY_MATCH(ETokenType::RP);
+			TRY_MATCH(ETokenType::LEXERID);
 			break;
 		}
 		case 2:
 		{
-			TRY_MATCH(ETokenType::LEXERID);
+			TRY_MATCH(ETokenType::LITERAL);
 			break;
 		}
 		case 3:
 		{
-			TRY_MATCH(ETokenType::LITERAL);
+			TRY_MATCH(ETokenType::LP);
+			CALL_CHILD(Parseror, Rule_parseror);
+			TRY_MATCH(ETokenType::RP);
 			break;
 		}
 	}
@@ -312,8 +312,7 @@ bool GrammarParser::Rulelist(Rule_rulelist*& OutRule)
 	{
 		case 0:
 		{
-			CALL_CHILD(Parserrule, Rule_parserrule);
-			CALL_CHILD(Rulelist, Rule_rulelist);
+			TRY_MATCH(ETokenType::EOS);
 			break;
 		}
 		case 1:
@@ -324,7 +323,8 @@ bool GrammarParser::Rulelist(Rule_rulelist*& OutRule)
 		}
 		case 2:
 		{
-			TRY_MATCH(ETokenType::EOS);
+			CALL_CHILD(Parserrule, Rule_parserrule);
+			CALL_CHILD(Rulelist, Rule_rulelist);
 			break;
 		}
 	}
@@ -335,5 +335,5 @@ bool GrammarParser::Rulelist(Rule_rulelist*& OutRule)
 
 const char* GrammarParser::GetSerializedTable() const
 {
-	return "0 4 1 0 12 0 1 3 3 1 6 2 1 9 0 1 10 4 1 16 1 2 3 0 2 6 0 2 9 0 2 10 0 2 16 0 3 3 0 3 4 0 3 6 0 3 9 0 3 10 0 3 12 0 3 14 1 3 15 0 3 16 0 4 3 0 5 3 0 5 6 0 5 9 0 5 10 0 5 16 0 6 3 0 6 4 0 6 5 2 6 6 0 6 7 3 6 8 1 6 9 0 6 10 0 6 12 0 6 14 0 6 15 0 6 16 0 7 3 2 7 10 3 7 11 0 7 16 1 8 3 1 8 10 1 8 11 1 8 12 0 8 14 0 8 15 0 8 16 1 9 3 0 9 10 0 9 11 0 9 12 0 9 14 0 9 15 0 9 16 0 10 12 0 10 14 1 10 15 0 11 11 0 12 3 1 12 4 0 12 6 1 12 9 1 12 10 1 12 12 0 12 15 0 12 16 1 13 -1 2 13 3 1 13 11 0 ";
+	return "0 4 1 0 12 0 1 3 1 1 6 0 1 9 3 1 10 2 1 16 4 2 3 0 2 6 0 2 9 0 2 10 0 2 16 0 3 3 0 3 4 0 3 6 0 3 9 0 3 10 0 3 12 0 3 14 1 3 15 0 3 16 0 4 3 0 5 3 0 5 6 0 5 9 0 5 10 0 5 16 0 6 3 0 6 4 0 6 5 2 6 6 0 6 7 1 6 8 3 6 9 0 6 10 0 6 12 0 6 14 0 6 15 0 6 16 0 7 3 1 7 10 2 7 11 0 7 16 3 8 3 1 8 10 1 8 11 1 8 12 0 8 14 0 8 15 0 8 16 1 9 3 0 9 10 0 9 11 0 9 12 0 9 14 0 9 15 0 9 16 0 10 12 0 10 14 1 10 15 0 11 11 0 12 3 1 12 4 0 12 6 1 12 9 1 12 10 1 12 12 0 12 15 0 12 16 1 13 -1 0 13 3 1 13 11 2 ";
 }

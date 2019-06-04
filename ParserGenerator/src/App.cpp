@@ -8,10 +8,19 @@
 
 void testfunction()
 {
-	std::vector<std::shared_ptr<PC::Token>> testVector;
-	testVector.push_back(std::make_shared<PC::Token>("", 1, -1, -1, -1, -1));
-	testVector.push_back(std::make_shared<PC::Token>("", 11, -1, -1, -1, -1));
-	testVector.push_back(std::make_shared<PC::Token>("", 2, -1, -1, -1, -1));
+	//std::ifstream File("../Calculator/src/calc.g");
+	std::ifstream File("./res/GrammarParser.txt");
+	std::stringstream buffer;
+	buffer << File.rdbuf();
+	std::string SourceCode = buffer.str();
+	//std::cout << "Grammar:" << std::endl << SourceCode << std::endl << std::endl;
+
+	ParserGenerator::ParserBuilder* Builder = new ParserGenerator::ParserBuilder(SourceCode);
+	Builder->Generate("res/gen/", "Grammar");
+	//Builder.Generate("../Calculator/src/gen/", "Gen", "Gen");
+
+	//std::cin.get();
+	delete Builder;
 }
 
 // argv0 = Programname
@@ -26,7 +35,8 @@ int main(int argc, char* argv[])
 	//for (int i = 0; i < argc; ++i)
 	//	std::cout << argv[i] << std::endl;
 
-	//testfunction();
+	testfunction();
+	return 0;
 
 	//std::ifstream File("../Calculator/src/calc.g");
 	std::ifstream File("./res/GrammarParser.txt");

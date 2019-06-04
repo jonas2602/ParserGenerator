@@ -408,7 +408,7 @@ namespace ParserGenerator {
 			}
 			else
 			{
-				CodeSnippet_Switch* SwitchSnippet = new CodeSnippet_Switch("PredictProduction()");
+				CodeSnippet_Switch SwitchSnippet("PredictProduction()");
 				for (RuleDefinition* Rule : NonTerminalRules)
 				{
 					std::vector<std::string> CaseLines;
@@ -432,10 +432,10 @@ namespace ParserGenerator {
 						}
 					}
 
-					SwitchSnippet->AddCase(std::to_string(Rule->m_LocalRuleIndex), CaseLines);
+					SwitchSnippet.AddCase(std::to_string(Rule->m_LocalRuleIndex), CaseLines);
 				}
 
-				std::vector<std::string> RawSwitchLines = SwitchSnippet->GetRawLines();
+				std::vector<std::string> RawSwitchLines = SwitchSnippet.GetRawLines();
 				BodyLines.insert(BodyLines.end(), RawSwitchLines.begin(), RawSwitchLines.end());
 			}
 
