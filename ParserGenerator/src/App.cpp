@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 
 	//for (int i = 0; i < argc; ++i)
 	//	std::cout << argv[i] << std::endl;
-	
+
 	//std::ifstream File("../Calculator/src/calc.g");
 	std::ifstream File("./res/GrammarParser.txt");
 	std::stringstream buffer;
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	std::string SourceCode = buffer.str();
 	//std::cout << "Grammar:" << std::endl << SourceCode << std::endl << std::endl;
 
-	ParserGenerator::ParserBuilder* Builder = new ParserGenerator::ParserBuilder(SourceCode);
+	ParserGenerator::ParserBuilder* Builder = new ParserGenerator::ParserBuilder("123test");
 	Builder->Generate("res/gen/", "Grammar");
 	//Builder.Generate("../Calculator/src/gen/", "Gen", "Gen");
 

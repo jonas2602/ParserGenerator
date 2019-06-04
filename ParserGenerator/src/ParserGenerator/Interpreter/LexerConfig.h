@@ -51,6 +51,8 @@ namespace ParserGenerator {
 		TokenDefinition* GetConfigElementByIndex(int Index) const { return m_RegexList[Index]; }
 
 		std::map<std::string, int> CreateTokenIndexMap() const;
+
+		int GetDefinitionCount() const { return m_RegexList.size(); }
 	};
 
 }

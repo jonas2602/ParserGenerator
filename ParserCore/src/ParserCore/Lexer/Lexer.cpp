@@ -8,6 +8,7 @@
 
 #include "Automaton/Factory.h"
 #include "../ParserTypes.h"
+#include "../Utils/Math.h"
 
 namespace ParserCore {
 
@@ -48,9 +49,6 @@ namespace ParserCore {
 		m_HiddenTypes = GetHiddenTokenTypes();
 		this->LoadAutomaton();
 		//std::cout << "Automaton Loaded" << std::endl;
-
-		Tokenize();
-		//std::cout << "Input Tokenized" << std::endl;
 	}
 
 	void Lexer::LoadAutomaton()
@@ -59,7 +57,7 @@ namespace ParserCore {
 		Automaton::Factory::Deserialize(m_DFA, AutomatonString);
 	}
 
-	void Lexer::Tokenize()
+	bool Lexer::Tokenize(std::vector<Token*>& OutTokens)
 	{
 		std::string::iterator StartingPoint = m_SourceCode.begin();
 		std::string::iterator SymbolIterator = m_SourceCode.begin();
@@ -86,8 +84,10 @@ namespace ParserCore {
 
 			if (!LastFinalState)
 			{
-				std::cout << "Unable to find Rule for: '" << std::string(StartingPoint, m_SourceCode.end()) << "'" << std::endl;
-				break;
+				int PreviewLength = Math::Min<int>(std::distance(StartingPoint, m_SourceCode.end()), m_MaxPreviewLength);
+				std::string Preview(StartingPoint, StartingPoint + PreviewLength);
+				std::cout << "Unable to find TokenType for: '" << Preview << "'... at [" << Tracker.GetLine() << "," << Tracker.GetColumn() + 1 << "]" << std::endl;
+				return false;
 			}
 
 
@@ -105,6 +105,8 @@ namespace ParserCore {
 
 		// Push EOF Token to the End
 		m_TokenStream.push_back(Token::EOS_TOKEN);
+		OutTokens = m_TokenStream;
+		return true;
 	}
 
 	//void Lexer::CreateToken()

@@ -53,6 +53,7 @@ namespace ParserCore {
 		// std::vector<LexerConfigElement> m_TokenTypes;
 
 		LineTracker Tracker;
+		int m_MaxPreviewLength = 10;
 		//std::string::iterator m_StartSymbol;
 		//Automaton::State* m_ActiveState;
 		//std::string::const_iterator m_SymbolIterator;
@@ -77,7 +78,6 @@ namespace ParserCore {
 		void Init();
 
 		void LoadAutomaton();
-		void Tokenize();
 
 		/*void CreateToken();
 		bool ValidateActiveState();
@@ -92,6 +92,7 @@ namespace ParserCore {
 		virtual std::set<int> GetHiddenTokenTypes() const = 0;
 
 	public:
+		bool Tokenize(std::vector<Token*>& OutTokens);
 		const std::vector<Token*>& GetTokenStream() const { return m_TokenStream; }
 	};
 

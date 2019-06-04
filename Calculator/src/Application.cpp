@@ -38,8 +38,9 @@ int main()
 	std::cin >> Formular;
 	std::cin.get();
 
+	std::vector<PC::Token*> TokenStream;
 	Gen::GenLexer Lexer = Gen::GenLexer(Formular);
-	std::vector<PC::Token*> TokenStream = Lexer.GetTokenStream();
+	Lexer.Tokenize(TokenStream);
 	std::cout << TokenStream << std::endl << std::endl;
 
 	Gen::GenParser Parser = Gen::GenParser(TokenStream);

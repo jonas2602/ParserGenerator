@@ -116,6 +116,8 @@ IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /
     <ClInclude Include="src\ParserCore\Parser\Visitor.h" />
     <ClInclude Include="src\ParserCore.h" />
     <ClInclude Include="src\ParserCore\ParserTypes.h" />
+    <ClInclude Include="src\ParserCore\Utils\Math.h" />
+    <ClInclude Include="src\ParserCore\Utils\StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ParserCore\Lexer\Automaton\Automaton.cpp" />
@@ -131,6 +133,7 @@ IF EXIST ..\bin\Release-windows-x86_64\ParserCore\ParserCore.dll\ (xcopy /Q /E /
     <ClCompile Include="src\ParserCore\Parser\ParseTree\TokenNode.cpp" />
     <ClCompile Include="src\ParserCore\Parser\Parser.cpp" />
     <ClCompile Include="src\ParserCore\Parser\Visitor.cpp" />
+    <ClCompile Include="src\ParserCore\Utils\StringUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

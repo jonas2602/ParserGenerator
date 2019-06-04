@@ -60,6 +60,8 @@
     <ClInclude Include="src\ParserCore\Lexer\Token.h">
       <Filter>Lexer</Filter>
     </ClInclude>
+    <ClInclude Include="src\ParserCore\Utils\Math.h" />
+    <ClInclude Include="src\ParserCore\Utils\StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ParserCore\Parser\ParseTable\ParsingTable.cpp">
@@ -101,5 +103,6 @@
     <ClCompile Include="src\ParserCore\Lexer\Token.cpp">
       <Filter>Lexer</Filter>
     </ClCompile>
+    <ClCompile Include="src\ParserCore\Utils\StringUtils.cpp" />
   </ItemGroup>
 </Project>

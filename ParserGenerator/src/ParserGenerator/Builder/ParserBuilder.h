@@ -19,6 +19,8 @@ namespace ParserGenerator {
 		ParserConfig* m_ParsConfig;
 		LexerConfig* m_LexConfig;
 
+		bool bValidGrammar = false;
+
 	public:
 		ParserBuilder(const std::string& InSourceCode);
 		~ParserBuilder();

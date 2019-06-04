@@ -43,6 +43,8 @@ namespace ParserGenerator {
 		{
 			return;
 		}
+
+		bValidGrammar = true;
 	}
 
 	ParserBuilder::~ParserBuilder()
@@ -57,6 +59,13 @@ namespace ParserGenerator {
 
 	void ParserBuilder::Generate(const std::string& InRootPath, const std::string& InGrammarName, const std::string& InNamespaceName)
 	{
+		if (!bValidGrammar)
+		{
+			std::cout << "Can't generate Code from invalid Grammar" << std::endl;
+			return;
+		}
+
+		// Create File Templates 
 		ParserSerializer Serializer(InRootPath, InGrammarName, InNamespaceName, "", "doc");
 		Serializer.WriteAlphabetDoc(m_Alphabet);
 		Serializer.WriteAlphabetCode(m_Alphabet);
@@ -66,6 +75,8 @@ namespace ParserGenerator {
 		Serializer.WriteLexerCode(m_DFA, m_LexConfig, m_Alphabet);
 		Serializer.WriteParserCode(m_Table, m_ParsConfig, m_Alphabet);
 		Serializer.WriteVisitorCode(m_Alphabet);
+		
+		// Write to Disc
 		Serializer.Finish();
 	}
 
@@ -73,7 +84,12 @@ namespace ParserGenerator {
 	{
 		// Tokenize Source Code
 		GrammarLexer Lexer = GrammarLexer(InSourceCode);
-		const std::vector<PC::Token*>& TokenStream = Lexer.GetTokenStream();
+		std::vector<PC::Token*> TokenStream;
+		if (!Lexer.Tokenize(TokenStream))
+		{
+			std::cout << "Failed to Tokenize Source Code" << std::endl;
+			return false;
+		}
 		std::cout << TokenStream << std::endl << std::endl;
 
 		// Try to parse Tokens as Tree
@@ -81,7 +97,7 @@ namespace ParserGenerator {
 		Rule_rulelist* root;
 		if (!Parser.Rulelist(root))
 		{
-			std::cout << "Failed to Parse Source Code" << std::endl;
+			std::cout << "Failed to Parse Token Stream" << std::endl;
 			return false;
 		}
 
@@ -90,6 +106,13 @@ namespace ParserGenerator {
 		if (!Visitor.Visit(root))
 		{
 			std::cout << "Failed to Analyse Parse Tree" << std::endl;
+			return false;
+		}
+
+		// Check if grammar is valid
+		if (m_LexConfig->GetDefinitionCount() < 1 || m_ParsConfig->GetProductionCount() < 1)
+		{
+			std::cout << "Grammer requires at least one Token and one Production!" << std::endl;
 			return false;
 		}
 
