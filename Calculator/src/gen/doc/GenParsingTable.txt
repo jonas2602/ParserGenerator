@@ -4,15 +4,13 @@ Avaliable Tokens:
 [Index] [Name]
 -1 EOS
 0 WS
-1 INTEGER
-2 FLOAT
-3 RP
-4 LP
-5 TEST
-6 SLASH
-7 MINUS
-8 PLUS
-9 STAR
+1 NUMBER
+2 RP
+3 LP
+4 SLASH
+5 MINUS
+6 PLUS
+7 STAR
 
 Avaliable Non Terminals:
 [Index] [Name]
@@ -25,44 +23,39 @@ Avaliable Non Terminals:
 
 Table Entries:
 ([NonTerminal], [Token]) -> [Rule]
-[additive(0), INTEGER(1)] -> 0 multiplicative additive2
-[additive(0), FLOAT(2)] -> 0 multiplicative additive2
-[additive(0), LP(4)] -> 0 multiplicative additive2
+[additive(0), NUMBER(1)] -> 0 multiplicative additive2
+[additive(0), LP(3)] -> 0 multiplicative additive2
 [additive2(1), EOS(-1)] -> 0 EPSILON
-[additive2(1), RP(3)] -> 0 EPSILON
-[additive2(1), MINUS(7)] -> 2 MINUS multiplicative additive2
-[additive2(1), PLUS(8)] -> 1 PLUS multiplicative additive2
-[constant(2), INTEGER(1)] -> 1 INTEGER
-[constant(2), FLOAT(2)] -> 0 FLOAT
-[constant(2), LP(4)] -> 2 LP additive RP
-[expression(3), INTEGER(1)] -> 0 additive EOS
-[expression(3), FLOAT(2)] -> 0 additive EOS
-[expression(3), LP(4)] -> 0 additive EOS
-[multiplicative(4), INTEGER(1)] -> 0 constant multiplicative2
-[multiplicative(4), FLOAT(2)] -> 0 constant multiplicative2
-[multiplicative(4), LP(4)] -> 0 constant multiplicative2
+[additive2(1), RP(2)] -> 0 EPSILON
+[additive2(1), MINUS(5)] -> 2 MINUS multiplicative additive2
+[additive2(1), PLUS(6)] -> 1 PLUS multiplicative additive2
+[constant(2), NUMBER(1)] -> 0 NUMBER
+[constant(2), LP(3)] -> 1 LP additive RP
+[expression(3), NUMBER(1)] -> 0 additive EOS
+[expression(3), LP(3)] -> 0 additive EOS
+[multiplicative(4), NUMBER(1)] -> 0 constant multiplicative2
+[multiplicative(4), LP(3)] -> 0 constant multiplicative2
 [multiplicative2(5), EOS(-1)] -> 0 EPSILON
-[multiplicative2(5), RP(3)] -> 0 EPSILON
-[multiplicative2(5), SLASH(6)] -> 1 SLASH constant multiplicative2
-[multiplicative2(5), MINUS(7)] -> 0 EPSILON
-[multiplicative2(5), PLUS(8)] -> 0 EPSILON
-[multiplicative2(5), STAR(9)] -> 2 STAR constant multiplicative2
+[multiplicative2(5), RP(2)] -> 0 EPSILON
+[multiplicative2(5), SLASH(4)] -> 1 SLASH constant multiplicative2
+[multiplicative2(5), MINUS(5)] -> 0 EPSILON
+[multiplicative2(5), PLUS(6)] -> 0 EPSILON
+[multiplicative2(5), STAR(7)] -> 2 STAR constant multiplicative2
 
 Rules:
 [LocalRuleIndex] [NonTerminal] -> [Element] [Element] ...
 0 expression(3) -> additive(0) EOS(-1)
 0 additive(0) -> multiplicative(4) additive2(1)
 0 additive2(1) -> EPSILON(-1)
-1 additive2(1) -> PLUS(8) multiplicative(4) additive2(1)
-2 additive2(1) -> MINUS(7) multiplicative(4) additive2(1)
+1 additive2(1) -> PLUS(6) multiplicative(4) additive2(1)
+2 additive2(1) -> MINUS(5) multiplicative(4) additive2(1)
 0 multiplicative(4) -> constant(2) multiplicative2(5)
 0 multiplicative2(5) -> EPSILON(-1)
-1 multiplicative2(5) -> SLASH(6) constant(2) multiplicative2(5)
-2 multiplicative2(5) -> STAR(9) constant(2) multiplicative2(5)
-0 constant(2) -> FLOAT(2)
-1 constant(2) -> INTEGER(1)
-2 constant(2) -> LP(4) additive(0) RP(3)
+1 multiplicative2(5) -> SLASH(4) constant(2) multiplicative2(5)
+2 multiplicative2(5) -> STAR(7) constant(2) multiplicative2(5)
+0 constant(2) -> NUMBER(1)
+1 constant(2) -> LP(3) additive(0) RP(2)
 
 Serialized Parsing Table:
 [NonTerminal] [Token] [LocalRuleIndex] ...
-0 1 0 0 2 0 0 4 0 1 -1 0 1 3 0 1 7 2 1 8 1 2 1 1 2 2 0 2 4 2 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 0 5 3 0 5 6 1 5 7 0 5 8 0 5 9 2 
+0 1 0 0 3 0 1 -1 0 1 2 0 1 5 2 1 6 1 2 1 0 2 3 1 3 1 0 3 3 0 4 1 0 4 3 0 5 -1 0 5 2 0 5 4 1 5 5 0 5 6 0 5 7 2 

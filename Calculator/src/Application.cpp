@@ -37,10 +37,11 @@ int main()
 	std::string Formular;
 	std::cin >> Formular;
 	std::cin.get();
+	std::cin.clear();
 
 	std::vector<PC::Token*> TokenStream;
 	Gen::GenLexer Lexer = Gen::GenLexer(Formular);
-	Lexer.Tokenize(TokenStream);
+	if (!Lexer.Tokenize(TokenStream)) return -1;
 	std::cout << TokenStream << std::endl << std::endl;
 
 	Gen::GenParser Parser = Gen::GenParser(TokenStream);

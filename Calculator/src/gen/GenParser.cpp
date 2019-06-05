@@ -63,15 +63,10 @@ namespace Gen {
 		{
 			case 0:
 			{
-				TRY_MATCH(ETokenType::FLOAT);
+				TRY_MATCH(ETokenType::NUMBER);
 				break;
 			}
 			case 1:
-			{
-				TRY_MATCH(ETokenType::INTEGER);
-				break;
-			}
-			case 2:
 			{
 				TRY_MATCH(ETokenType::LP);
 				CALL_CHILD(Additive, Rule_additive);
@@ -142,6 +137,6 @@ namespace Gen {
 
 	const char* GenParser::GetSerializedTable() const
 	{
-		return "0 1 0 0 2 0 0 4 0 1 -1 0 1 3 0 1 7 2 1 8 1 2 1 1 2 2 0 2 4 2 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 0 5 3 0 5 6 1 5 7 0 5 8 0 5 9 2 ";
+		return "0 1 0 0 3 0 1 -1 0 1 2 0 1 5 2 1 6 1 2 1 0 2 3 1 3 1 0 3 3 0 4 1 0 4 3 0 5 -1 0 5 2 0 5 4 1 5 5 0 5 6 0 5 7 2 ";
 	}
 }

@@ -4,15 +4,13 @@ Avaliable Tokens:
 [Index] [Name]
 -1 EOS
 0 WS
-1 INTEGER
-2 FLOAT
-3 RP
-4 LP
-5 TEST
-6 SLASH
-7 MINUS
-8 PLUS
-9 STAR
+1 NUMBER
+2 RP
+3 LP
+4 SLASH
+5 MINUS
+6 PLUS
+7 STAR
 
 Avaliable Non Terminals:
 [Index] [Name]

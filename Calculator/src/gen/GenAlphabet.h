@@ -7,15 +7,13 @@ namespace Gen {
 	enum ETokenType { 
 		EOS = -1, 
 		WS = 0, 
-		INTEGER = 1, 
-		FLOAT = 2, 
-		RP = 3, 
-		LP = 4, 
-		TEST = 5, 
-		SLASH = 6, 
-		MINUS = 7, 
-		PLUS = 8, 
-		STAR = 9, 
+		NUMBER = 1, 
+		RP = 2, 
+		LP = 3, 
+		SLASH = 4, 
+		MINUS = 5, 
+		PLUS = 6, 
+		STAR = 7, 
 	};
 
 	enum ERuleType { 

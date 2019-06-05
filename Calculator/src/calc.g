@@ -1,16 +1,16 @@
 expression: additive EOS;
 
-/*additive: multiplicative | sum | subtract;
-sum: multiplicative PLUS additive;
-subtract : multiplicative MINUS additive;
-
-multiplicative: constant | product | divide;
-product: constant STAR multiplicative;
-divide : constant SLASH multiplicative;
-
-constant: FLOAT
-		| INTEGER
-        | LP additive RP;*/
+// additive: multiplicative | sum | subtract;
+// sum: multiplicative PLUS additive;
+// subtract : multiplicative MINUS additive;
+// 
+// multiplicative: constant | product | divide;
+// product: constant STAR multiplicative;
+// divide : constant SLASH multiplicative;
+// 
+// constant: FLOAT
+// 		| INTEGER
+//         | LP additive RP;
 
 additive: multiplicative additive2;
 additive2: PLUS multiplicative additive2
@@ -25,8 +25,7 @@ multiplicative2: STAR constant multiplicative2
 			   ;
 
 constant: LP additive RP
-        | FLOAT
-		| INTEGER
+        | NUMBER
         ;
 
 
@@ -49,11 +48,8 @@ STAR: '*';
 PLUS: '+';
 MINUS: '-';
 SLASH: '/';
-TEST: 'abc\n\'';
 LP: '(';
 RP: ')';
-// NUMBER: FLOAT | INTEGER;
-FLOAT: [0-9]+ ('.' [0-9]+)?;
-INTEGER: [0-9]+;
+NUMBER: [0-9]+ ('.' [0-9]+)?;
 
 WS: [ \n\t\r]+ -> skip;

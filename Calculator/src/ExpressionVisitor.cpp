@@ -46,13 +46,9 @@ float ExpressionVisitor::VisitRule_additive2(Gen::Rule_additive2* Context)
 
 float ExpressionVisitor::VisitRule_constant(Gen::Rule_constant* Context)
 {
-	if (Context->FLOAT())
+	if (Context->NUMBER())
 	{
-		return std::stof(Context->FLOAT()->GetText());
-	}
-	else if (Context->INTEGER())
-	{
-		return std::stoi(Context->INTEGER()->GetText());
+		return std::stof(Context->NUMBER()->GetText());
 	}
 	else
 	{
