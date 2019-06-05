@@ -46,7 +46,13 @@ namespace ParserCore {
 	{
 		//std::cout << "Init Lexer" << std::endl;
 
+		// m_HiddenTypes = { 0,1,2 };
+		//int OutSize = 0;
+		//int* OutElements = GetHiddenTokenTypes(OutSize);
+		//m_HiddenTypes = std::set<int>(&OutElements[0], &OutElements[OutSize]);
+		//delete[] HiddenElements;
 		m_HiddenTypes = GetHiddenTokenTypes();
+
 		this->LoadAutomaton();
 		//std::cout << "Automaton Loaded" << std::endl;
 	}
@@ -54,7 +60,15 @@ namespace ParserCore {
 	void Lexer::LoadAutomaton()
 	{
 		std::string AutomatonString = GetSerializedAutomaton();
-		Automaton::Factory::Deserialize(m_DFA, AutomatonString);
+		if (!Automaton::Factory::Deserialize(m_DFA, AutomatonString))
+		{
+			std::cout << "Failed to Load Automaton" << std::endl;
+		}
+	}
+
+	bool Lexer::IsVisibleToken(int TokenType) const
+	{
+		return m_HiddenTypes.find(TokenType) == m_HiddenTypes.end();
 	}
 
 	bool Lexer::Tokenize(std::vector<Token*>& OutTokens)
@@ -118,7 +132,7 @@ namespace ParserCore {
 		OutTokens = m_TokenStream;
 		return true;
 	}
-
+	
 	//void Lexer::CreateToken()
 	//{
 	//	//if (m_HiddenTypes.find(LastPriority) == m_HiddenTypes.end())

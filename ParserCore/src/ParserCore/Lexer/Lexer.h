@@ -69,7 +69,7 @@ namespace ParserCore {
 		// Lexer(LexerConfig* InConfig);
 		// Lexer(Automaton::DFA* InDFA, const std::vector<LexerConfigElement>& InTokenTypes);
 		Lexer(const std::string& InSourceCode);
-		~Lexer();
+		virtual ~Lexer();
 
 		// Automaton::DFA* GetDFA() const { return m_DFA; }
 		// const std::vector<LexerConfigElement>& GetTokenTypes() const { return m_TokenTypes; }
@@ -86,7 +86,7 @@ namespace ParserCore {
 
 		void FindFinalState();*/
 
-		bool IsVisibleToken(int TokenType) const { return m_HiddenTypes.find(TokenType) == m_HiddenTypes.end(); }
+		bool IsVisibleToken(int TokenType) const;
 
 		virtual const char* GetSerializedAutomaton() const = 0;
 		virtual std::set<int> GetHiddenTokenTypes() const = 0;

@@ -6,11 +6,12 @@ namespace ParserGenerator {
 
 	void ListInterpreter::Analyse(const std::string& ListContent, std::vector<Node_CONST*>& OutNodes)
 	{
-		std::vector<ParserCore::Token*> TokenStream = ListLexer(ListContent).GetTokenStream();
+		std::vector<PC::Token*> TokenStream;
+		ListLexer(ListContent).Tokenize(TokenStream);
 
 		for (int i = 1; i < TokenStream.size();)
 		{
-			ParserCore::Token* CenterToken = TokenStream[i];
+			PC::Token* CenterToken = TokenStream[i];
 			if (CenterToken->GetTokenType() == ListParser::ETokenType::MINUS && i < (TokenStream.size() - 2))
 			{
 				// Create Range
@@ -29,7 +30,7 @@ namespace ParserGenerator {
 		}
 	}
 
-	char ListInterpreter::GetTokenSymbol(ParserCore::Token* InToken)
+	char ListInterpreter::GetTokenSymbol(PC::Token* InToken)
 	{
 		if (InToken->GetTokenType() == ListParser::ETokenType::ESCAPED)
 		{
