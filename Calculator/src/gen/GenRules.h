@@ -19,8 +19,8 @@ namespace Gen {
 		virtual int GetRuleType() const override { return ERuleType::ADDITIVE; }
 
 	public:
-		Rule_additive2* additive2() const { return GetRule<Rule_additive2>(0); }
 		Rule_multiplicative* multiplicative() const { return GetRule<Rule_multiplicative>(0); }
+		Rule_additive2* additive2() const { return GetRule<Rule_additive2>(0); }
 
 	};
 
@@ -32,8 +32,8 @@ namespace Gen {
 	public:
 		PC::TokenNode* PLUS() const { return GetToken(ETokenType::PLUS, 0); }
 		PC::TokenNode* MINUS() const { return GetToken(ETokenType::MINUS, 0); }
-		Rule_additive2* additive2() const { return GetRule<Rule_additive2>(0); }
 		Rule_multiplicative* multiplicative() const { return GetRule<Rule_multiplicative>(0); }
+		Rule_additive2* additive2() const { return GetRule<Rule_additive2>(0); }
 
 	};
 
@@ -43,10 +43,10 @@ namespace Gen {
 		virtual int GetRuleType() const override { return ERuleType::CONSTANT; }
 
 	public:
+		PC::TokenNode* FLOAT() const { return GetToken(ETokenType::FLOAT, 0); }
 		PC::TokenNode* INTEGER() const { return GetToken(ETokenType::INTEGER, 0); }
 		PC::TokenNode* LP() const { return GetToken(ETokenType::LP, 0); }
 		PC::TokenNode* RP() const { return GetToken(ETokenType::RP, 0); }
-		PC::TokenNode* FLOAT() const { return GetToken(ETokenType::FLOAT, 0); }
 		Rule_additive* additive() const { return GetRule<Rule_additive>(0); }
 
 	};
@@ -67,8 +67,8 @@ namespace Gen {
 		virtual int GetRuleType() const override { return ERuleType::MULTIPLICATIVE; }
 
 	public:
-		Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
 		Rule_multiplicative2* multiplicative2() const { return GetRule<Rule_multiplicative2>(0); }
+		Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
 
 	};
 
@@ -78,10 +78,10 @@ namespace Gen {
 		virtual int GetRuleType() const override { return ERuleType::MULTIPLICATIVE2; }
 
 	public:
-		PC::TokenNode* STAR() const { return GetToken(ETokenType::STAR, 0); }
 		PC::TokenNode* SLASH() const { return GetToken(ETokenType::SLASH, 0); }
-		Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
+		PC::TokenNode* STAR() const { return GetToken(ETokenType::STAR, 0); }
 		Rule_multiplicative2* multiplicative2() const { return GetRule<Rule_multiplicative2>(0); }
+		Rule_constant* constant() const { return GetRule<Rule_constant>(0); }
 
 	};
 }

@@ -32,9 +32,9 @@ Table Entries:
 [additive2(1), RP(3)] -> 0 EPSILON
 [additive2(1), MINUS(7)] -> 2 MINUS multiplicative additive2
 [additive2(1), PLUS(8)] -> 1 PLUS multiplicative additive2
-[constant(2), INTEGER(1)] -> 0 INTEGER
-[constant(2), FLOAT(2)] -> 2 FLOAT
-[constant(2), LP(4)] -> 1 LP additive RP
+[constant(2), INTEGER(1)] -> 1 INTEGER
+[constant(2), FLOAT(2)] -> 0 FLOAT
+[constant(2), LP(4)] -> 2 LP additive RP
 [expression(3), INTEGER(1)] -> 0 additive EOS
 [expression(3), FLOAT(2)] -> 0 additive EOS
 [expression(3), LP(4)] -> 0 additive EOS
@@ -43,10 +43,10 @@ Table Entries:
 [multiplicative(4), LP(4)] -> 0 constant multiplicative2
 [multiplicative2(5), EOS(-1)] -> 0 EPSILON
 [multiplicative2(5), RP(3)] -> 0 EPSILON
-[multiplicative2(5), SLASH(6)] -> 2 SLASH constant multiplicative2
+[multiplicative2(5), SLASH(6)] -> 1 SLASH constant multiplicative2
 [multiplicative2(5), MINUS(7)] -> 0 EPSILON
 [multiplicative2(5), PLUS(8)] -> 0 EPSILON
-[multiplicative2(5), STAR(9)] -> 1 STAR constant multiplicative2
+[multiplicative2(5), STAR(9)] -> 2 STAR constant multiplicative2
 
 Rules:
 [LocalRuleIndex] [NonTerminal] -> [Element] [Element] ...
@@ -57,12 +57,12 @@ Rules:
 2 additive2(1) -> MINUS(7) multiplicative(4) additive2(1)
 0 multiplicative(4) -> constant(2) multiplicative2(5)
 0 multiplicative2(5) -> EPSILON(-1)
-1 multiplicative2(5) -> STAR(9) constant(2) multiplicative2(5)
-2 multiplicative2(5) -> SLASH(6) constant(2) multiplicative2(5)
-0 constant(2) -> INTEGER(1)
-1 constant(2) -> LP(4) additive(0) RP(3)
-2 constant(2) -> FLOAT(2)
+1 multiplicative2(5) -> SLASH(6) constant(2) multiplicative2(5)
+2 multiplicative2(5) -> STAR(9) constant(2) multiplicative2(5)
+0 constant(2) -> FLOAT(2)
+1 constant(2) -> INTEGER(1)
+2 constant(2) -> LP(4) additive(0) RP(3)
 
 Serialized Parsing Table:
 [NonTerminal] [Token] [LocalRuleIndex] ...
-0 1 0 0 2 0 0 4 0 1 -1 0 1 3 0 1 7 2 1 8 1 2 1 0 2 2 2 2 4 1 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 0 5 3 0 5 6 2 5 7 0 5 8 0 5 9 1 
+0 1 0 0 2 0 0 4 0 1 -1 0 1 3 0 1 7 2 1 8 1 2 1 1 2 2 0 2 4 2 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 0 5 3 0 5 6 1 5 7 0 5 8 0 5 9 2 

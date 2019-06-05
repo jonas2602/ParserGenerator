@@ -63,19 +63,19 @@ namespace Gen {
 		{
 			case 0:
 			{
-				TRY_MATCH(ETokenType::INTEGER);
+				TRY_MATCH(ETokenType::FLOAT);
 				break;
 			}
 			case 1:
 			{
-				TRY_MATCH(ETokenType::LP);
-				CALL_CHILD(Additive, Rule_additive);
-				TRY_MATCH(ETokenType::RP);
+				TRY_MATCH(ETokenType::INTEGER);
 				break;
 			}
 			case 2:
 			{
-				TRY_MATCH(ETokenType::FLOAT);
+				TRY_MATCH(ETokenType::LP);
+				CALL_CHILD(Additive, Rule_additive);
+				TRY_MATCH(ETokenType::RP);
 				break;
 			}
 		}
@@ -122,14 +122,14 @@ namespace Gen {
 			}
 			case 1:
 			{
-				TRY_MATCH(ETokenType::STAR);
+				TRY_MATCH(ETokenType::SLASH);
 				CALL_CHILD(Constant, Rule_constant);
 				CALL_CHILD(Multiplicative2, Rule_multiplicative2);
 				break;
 			}
 			case 2:
 			{
-				TRY_MATCH(ETokenType::SLASH);
+				TRY_MATCH(ETokenType::STAR);
 				CALL_CHILD(Constant, Rule_constant);
 				CALL_CHILD(Multiplicative2, Rule_multiplicative2);
 				break;
@@ -142,6 +142,6 @@ namespace Gen {
 
 	const char* GenParser::GetSerializedTable() const
 	{
-		return "0 1 0 0 2 0 0 4 0 1 -1 0 1 3 0 1 7 2 1 8 1 2 1 0 2 2 2 2 4 1 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 0 5 3 0 5 6 2 5 7 0 5 8 0 5 9 1 ";
+		return "0 1 0 0 2 0 0 4 0 1 -1 0 1 3 0 1 7 2 1 8 1 2 1 1 2 2 0 2 4 2 3 1 0 3 2 0 3 4 0 4 1 0 4 2 0 4 4 0 5 -1 0 5 3 0 5 6 1 5 7 0 5 8 0 5 9 2 ";
 	}
 }
